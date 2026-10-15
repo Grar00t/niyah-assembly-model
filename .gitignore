@@ -1,3 +1,4 @@
 build/
+models/
 __pycache__/
 verification_results.json

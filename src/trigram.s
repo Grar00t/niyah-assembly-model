@@ -1,13 +1,30 @@
 .intel_syntax noprefix
+.ifndef EPOCHS
 .equ EPOCHS, 201
+.endif
 .ifndef SEED
 .equ SEED, 2463534242
 .endif
 .ifndef SAMPLE_LEN
 .equ SAMPLE_LEN, 90
 .endif
+.if EPOCHS < 1
+.error "EPOCHS must be positive"
+.endif
+.if SAMPLE_LEN < 0
+.error "SAMPLE_LEN must not be negative"
+.endif
+.if SEED == 0
+.error "xorshift32 requires a nonzero seed"
+.endif
+.ifdef INFERENCE
+.ifdef EXPORT_WEIGHTS
+.error "INFERENCE and EXPORT_WEIGHTS are mutually exclusive"
+.endif
+.endif
 .section .data
-corpus: .ascii "the cat sat on the mat. the cat ate the rat. the rat sat on the cat. the mat sat on the rat. "
+corpus:
+    .incbin "data/corpus.txt"
 .equ N, . - corpus
 .if N < 3
 .error "corpus requires at least 3 bytes"
@@ -21,7 +38,18 @@ s_loss: .ascii "loss*1000 "
 s_gen: .ascii "--- sample ---\n"
 .section .bss
 .balign 16
+.ifdef INFERENCE
+.section .data
+.balign 16
+W:
+    .incbin "models/weights.f32"
+.if (. - W) != 67108864
+.error "invalid checkpoint size"
+.endif
+.section .bss
+.else
 W: .skip 67108864
+.endif
 P: .skip 1024
 allowed: .skip 256
 tmp: .skip 16
@@ -167,6 +195,9 @@ _start:
     inc ecx
     cmp ecx, N
     jb .Lvocab
+    .ifdef INFERENCE
+    jmp sample_start
+    .endif
     xor r12d, r12d
 epoch:
     xorps xmm10, xmm10
@@ -209,6 +240,9 @@ upd:
     inc r13d
     jmp pair
 pdone:
+    .ifdef EXPORT_WEIGHTS
+    jmp skip
+    .endif
     mov eax, r12d
     xor edx, edx
     mov ecx, 20
@@ -232,6 +266,16 @@ skip:
     inc r12d
     cmp r12d, EPOCHS
     jb epoch
+    .ifdef EXPORT_WEIGHTS
+checkpoint_export:
+    lea rsi, [rip+W]
+    mov edx, 67108864
+    call write_all
+    mov eax, 60
+    xor edi, edi
+    syscall
+    .endif
+sample_start:
     PRINTSTR s_gen, 15
     mov r14d, SEED
     movzx r13d, byte ptr [rip+corpus]

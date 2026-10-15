@@ -1,25 +1,9 @@
 # Niyah Assembly Model
 
-Linux x86-64 trigram softmax model in GNU Assembly, without libc. Two context bytes, 64 MiB float32 weights, masked max-shifted softmax, explicit normalization, cross-entropy, SGD, x87 exp/log and Linux syscalls.
+Linux x86-64 GNU Assembly byte-trigram softmax model without libc. Two-byte context, 64 MiB float32 weights, max-shifted masked softmax, SGD and direct syscalls.
 
-## Build and run
+Commands: make; make run; make test; make checkpoint; make verify; make generate; make test-checkpoint.
 
-```sh
-make
-make run
-make test
-```
+Edit data/corpus.txt. The corpus is embedded at build time with .incbin. Checkpoint tooling uses Python 3, validates UTF-8 input and finite weights, and binds source/corpus/weights with SHA-256. Generation verifies and embeds saved weights without retraining. models/ is excluded from Git. Checkpoints do not save optimizer state. Individual file replacements are atomic, not the weights/manifest pair; concurrent writers are unsupported. Checksums are not signatures.
 
-Requires Linux x86-64, GNU toolchain and make. Tests additionally require Python 3.
-
-## Data
-
-The training corpus is embedded in src/trigram.s. data/corpus.txt is a matching inspection/test copy, not a runtime input. Change both together. Weights initialize to zero and train anew each run; no checkpoints are saved.
-
-## Verification
-
-The packaged tests check generation length/alphabet for four seeds and deterministic replay (5 tests). The user separately ran the extended softmax and Niyah lexer suite: 22/22 passed. That extended runner and lexer executable are not included here. Passing tests do not prove memory safety or language quality.
-
-## Limitations
-
-Tiny demonstration corpus. No BPE trainer, runtime dataset loader, held-out evaluation, checkpointing or UTF-8-constrained sampling. This is not a conversational LLM.
+GitHub Actions runs build, generation tests and checkpoint replay. The packaged generation suite has five tests; the earlier external 22-test Niyah/softmax suite is not included. No CI success or memory-safety proof is implied. No BPE, held-out evaluation, hidden neural layer, or UTF-8-constrained generation. This is a small experimental model, not a conversational LLM.
