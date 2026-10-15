@@ -14,6 +14,8 @@ jobs:
         run: make test
       - name: Assembly attention and independent math oracle
         run: make test-attention
+      - name: Independent QKV finite-difference gradient checks
+        run: make test-qkv-gradients
       - name: AVX2 FMA versus scalar differential verification
         run: make test-simd
       - name: Trigram checkpoint train, identity and replay

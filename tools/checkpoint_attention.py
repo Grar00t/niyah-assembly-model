@@ -20,7 +20,7 @@ MODELS = ROOT/"models"
 WEIGHTS = MODELS/"attention_weights.f32"
 MANIFEST = MODELS/"attention_manifest.json"
 EPOCHS = 240
-WEIGHT_BYTES = 35392
+WEIGHT_BYTES = 38464
 
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -57,8 +57,8 @@ def train():
         sha=validate_weight_bytes(raw)
     evidence=output[:-WEIGHT_BYTES:].decode("utf-8",errors="strict")
     summary={
-        "format":"niyah-attention-f32-v1",
-        "architecture":"D=16, CTX=8, one-head causal attention, residual ReLU FFN",
+        "format":"niyah-attention-f32-v2-learned-qkv",
+         "architecture":"D=16, CTX=8, trainable WQ/WK/WV, one-head attention, residual ReLU FFN",
         "epoch_count":EPOCHS,
         "weights_len":WEIGHT_BYTES,
         "sha256_weights":sha,
@@ -102,7 +102,7 @@ def verify():
       "sha256_train_corpus":digest(TRAIN),
       "sha256_heldout_corpus":digest(VALID)
     }
-    if info.get("format")!="niyah-attention-f32-v1" or info.get("weights_len")!=WEIGHT_BYTES:
+    if info.get("format")!="niyah-attention-f32-v2-learned-qkv" or info.get("weights_len")!=WEIGHT_BYTES:
         raise ValueError("unrecognized checkpoint format")
     for name,value in checks.items():
         if info.get(name)!=value:

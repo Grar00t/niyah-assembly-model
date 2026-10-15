@@ -1,128 +1,137 @@
-# Niyah Assembly Model
+# NIYAH Assembly Language Model
 
-A small **learnable neural language-model experiment**, trained and run in GNU x86-64
-assembly on Linux without libc. It is **not a large language model**, a chatbot, or
-a proof of novel reasoning. The repository retains the original byte-trigram
-baseline and adds a neural **single-head causal-attention** LM with a residual
-ReLU feed-forward layer.
+A small, **genuinely trainable next-byte neural language-model experiment**
+implemented entirely in GNU x86-64 Assembly for Linux (including Ubuntu/WSL).
+Weights are initialized and learned from scratch by explicit Assembly
+backpropagation/SGD. No external model, libc, ML runtime, hosted API,
+or MSVC `cl.exe` is involved in training or inference.
 
-## What is real, and what is not
+**Not a large language model, a production chatbot, or a proof of novel
+reasoning.** The current text fixture has 93 training bytes and 68 related
+validation bytes. The model cannot be claimed to understand language based
+on these results. Python is *only* a test/packaging/benchmark harness.
 
-| | Existing trigram | New attention LM |
+## What runs on the machine?
+
+| | Legacy trigram baseline | Native neural attention |
 | --- | --- | --- |
-| Architecture | next-byte softmax table indexed by last two bytes | learned token/position embeddings, 8-byte causal attention, residual FFN, softmax |
-| Trainable weights | 16,777,216 float32 (64 MiB) | 8,848 float32 (35,392 bytes) |
-| Training | SGD entirely in assembly | forward, reverse-mode derivatives, SGD entirely in assembly |
-| Context | 2 input bytes | 8 preceding bytes |
-| Runtime | freestanding x86-64 ELF, direct Linux syscalls | freestanding x86-64 ELF, direct Linux syscalls |
-| Heldout evaluation | not included in baseline | related but separate heldout text (NOT a generalization benchmark) |
-| Model class | n-gram predictor, not neural context mixing | small attention-based neural next-byte predictor (NOT a full GPT) |
+| Model | next-byte table conditioned on 2 preceding bytes | learned one-head causal attention with 3 independently trainable Q/K/V matrices and residual FFN |
+| Context | 2 bytes | 8 bytes |
+| Trainable float32 weights | 16,777,216 (64 MiB) | **9,616 (38,464 bytes)** |
+| Training | handwritten Assembly SGD | handwritten Assembly forward, backward and SGD |
+| Generation | stochastic next byte | stochastic next byte from learned softmax |
+| Linux binary | static ELF, Linux syscalls | static ELF, Linux syscalls |
+| Dependencies during model run | none (kernel only) | none (kernel only) |
+| Main limits | no attention | one head, one block, no real tokenizer or long context |
 
-**Important architectural limit:** the new attention model uses **identity-tied
-Q/K/V projections** (it does not train full Wq/Wk/Wv), one head, one attention
-operation, and a 16-wide residual ReLU feed-forward layer. There are no
-multi-layer decoder blocks, LayerNorm, BPE, extended context, or instruction
-tuning. Generation is stochastic sampling from trained next-byte probabilities,
-not a demonstrated capability to discover knowledge outside the weights/input.
+The Q/K/V matrices are initialized to identity for controlled comparison
+to the previous implementation but are then **trained independently**; they
+are not identity-tied projections anymore. The model remains an educational
+single-head Transformer-*inspired* component, not a complete Transformer
+decoder or modern GPT stack. Full equations: [docs/ATTENTION.md](docs/ATTENTION.md).
 
-## New: runtime-dispatched AVX2/FMA3 Assembly kernels (2026-10-15)
+## Build, train, test and generate — no `cl.exe`
 
-Three real linear-algebra dot-products (attention Q/K, residual FFN and
-output projection) now share a hand-written x86-64 `dot16` kernel.
-`make run-attention-auto` uses `CPUID` and `XGETBV` to enable AVX2+FMA3
-only when the CPU **and OS** support it; otherwise it runs the safe scalar
-fallback. `make test-simd` compares both Assembly paths to an independent
-floating-point reference and checks training/dispatch reproducibility.
-
-On one local WSL machine, 1,200 training epochs with 12 interleaved wall-clock
-repetitions took 0.395372 s (scalar median) versus 0.363059 s
-(CPUID-dispatched AVX2 median): **1.089x speedup for this tiny workload**.
-AVX2/SSE numerical associations
-differ slightly; they are not claimed to be bit-identical, but all relevant
-loss and gradient regression tests passed locally.
-
-The fast kernel is inspired by (not copied from)
-[NN_S](https://github.com/zenyyxz/NN_S) (MIT) and Intel's published
-SIMD optimization guidance. Detailed CPU checks, numerical tolerances and
-all raw timing samples are in [docs/SIMD.md](docs/SIMD.md) and
-[evidence/simd-benchmark-local.json](evidence/simd-benchmark-local.json).
-This is a **kernel optimization, not an increase in model intelligence**.
-
-## Run the real program locally
-
-Requires Linux x86-64 (or Ubuntu on WSL), GCC or compatible C driver with GNU
-assembler and linker, GNU make, and Python 3 **only for verification/checkpoint
-packaging**. Neither training executable requires a Python runtime.
+Requirements: Linux x86-64 (or Ubuntu under Windows Subsystem for Linux),
+GNU assembler+linker accessed via `cc`/`gcc`, `make`. Python 3 is only needed
+for external differential tests/checkpoint packaging.
 
 ```bash
-make
-make run-attention-auto   # recommended: AVX2/FMA3 when safe, scalar otherwise
-make run-attention        # explicit portable scalar training and sample
-make test-simd            # independent scalar/SIMD mathematical checks
-make test-attention       # independent math-oracle verification
-make attention-checkpoint
-make verify-attention
-make test-attention-checkpoint
-make generate-attention-auto  # pure Assembly inference, runtime-dispatched
-make generate-attention   # pure scalar Assembly inference from saved weights; no training
+make                        # build legacy and portable/auto attention binaries
+make run-attention-auto     # train from scratch and sample; CPUID-guarded AVX2
+make run-attention          # explicitly portable scalar variant
+make test-attention        # independent mathematical forward oracle
+make test-qkv-gradients    # independent ONE_STEP Q/K/V derivative checks
+make test-simd             # safe fallback, SIMD and numeric comparisons
+make attention-checkpoint  # run native Assembly training, persist weights
+make verify-attention      # SHA-256, data and model contract checks
+make test-attention-checkpoint test-attention-negative
+make generate-attention-auto  # inference with saved weights, no retraining
+make verify-all            # full regression gate for both models
 ```
 
-To run the untouched trigram baseline:
+The saved raw-float32 weight file is `models/attention_weights.f32`, which
+is intentionally not committed. The manifest version is
+`niyah-attention-f32-v2-learned-qkv` and requires **38,464 bytes**; 35,392-byte
+v1 files are intentionally rejected rather than silently reinterpreted.
+Standalone inference embeds verified weights with GNU Assembly `.incbin`.
 
-```bash
-make run
-make test
-make checkpoint
-make verify test-checkpoint
-make generate
-```
+For legacy trigram functionality use `make run test`, then
+`make checkpoint verify test-checkpoint generate`.
 
-Changing `data/corpus.txt` requires rebuilding the model. The small
-`data/heldout.txt` is evaluated after training; it intentionally uses related
-phrases and vocabulary, not a strong semantic holdout. The corpus is read as
-**raw bytes** by `.incbin`, no tokenizer / UTF-8 constrained decoding.
+## Measured on the user's machine (2026-10-15)
 
-Compiled inference embeds `models/attention_weights.f32`, whose raw output is
-produced by the Assembly trainer; it is not a wrapper for Python, an API, or a
-hidden pretrained provider. The checkpoint manifest hashes source, training
-data, validation data and all weights. `models/` is intentionally gitignored.
-A manifest and file are replaced atomically *individually*, not transactionally;
-a partial/crashed update can therefore fail verification. SHA-256 is an integrity
-check, not a signature or proof of capability.
+Machine: Intel Core i5-10400F, Ubuntu under WSL. One fixed deterministic
+initialization, **240 SGD epochs** on the 93-byte toy training set.
 
-## Measured local result (one machine, one seed)
+| Metric (nats per byte) | Before | After |
+| --- | ---: | ---: |
+| Training cross entropy | 2.500 | **0.167** |
+| Related heldout cross entropy | 2.498 | **0.238** |
 
-With the 93-byte training text and 68-byte related heldout text, 240 epochs,
-the local executable reported negative log-likelihood in **milli-nats**:
+An independent CPython forward pass over the *Assembly-trained parameters*
+recomputed scalar train `0.166523` and heldout `0.238447` nats/byte.
+The tested three independently trained Q/K/V gradient coordinates matched
+central finite differences with relative error approximately `10^-7`.
+All 4 checkpoint-corruption negative tests rejected modified/invalid data.
+These results are about a tiny **related** text fixture, not a meaningful
+natural-language generalization benchmark or a claim that the model can
+invent independent facts. Details: [docs/ATTENTION.md](docs/ATTENTION.md).
 
-- Initial training: 2.500 nats/token.
-- Final training: 0.174 nats/token.
-- Heldout before training: 2.498 nats/token.
-- Heldout after training: 0.240 nats/token.
+### Genuine native AVX2 acceleration with scalar fallback
 
-The independent Python **test oracle** in the original scalar release
-recomputed 0.174263 and 0.240447
-nats/token from exported Assembly-trained float32 weights. Small floating-
-point association changes in the new shared dot16 scalar kernel yield
-0.174228 and 0.240282. The normalized
-output distributions for two contexts with identical final two bytes
-(`the cat ` vs `the rat `) differed in L1 by 0.83645707: this is not
-a two-byte lookup table. The fixture is far too small to claim language
-understanding, novelty, field usefulness, or broad transfer. See
-`tests/test_attention.py` for exact tests and `docs/ATTENTION.md` for
-math and limitations.
+The original GNU Assembly `dot16` kernel powers Q/K/V projection, attention
+score, FFN and output projection. On supported CPUs, `CPUID` and `XGETBV`
+confirm AVX2/FMA and OS support before taking the vector path; the same
+binary falls back to scalar SSE on unsupported machines. No third-party
+Assembly source was copied.
 
-## Other reference implementations
+Repeated native CPU microbenchmark: **1,200 epochs**, 12 order-rotated
+warm-run samples per path, measured median wall time:
 
-- [sectorllm](https://github.com/rdmsr/sectorllm) is a boot-sector Assembly
-  **inference** implementation for a real compact Transformer; it does not
-  establish from-scratch Assembly **training**.
-- [TinyStories](https://arxiv.org/abs/2305.07759) demonstrates the role of
-  more substantial training and validation data for compact language models.
-  Training on TinyStories is future work, not done here.
-- Drone flight stacks such as [PX4](https://docs.px4.io/main/en/concept/architecture)
-  use primarily C/C++ components; Assembly can optimize critical kernels,
-  but there is no general proof that drones are mostly written in Assembly.
+| Path | Median | Compared with scalar |
+| --- | ---: | ---: |
+| Scalar | 0.999423 s | 1.00x |
+| CPUID-dispatched AVX2/FMA | **0.792365 s** | **1.2613x faster** |
+| Explicit AVX2/FMA | 0.781844 s | 1.2783x faster |
 
-Keep model quality, training mechanism, cross-domain generalization, external
-software, and costs as separately testable claims.
+All 36 durations and environment information are in
+[evidence/simd-benchmark-local.json](evidence/simd-benchmark-local.json)
+and the implementation/limitations in [docs/SIMD.md](docs/SIMD.md).
+The 1.2613x result is for *this* small M3 workload and hardware, not
+general LLM throughput.
+
+## Limitations and evidence boundary
+
+- Eight-byte context; input/output is **raw bytes**. Output vocabulary
+  is masked to bytes seen in the small training fixture. This is not a BPE
+  tokenizer, semantic text understanding, or UTF-8 guaranteed decoding.
+- One attention head, one attention operation, 16-wide hidden state and
+  residual ReLU FFN. No stacked decoder blocks, LayerNorm/RMSNorm,
+  optimizer state, or multi-head attention.
+- Holdout is 68 very similar bytes and is *not* independent document-level
+  evaluation. Quality beyond its familiar tiny phrases has not been shown.
+- The older M2 feature (fixed identity Q/K/V, 8,848 weights) is preserved
+  in Git history [PR #3](https://github.com/Grar00t/niyah-assembly-model/pull/3);
+  **v2** represents a deliberately changed weight layout.
+- Checkpoint SHA-256 is an integrity measure relative to the stored manifest,
+  not a model-quality certificate, signature or general memory-safety proof.
+- Running Python test scripts does **not** make the assembly executable
+  a Python model; all native forward/backprop/SGD kernels execute in Assembly.
+
+## Sources and next experiment
+
+Assembly optimizations learned from the approach in MIT-licensed
+[NN_S](https://github.com/zenyyxz/NN_S), the worklog at
+[matmul_assembly_x86](https://github.com/alint77/matmul_assembly_x86) and
+[Intel's Optimization Reference Manual](https://www.intel.com/content/www/us/en/content-details/671488/intel-64-and-ia-32-architectures-optimization-reference-manual-volume-1.html).
+**No source copied**. Further compact-transformer benchmarks could use the
+[HF TinyStories dataset](https://huggingface.co/datasets/roneneldan/TinyStories)
+(subject to its `cdla-sharing-1.0` license and documented train/test separation),
+but it has **not** been used for the measurements above, nor have any GPUs
+been rented. A serious multi-block language model will require a separate
+design, larger licensed corpus and repeatable heldout eval, not a new label
+on this byte predictor.
+
+The near-term next gate is a second genuine causal decoder block plus
+numerical gradient validation, while preserving this entire baseline.
