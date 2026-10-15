@@ -1,0 +1,252 @@
+{
+  "status": "PASS",
+  "project": "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model",
+  "machine": "x86_64",
+  "operations": [
+    {
+      "name": "make-plan",
+      "command": [
+        "make",
+        "-n",
+        "-B"
+      ],
+      "exit_code": 0,
+      "seconds": 0.001638,
+      "status": "PASS"
+    },
+    {
+      "name": "compile",
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-o",
+        "/home/a/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/trigram",
+        "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s"
+      ],
+      "exit_code": 0,
+      "seconds": 0.222001,
+      "status": "PASS"
+    },
+    {
+      "name": "training",
+      "command": [
+        "/home/a/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/trigram"
+      ],
+      "exit_code": 0,
+      "seconds": 0.022242,
+      "status": "PASS"
+    },
+    {
+      "name": "package-tests",
+      "command": [
+        "/usr/bin/python3",
+        "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model/tests/test_generation.py"
+      ],
+      "exit_code": 0,
+      "seconds": 1.211236,
+      "status": "PASS"
+    },
+    {
+      "name": "extended-tests",
+      "command": [
+        "/usr/bin/python3",
+        "/home/a/trigram-py67LL90/verify_model.py",
+        "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s",
+        "--lexer",
+        "/home/a/niyah-input-fix-xbgJg8lR/niyahlex"
+      ],
+      "exit_code": 0,
+      "seconds": 3.419197,
+      "status": "PASS"
+    },
+    {
+      "name": "compile-inference",
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wa,--defsym,INFERENCE=1",
+        "-o",
+        "/home/a/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/generate",
+        "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s"
+      ],
+      "exit_code": 0,
+      "seconds": 0.500821,
+      "status": "PASS"
+    },
+    {
+      "name": "inference",
+      "command": [
+        "/home/a/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/generate"
+      ],
+      "exit_code": 0,
+      "seconds": 0.000857,
+      "status": "PASS"
+    }
+  ],
+  "memory_safety_proven": false,
+  "inputs": {
+    "src/trigram.s": "26deb8ccbd3c3f00e0071a8ba300f85d99168fd92409d19e8acb5d9e53964cdc",
+    "data/corpus.txt": "73607c19ac2af04dd21962735e596f41e4f8fe2cd2027050ae783100532cc5e0",
+    "Makefile": "d3d92b5fe3cc0cb3ef8f0a21bcd0a1679073ece5649a6749ccdc5e7841e04657"
+  },
+  "binary_sha256": "63ac36532fe10a30f8b78e14672eb63393f1a23736db4aca5735ac5823afc2c6",
+  "package_tests": {
+    "tests": [
+      {
+        "test": "seed 1",
+        "pass": true,
+        "length": 4096,
+        "outside": 0
+      },
+      {
+        "test": "seed 42",
+        "pass": true,
+        "length": 4096,
+        "outside": 0
+      },
+      {
+        "test": "replay",
+        "pass": true
+      },
+      {
+        "test": "seed 2463534242",
+        "pass": true,
+        "length": 4096,
+        "outside": 0
+      },
+      {
+        "test": "seed 4294967295",
+        "pass": true,
+        "length": 4096,
+        "outside": 0
+      }
+    ],
+    "passed": 5,
+    "total": 5,
+    "memory_safety_proven": false
+  },
+  "extended_tests": {
+    "tests": [
+      {
+        "name": "sample seed 1",
+        "pass": true,
+        "detail": "length=4096, outside=0"
+      },
+      {
+        "name": "sample seed 42",
+        "pass": true,
+        "detail": "length=4096, outside=0"
+      },
+      {
+        "name": "deterministic replay",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "sample seed 2463534242",
+        "pass": true,
+        "detail": "length=4096, outside=0"
+      },
+      {
+        "name": "sample seed 4294967295",
+        "pass": true,
+        "detail": "length=4096, outside=0"
+      },
+      {
+        "name": "numeric case 0",
+        "pass": true,
+        "detail": "max_abs_error=0.0"
+      },
+      {
+        "name": "numeric case 1",
+        "pass": true,
+        "detail": "max_abs_error=9.437272886769765e-09"
+      },
+      {
+        "name": "numeric case 2",
+        "pass": true,
+        "detail": "max_abs_error=3.0997757916040314e-08"
+      },
+      {
+        "name": "numeric case 3",
+        "pass": true,
+        "detail": "max_abs_error=0.0"
+      },
+      {
+        "name": "numeric case 4",
+        "pass": true,
+        "detail": "max_abs_error=2.5681732518378908e-08"
+      },
+      {
+        "name": "numeric case 5",
+        "pass": true,
+        "detail": "max_abs_error=2.5681732518378908e-08"
+      },
+      {
+        "name": "numeric case 6",
+        "pass": true,
+        "detail": "max_abs_error=2.319175823606301e-10"
+      },
+      {
+        "name": "shift invariance",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "reject NaN",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "reject Inf",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "reject empty",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "lexer empty",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "lexer limit-1",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "lexer exact limit",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "lexer limit+1",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "lexer directory",
+        "pass": true,
+        "detail": ""
+      },
+      {
+        "name": "lexer missing",
+        "pass": true,
+        "detail": ""
+      }
+    ],
+    "passed": 22,
+    "total": 22,
+    "memory_safety_proven": false
+  },
+  "weights_sha256": "a3e84a9e8cdd3dfff466b43f6716b00b796132c8e49fb7c9978ef19b288ffdcb",
+  "checkpoint_replay": "PASS",
+  "sample_utf8": "valid"
+}
