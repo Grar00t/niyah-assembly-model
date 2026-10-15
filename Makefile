@@ -2,11 +2,12 @@
 CC = cc
 .PHONY: all run test checkpoint verify generate test-checkpoint \
         run-attention run-attention-auto test-attention test-simd test-qkv-gradients \
+        exactcalc test-exactcalc test-attention-snapshot \
         attention-checkpoint verify-attention generate-attention \
         generate-attention-auto test-attention-checkpoint \
         test-attention-negative bench-avx2 verify-all clean
 
-all: build/trigram build/attention_lm build/attention_lm_auto
+all: build/trigram build/attention_lm build/attention_lm_auto build/exactcalc
 build/trigram: src/trigram.s data/corpus.txt
 	mkdir -p build
 	$(CC) -nostdlib -static -no-pie -o $@ $<
@@ -16,6 +17,15 @@ build/attention_lm: src/attention_lm.s data/corpus.txt data/heldout.txt
 build/attention_lm_auto: src/attention_lm.s data/corpus.txt data/heldout.txt
 	mkdir -p build
 	$(CC) -nostdlib -static -no-pie -Wa,--defsym,AVX2_AUTO=1 -o $@ $<
+build/exactcalc: src/exactcalc.s
+	mkdir -p build
+	$(CC) -nostdlib -static -no-pie -o $@ $<
+exactcalc: build/exactcalc
+test-exactcalc: build/exactcalc
+	python3 tests/test_exactcalc.py
+test-attention-snapshot:
+	python3 tests/test_checkpoint_snapshot.py
+
 run: build/trigram
 	./build/trigram
 test:
@@ -58,6 +68,7 @@ verify-all:
 	$(MAKE) test test-attention test-simd test-qkv-gradients
 	$(MAKE) checkpoint verify test-checkpoint
 	$(MAKE) attention-checkpoint verify-attention test-attention-checkpoint
-	$(MAKE) test-attention-negative generate-attention-auto
+	$(MAKE) test-attention-negative test-attention-snapshot generate-attention-auto
+	$(MAKE) test-exactcalc
 clean:
-	rm -f build/trigram build/attention_lm build/attention_lm_auto
+	rm -f build/trigram build/attention_lm build/attention_lm_auto build/exactcalc

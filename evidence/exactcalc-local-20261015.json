@@ -1,0 +1,29 @@
+{
+  "schema": "niyah-native-exactcalc-proof-v1",
+  "date_utc": "2026-10-15T20:16:47.076616+00:00",
+  "execution_environment": "GNU cc (Linux x86-64 on user-authorized Windows WSL device)",
+  "regression_command": "make verify-all",
+  "regression_exit_code": 0,
+  "assembly_model_checkpoint_bytes": 38464,
+  "math_oracle": "Python standard library fractions.Fraction (external test only)",
+  "math_cases_correct": 5897,
+  "negative_cases_rejected": 24,
+  "checkpoint_original_mutation_after_snapshot": "PASS: result unaffected",
+  "checkpoint_mutation_between_verify_and_snapshot": "PASS: rejected",
+  "qkv_gradient_oracle": "PASS: selected coordinates",
+  "checkpoint_replay": "PASS",
+  "hashes_sha256": {
+    "exactcalc_source": "e8e57055d0ae1771c981e3f9e9695180eaddacb2ad498bfceff45a97acefefdf",
+    "exactcalc_binary_local": "960e2d4893968bb8e6499476afb20814ca3c416d485dbc8cbab75228df962235",
+    "test_exactcalc": "051483a0616aebb4ca3ae88893cab23f37a801add422d24199d36538d12b573b",
+    "checkpoint_snapshot_test": "b929e80e5ca71873bfd05947ccaad6e6bb7638586d69657560f0ed0e55ee05bf",
+    "checkpoint_tool": "c2b5ef66951eb037e516b51bc90cc33f06964916f1134be05fb82c352a6d8530",
+    "saved_attention_checkpoint_local": "c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46"
+  },
+  "limits": [
+    "Only 32-bit signed numerator and positive denominator inputs; no arbitrary-precision inputs.",
+    "Not formally verified for all execution environments or independently security certified.",
+    "Human-level practical benefit has not been measured.",
+    "No flight hardware tested, controlled or certified."
+  ]
+}

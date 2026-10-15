@@ -25,11 +25,38 @@ WEIGHT_BYTES = 38464
 def digest(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
-def build(exe, **opts):
+def build(exe, *, source=MODEL, cwd=ROOT, **opts):
     flags = [f"-Wa,--defsym,{key}={val}" for key,val in opts.items()]
     subprocess.run(["cc","-nostdlib","-static","-no-pie",*flags,
-                    "-o",str(exe),str(MODEL)],cwd=ROOT,
+                    "-o",str(exe),str(source)],cwd=cwd,
                     check=True,capture_output=True,timeout=60)
+
+def verified_inference_snapshot(destination):
+    """Copy all assembled inputs into a private directory, *then* hash-check.
+
+    Any change to the originals between verify() and this capture is
+    rejected. The assembler never consumes mutable original model paths.
+    """
+    info=json.loads(MANIFEST.read_text(encoding="utf-8"))
+    if info.get("format")!="niyah-attention-f32-v2-learned-qkv" or info.get("weights_len")!=WEIGHT_BYTES:
+        raise ValueError("unrecognized checkpoint format")
+    pairs=((MODEL,"src/attention_lm.s","sha256_assembly"),
+           (TRAIN,"data/corpus.txt","sha256_train_corpus"),
+           (VALID,"data/heldout.txt","sha256_heldout_corpus"),
+           (WEIGHTS,"models/attention_weights.f32","sha256_weights"))
+    for original,relative,field in pairs:
+        raw=original.read_bytes()
+        target=destination/relative
+        target.parent.mkdir(parents=True,exist_ok=True)
+        target.write_bytes(raw)
+        # Check bytes actually saved to the build snapshot, not just
+        # bytes in the original file before an asynchronous replacement.
+        saved=target.read_bytes()
+        sha=validate_weight_bytes(saved) if field=="sha256_weights" else hashlib.sha256(saved).hexdigest()
+        if sha!=info.get(field):
+            raise ValueError(f"inference snapshot mismatch for {field}")
+        target.chmod(0o400)
+    return destination/"src/attention_lm.s"
 
 def run(exe):
     proc = subprocess.run([str(exe)],check=True,capture_output=True,timeout=180)
@@ -112,12 +139,14 @@ def verify():
 def generate(seed=42,sample=64,auto=False):
     # Check manifest/source/weights BEFORE compiling an .incbin inference binary.
     verify()
-    with tempfile.TemporaryDirectory() as td:
-        exe=Path(td)/"infer"
+    with tempfile.TemporaryDirectory(prefix="niyah-infer-") as td:
+        sandbox=Path(td)
+        source=verified_inference_snapshot(sandbox)
+        exe=sandbox/"infer"
         opts={"INFERENCE":1,"SEED":seed,"SAMPLE_LEN":sample}
         if auto:
             opts["AVX2_AUTO"]=1
-        build(exe,**opts)
+        build(exe,source=source,cwd=sandbox,**opts)
         output=run(exe)
         if auto:
             prefix=b"kernel_avx2 "
