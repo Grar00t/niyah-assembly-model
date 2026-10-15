@@ -5,6 +5,17 @@
 .equ D, 16
 .equ CTX, 8
 .equ V, 256
+# AVX2_AUTO performs OSXSAVE+AVX+FMA+AVX2 capability dispatch at startup.
+# AVX2_FAST is explicitly unsafe on unsupported CPUs; prefer AVX2_AUTO.
+.ifdef AVX2_AUTO
+.equ COMPILE_SIMD,1
+.else
+.ifdef AVX2_FAST
+.equ COMPILE_SIMD,1
+.else
+.equ COMPILE_SIMD,0
+.endif
+.endif
 .ifndef EPOCHS
 .equ EPOCHS, 240
 .endif
@@ -55,6 +66,8 @@ s_loss: .ascii " loss_x1000 "
 .equ l_loss, . - s_loss
 s_gen: .ascii "--- attention sample ---\n"
 .equ l_gen, . - s_gen
+s_kernel: .ascii "kernel_avx2 "
+.equ l_kernel, . - s_kernel
 .ifdef INFERENCE
 .section .rodata
 .balign 16
@@ -102,6 +115,7 @@ MASK:   .skip 256
 seqbase:.skip 8
 seqlen: .skip 4
 target: .skip 4
+simd_capable: .skip 4
 number: .skip 32
 ftmp:   .skip 16
 genbuf: .skip SAMPLE_LEN+CTX+1
@@ -192,6 +206,77 @@ rng:
     xor eax,edx
     mov r14d,eax
     ret
+# CPU feature detection: CPUID(1).OSXSAVE+AVX+FMA, XGETBV(0) XMM/YMM,
+# and CPUID(7,0).AVX2. xgetbv MUST NOT execute if OSXSAVE unavailable.
+# Only called on the AVX2_AUTO build, before model initialization.
+.ifdef AVX2_AUTO
+detect_simd:
+    push rbx
+    mov eax, 0
+    cpuid
+    cmp eax, 7
+    jb .Lno_simd
+    mov eax, 1
+    cpuid
+    bt ecx, 27
+    jnc .Lno_simd
+    bt ecx, 28
+    jnc .Lno_simd
+    bt ecx, 12
+    jnc .Lno_simd
+    xor ecx,ecx
+    xgetbv
+    and eax,6
+    cmp eax,6
+    jne .Lno_simd
+    mov eax,7
+    xor ecx,ecx
+    cpuid
+    bt ebx,5
+    jnc .Lno_simd
+    .ifndef FORCE_SCALAR
+    mov dword ptr [rip+simd_capable],1
+    .endif
+.Lno_simd:
+    pop rbx
+    ret
+.endif
+
+# Fixed width GEMV inner product, 16 x float32.
+# r10=A, r11=B; output xmm0. Preserves r8/r9, xmm7..xmm15.
+# AVX2 with FMA3/256-bit registers inspired by NN_S (MIT) and Intel manual,
+# but the code here is ORIGINAL. Scalar SSE path remains portable.
+dot16:
+    .ifdef AVX2_AUTO
+    cmp dword ptr [rip+simd_capable],0
+    je .Ldot16_scalar
+    .endif
+    .if COMPILE_SIMD
+    vmovups ymm0, YMMWORD PTR [r10]
+    vmovups ymm1, YMMWORD PTR [r11]
+    vmulps ymm0, ymm0, ymm1
+    vmovups ymm2, YMMWORD PTR [r10+32]
+    vmovups ymm3, YMMWORD PTR [r11+32]
+    vfmadd231ps ymm0, ymm2, ymm3
+    vextractf128 xmm1, ymm0, 1
+    vaddps xmm0, xmm0, xmm1
+    vhaddps xmm0, xmm0, xmm0
+    vhaddps xmm0, xmm0, xmm0
+    vzeroupper
+    ret
+    .endif
+.Ldot16_scalar:
+    xorps xmm0, xmm0
+    xor ecx, ecx
+.Ldot16_scalar_loop:
+    movss xmm1, [r10+rcx*4]
+    mulss xmm1, [r11+rcx*4]
+    addss xmm0, xmm1
+    inc ecx
+    cmp ecx, D
+    jb .Ldot16_scalar_loop
+    ret
+
 # Forward: r13 = position >= CTX, seqbase = ptr, predicts token at r13.
 # Q=last positional token; K=V=context positional embeddings.
 # attention = softmax(Q*K/sqrt(16)); H=Q+attention*V;
@@ -228,20 +313,12 @@ forward:
     jb .Lctx
     xor r8d,r8d
 .Lscores:
-    xorps xmm0,xmm0
     mov r9d,r8d
     shl r9d,6
     lea r10,[rip+X]
     add r10,r9
     lea r11,[rip+X+448]
-    xor ecx,ecx
-.Lscoredim:
-    movss xmm1,[r10+rcx*4]
-    mulss xmm1,[r11+rcx*4]
-    addss xmm0,xmm1
-    inc ecx
-    cmp ecx,D
-    jb .Lscoredim
+    call dot16
     mulss xmm0,[rip+quarter]
     lea r10,[rip+S]
     movss [r10+r8*4],xmm0
@@ -304,21 +381,14 @@ forward:
     jb .Lh
     xor r8d,r8d
 .Lff:
-    lea r10,[rip+FB]
-    movss xmm0,[r10+r8*4]
     mov r9d,r8d
-    shl r9d,4
+    shl r9d,6
     lea r10,[rip+F]
-    lea r11,[r10+r9*4]
-    lea r10,[rip+H]
-    xor ecx,ecx
-.Lffdot:
-    movss xmm1,[r11+rcx*4]
-    mulss xmm1,[r10+rcx*4]
-    addss xmm0,xmm1
-    inc ecx
-    cmp ecx,D
-    jb .Lffdot
+    add r10,r9
+    lea r11,[rip+H]
+    call dot16
+    lea r10,[rip+FB]
+    addss xmm0,[r10+r8*4]
     lea r10,[rip+Z]
     movss [r10+r8*4],xmm0
     xorps xmm1,xmm1
@@ -336,21 +406,14 @@ forward:
     lea r10,[rip+MASK]
     cmp byte ptr [r10+r8],0
     je .Loutmasked
-    lea r10,[rip+OB]
-    movss xmm0,[r10+r8*4]
     mov r9d,r8d
-    shl r9d,4
+    shl r9d,6
     lea r10,[rip+O]
-    lea r11,[r10+r9*4]
-    lea r10,[rip+Y]
-    xor ecx,ecx
-.Loutdot:
-    movss xmm1,[r11+rcx*4]
-    mulss xmm1,[r10+rcx*4]
-    addss xmm0,xmm1
-    inc ecx
-    cmp ecx,D
-    jb .Loutdot
+    add r10,r9
+    lea r11,[rip+Y]
+    call dot16
+    lea r10,[rip+OB]
+    addss xmm0,[r10+r8*4]
     movd eax,xmm0
     and eax,0x7f800000
     cmp eax,0x7f800000
@@ -707,6 +770,13 @@ print_metric:
 _start:
     cld
     fninit
+    .ifdef AVX2_AUTO
+    call detect_simd
+    SAY s_kernel,l_kernel
+    mov eax,[rip+simd_capable]
+    mov r9d,10
+    call print_u
+    .endif
     .ifndef INFERENCE
     # deterministic stochastic initialization of ALL trainable float parameters
     # no imported checkpoints, weights, datasets or model calls.

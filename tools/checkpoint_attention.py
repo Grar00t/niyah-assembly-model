@@ -109,15 +109,27 @@ def verify():
             raise ValueError(f"checkpoint mismatch for {name}")
     print(f"PASS attention checkpoint verified sha256={actual}")
 
-def generate(seed=42,sample=64):
+def generate(seed=42,sample=64,auto=False):
+    # Check manifest/source/weights BEFORE compiling an .incbin inference binary.
     verify()
     with tempfile.TemporaryDirectory() as td:
         exe=Path(td)/"infer"
-        build(exe,INFERENCE=1,SEED=seed,SAMPLE_LEN=sample)
+        opts={"INFERENCE":1,"SEED":seed,"SAMPLE_LEN":sample}
+        if auto:
+            opts["AVX2_AUTO"]=1
+        build(exe,**opts)
         output=run(exe)
-        if not output.startswith(b"--- attention sample ---\n"):
-            raise ValueError("missing inference marker")
-        if len(output.split(b"\n",1)[1][:-1])!=8+sample:
+        if auto:
+            prefix=b"kernel_avx2 "
+            if len(output)<len(prefix)+2 or not output.startswith(prefix) or output[len(prefix)] not in b"01":
+                raise ValueError("invalid runtime kernel dispatch receipt")
+            if output[len(prefix)+1:len(prefix)+2]!=b"\n":
+                raise ValueError("malformed CPU dispatch line")
+            output=output[len(prefix)+2:]
+        marker=b"--- attention sample ---\n"
+        if not output.startswith(marker) or not output.endswith(b"\n"):
+            raise ValueError("missing inference marker/newline")
+        if len(output[len(marker):-1])!=8+sample:
             raise ValueError("incorrect inference sample length")
         return output
 
@@ -135,8 +147,8 @@ def replay():
 
 if __name__=="__main__":
     if len(sys.argv)!=2 or sys.argv[1] not in (
-            "train","verify","generate","test"):
-        raise SystemExit("usage: checkpoint_attention.py train|verify|generate|test")
+            "train","verify","generate","generate-auto","test"):
+        raise SystemExit("usage: checkpoint_attention.py train|verify|generate|generate-auto|test")
     try:
         if sys.argv[1]=="train":
             train()
@@ -144,6 +156,8 @@ if __name__=="__main__":
             verify()
         elif sys.argv[1]=="generate":
             sys.stdout.buffer.write(generate())
+        elif sys.argv[1]=="generate-auto":
+            sys.stdout.buffer.write(generate(auto=True))
         else:
             replay()
     except (ValueError,FileNotFoundError,RuntimeError,
