@@ -71,10 +71,10 @@ the local executable reported negative log-likelihood in **milli-nats**:
 
 - Initial training: 2.500 nats/token.
 - Final training: 0.174 nats/token.
-- Heldout before training: 2.499 nats/token.
-- Heldout after training: 0.237 nats/token.
+- Heldout before training: 2.498 nats/token.
+- Heldout after training: 0.240 nats/token.
 
-The independent Python **test oracle** recomputed 0.174263 and 0.236510
+The independent Python **test oracle** recomputed 0.174263 and 0.240447
 nats/token from exported Assembly-trained float32 weights. The normalized
 output distributions for two contexts with identical final two bytes
 (`the cat ` vs `the rat `) differed in L1 by 0.83645707: this is not
