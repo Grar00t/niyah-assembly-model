@@ -19,7 +19,7 @@ VALID = (ROOT / "data" / "heldout.txt").read_bytes()
 D = 16
 T = 8
 SAMPLE = 64
-NFLOATS = 4096 + 128 + 256 + 16 + 4096 + 256
+NFLOATS = 4096 + 128 + 256 + 16 + 4096 + 256 + 256*3
 WEIGHT_BYTES = NFLOATS * 4
 ALLOWED = set(TRAIN)
 
@@ -64,7 +64,7 @@ def parse_params(buffer):
     assert all(math.isfinite(x) for x in floats), "non-finite model weights"
     ofs = 0
     arrays = []
-    for count in (4096, 128, 256, 16, 4096, 256):
+    for count in (4096, 128, 256, 16, 4096, 256, 256, 256, 256):
         arrays.append(floats[ofs:ofs+count])
         ofs += count
     assert ofs == NFLOATS
@@ -72,17 +72,21 @@ def parse_params(buffer):
 
 def distribution(context, arrays):
     assert len(context) == T
-    e, pos, ff, fb, out, ob = arrays
+    e, pos, ff, fb, out, ob, wq, wk, wv = arrays
     x = [[e[ch*D+d] + pos[t*D+d] for d in range(D)]
          for t, ch in enumerate(context)]
-    q = x[-1]
-    scores = [sum(q[j]*v[j] for j in range(D)) / math.sqrt(D)
-              for v in x]
+    def project(w, a):
+        return [sum(w[i*D+j]*a[j] for j in range(D)) for i in range(D)]
+    q = project(wq, x[-1])
+    k = [project(wk, vector) for vector in x]
+    v = [project(wv, vector) for vector in x]
+    scores = [sum(q[j]*key[j] for j in range(D)) / math.sqrt(D)
+              for key in k]
     shift = max(scores)
     unnormalized = [math.exp(z-shift) for z in scores]
     z = sum(unnormalized)
-    a = [v/z for v in unnormalized]
-    h = [q[j] + sum(a[t]*x[t][j] for t in range(T))
+    a = [value/z for value in unnormalized]
+    h = [x[-1][j] + sum(a[t]*v[t][j] for t in range(T))
          for j in range(D)]
     y = [h[i] + max(0.0, fb[i]+sum(ff[i*D+j]*h[j]
                                      for j in range(D))) for i in range(D)]
@@ -133,7 +137,12 @@ def main():
         exported, _ = run(exe)
         weights, params = parse_params(exported)
         assert hashlib.sha256(weights).digest() != b"\x00"*32
-        assert len(exported)-WEIGHT_BYTES < 1000
+        assert len(exported)-WEIGHT_BYTES < 1500
+        # Check that the three separately trainable projections did move
+        # from identity to a different matrix (not tied aliases).
+        for matrix in params[6:]:
+            assert max(abs(x - (1.0 if k//D==k%D else 0.0))
+                       for k,x in enumerate(matrix)) > 1e-6
         oracle_train = oracle_loss(TRAIN,params)*1000
         oracle_valid = oracle_loss(VALID,params)*1000
         assert abs(oracle_train-final) < 3.0, (oracle_train,final)
@@ -148,7 +157,7 @@ def main():
 
     report={
         "model":"NIYAH pure-assembly attention LM",
-        "model_type":"single-head causal attention with ReLU FFN and SGD",
+         "model_type":"trainable WQ/WK/WV single-head attention with ReLU FFN and SGD",
         "not_a_large_language_model":True,
         "tests":"PASS",
         "binary_sha256_first_run":digest,
