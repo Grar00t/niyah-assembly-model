@@ -2,3 +2,4 @@ build/
 models/
 __pycache__/
 verification_results.json
+attention_verification.json

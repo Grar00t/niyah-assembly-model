@@ -8,11 +8,22 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Build
+      - name: Build both native Assembly models
         run: make
-      - name: Generation tests
+      - name: Trigram generation tests
         run: make test
-      - name: Train and save checkpoint
-        run: make checkpoint
-      - name: Verify identity and replay
-        run: make verify test-checkpoint
+      - name: Assembly attention + independent oracle
+        run: make test-attention
+      - name: Trigram checkpoint train, identity and replay
+        run: make checkpoint verify test-checkpoint
+      - name: Neural attention checkpoint train, identity and exact inference replay
+        run: make attention-checkpoint verify-attention test-attention-checkpoint
+      - name: Upload bounded verification receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: assembly-model-verification
+          path: |
+            verification_results.json
+            attention_verification.json
+          if-no-files-found: ignore

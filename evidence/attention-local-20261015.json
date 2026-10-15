@@ -1,0 +1,30 @@
+{
+  "model": "NIYAH pure-assembly attention LM",
+  "model_type": "single-head causal attention with ReLU FFN and SGD",
+  "not_a_large_language_model": true,
+  "tests": "PASS",
+  "binary_sha256_first_run": "88282d5d0b3bbeaed8cc3c60c650384c799fa9fc3daa026ccb83b1bf4238dd03",
+  "weight_sha256": "4366a4853659fd148a2c2b66b6d8fb4048491a9e1f632a1225c9f8b51bb8fed4",
+  "train_loss_initial_millinats": 2500,
+  "train_loss_final_millinats": 174,
+  "heldout_loss_untrained_millinats": 2498,
+  "heldout_loss_trained_millinats": 240,
+  "independent_oracle_train_millinats": 174.263,
+  "independent_oracle_heldout_millinats": 240.447,
+  "same_last_2_context_l1_difference": 0.83645707,
+  "train_sample_elapsed_seconds": 0.068,
+  "sample_total_bytes": 72,
+  "sample_sha256": "79adb6ec365d24dfea69fd41ba2bc077b31ea6286936281311209dac215bdb1b",
+  "checks": [
+    "static native ELF",
+    "no libc/interpreter",
+    "two identical seeded runs",
+    "different sampling seed",
+    "vocabulary bound",
+    "training loss improvement",
+    "heldout vs untrained",
+    "independent numerical oracle",
+    "8-byte context intervention",
+    "finite exported weights"
+  ]
+}
