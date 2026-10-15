@@ -74,7 +74,7 @@ s_kernel: .ascii "kernel_avx2 "
 params_start:
     .incbin "models/attention_weights.f32"
 params_end:
-.if (params_end-params_start) != 35392
+.if (params_end-params_start) != 38464
 .error "checkpoint length mismatch"
 .endif
 .equ E, params_start
@@ -83,6 +83,9 @@ params_end:
 .equ FB, params_start+17920
 .equ O, params_start+17984
 .equ OB, params_start+34368
+.equ WQ, params_start+35392
+.equ WK, params_start+36416
+.equ WV, params_start+37440
 .else
 .section .bss
 .balign 16
@@ -93,11 +96,19 @@ F:      .skip 1024
 FB:     .skip 64
 O:      .skip 16384
 OB:     .skip 1024
+WQ:     .skip 1024
+WK:     .skip 1024
+WV:     .skip 1024
 params_end:
 .endif
 .section .bss
 .balign 16
 X:      .skip 512
+Q:      .skip 64
+K:      .skip 512
+VCTX:   .skip 512
+GQ:     .skip 64
+GSC:     .skip 32
 A:      .skip 32
 S:      .skip 32
 H:      .skip 64
@@ -278,8 +289,8 @@ dot16:
     ret
 
 # Forward: r13 = position >= CTX, seqbase = ptr, predicts token at r13.
-# Q=last positional token; K=V=context positional embeddings.
-# attention = softmax(Q*K/sqrt(16)); H=Q+attention*V;
+# Q=WQ*X[last], K[t]=WK*X[t], V[t]=WV*X[t].
+# attention = softmax(Q*K/sqrt(16)); H=X[last]+attention*V;
 # Y=H+ReLU(F*H+FB); logits=O*Y+OB; PROB=masked-softmax(logits).
 forward:
     mov rbx,[rip+seqbase]
@@ -311,13 +322,61 @@ forward:
     inc r8d
     cmp r8d,CTX
     jb .Lctx
+    # Actual *learnable*, independent query/key/value projection matrices.
+    # Shape: WQ, WK, WV = [16,16] row-major float32.
+    xor r8d,r8d
+.Lqrow:
+    mov r9d,r8d
+    shl r9d,6
+    lea r10,[rip+WQ]
+    add r10,r9
+    lea r11,[rip+X+448]
+    call dot16
+    lea r10,[rip+Q]
+    movss [r10+r8*4],xmm0
+    inc r8d
+    cmp r8d,D
+    jb .Lqrow
+    xor r8d,r8d
+.Lkv_t:
+    mov r9d,r8d
+    shl r9d,6
+    lea rsi,[rip+X]
+    add rsi,r9
+    xor ebx,ebx
+.Lkv_row:
+    mov eax,ebx
+    shl eax,6
+    lea r10,[rip+WK]
+    add r10,rax
+    mov r11,rsi
+    call dot16
+    mov r9d,r8d
+    shl r9d,4
+    add r9d,ebx
+    lea r10,[rip+K]
+    movss [r10+r9*4],xmm0
+    mov eax,ebx
+    shl eax,6
+    lea r10,[rip+WV]
+    add r10,rax
+    mov r11,rsi
+    call dot16
+    lea r10,[rip+VCTX]
+    movss [r10+r9*4],xmm0
+    inc ebx
+    cmp ebx,D
+    jb .Lkv_row
+    inc r8d
+    cmp r8d,CTX
+    jb .Lkv_t
     xor r8d,r8d
 .Lscores:
     mov r9d,r8d
     shl r9d,6
-    lea r10,[rip+X]
+    lea r10,[rip+K]
     add r10,r9
-    lea r11,[rip+X+448]
+    lea r11,[rip+Q]
     call dot16
     mulss xmm0,[rip+quarter]
     lea r10,[rip+S]
@@ -366,7 +425,7 @@ forward:
     mov ecx,r8d
     shl ecx,4
     add ecx,r9d
-    lea r10,[rip+X]
+    lea r10,[rip+VCTX]
     movss xmm1,[r10+rcx*4]
     lea r10,[rip+A]
     mulss xmm1,[r10+r8*4]
@@ -465,8 +524,8 @@ forward:
     cmp ecx,V
     jb .Loutnormalize
     ret
-# Reverse-mode derivatives of trained E, POS, F, FB, O, OB.
-# The query/key/value projections are tied identities, not learned QKV matrices.
+# Reverse-mode derivatives of E,POS,F,FB,O,OB,WQ,WK,WV.
+# All Q/K/V projections are separately trainable, initialized as identity.
 backward:
     mov rbx,[rip+seqbase]
     movzx eax,byte ptr [rbx+r13]
@@ -618,39 +677,24 @@ backward:
     inc r8d
     cmp r8d,D
     jb .Lffgrad
-    # Value path: gradX[t,j]=A[t]*GH[j], GA[t]=dot(GH,X[t]).
+    # gA[t] = GH dot V[t]. All projection paths use OLD weights.
     xor r8d,r8d
-.Lvaluet:
+.Lval_grad_t:
     mov r9d,r8d
-    shl r9d,4
-    lea r10,[rip+X]
-    lea r11,[r10+r9*4]
-    lea r10,[rip+GH]
-    lea rdi,[rip+GX]
-    lea rdi,[rdi+r9*4]
-    lea rsi,[rip+A]
-    movss xmm2,[rsi+r8*4]
-    xorps xmm3,xmm3
-    xor ecx,ecx
-.Lvaluej:
-    movss xmm0,[r10+rcx*4]
-    movss xmm1,[r11+rcx*4]
-    mulss xmm0,xmm2
-    movss [rdi+rcx*4],xmm0
-    movss xmm0,[r10+rcx*4]
-    mulss xmm0,xmm1
-    addss xmm3,xmm0
-    inc ecx
-    cmp ecx,D
-    jb .Lvaluej
+    shl r9d,6
+    lea r10,[rip+VCTX]
+    add r10,r9
+    lea r11,[rip+GH]
+    call dot16
     lea r10,[rip+GA]
-    movss [r10+r8*4],xmm3
+    movss [r10+r8*4],xmm0
     inc r8d
     cmp r8d,CTX
-    jb .Lvaluet
+    jb .Lval_grad_t
+    # softmax derivative: gs_t=(gA[t]-sum_k A[k]gA[k])*A[t]/sqrt(D)
     xorps xmm7,xmm7
     xor ecx,ecx
-.Lgsum:
+.Lnew_gsum:
     lea r10,[rip+A]
     movss xmm0,[r10+rcx*4]
     lea r10,[rip+GA]
@@ -658,39 +702,106 @@ backward:
     addss xmm7,xmm0
     inc ecx
     cmp ecx,CTX
-    jb .Lgsum
+    jb .Lnew_gsum
+    xor eax,eax
+    lea rdi,[rip+GQ]
+    mov ecx,D
+    rep stosd
     xor r8d,r8d
-.Lgradscoret:
+.Lnew_gradscore_t:
     lea r10,[rip+GA]
     movss xmm2,[r10+r8*4]
     subss xmm2,xmm7
     lea r10,[rip+A]
     mulss xmm2,[r10+r8*4]
     mulss xmm2,[rip+quarter]
+    lea r10,[rip+GSC]
+    movss [r10+r8*4],xmm2
+    # dQ[i] += gs[t] * K[t,i]
     mov r9d,r8d
-    shl r9d,4
-    lea r10,[rip+X]
-    lea r11,[r10+r9*4]
-    lea r10,[rip+GX]
-    lea rdi,[r10+r9*4]
-    lea rsi,[rip+GX+448]
-    lea rdx,[rip+X+448]
+    shl r9d,6
+    lea r11,[rip+K]
+    add r11,r9
+    lea r10,[rip+GQ]
     xor ecx,ecx
-.Lgradscorej:
-    movss xmm0,[rdx+rcx*4]
+.Lnew_gradq_i:
+    movss xmm0,[r11+rcx*4]
+    mulss xmm0,xmm2
+    addss xmm0,[r10+rcx*4]
+    movss [r10+rcx*4],xmm0
+    inc ecx
+    cmp ecx,D
+    jb .Lnew_gradq_i
+    inc r8d
+    cmp r8d,CTX
+    jb .Lnew_gradscore_t
+    # dX[t,j] += sum_i WK[i,j]*(GS[t]*Q[i])
+    #             + sum_i WV[i,j]*(A[t]*GH[i])
+    # GX was zeroed at backward entry. Do not update projections yet.
+    xor r8d,r8d
+.Lnew_gxt:
+    mov r9d,r8d
+    shl r9d,6
+    lea rdi,[rip+GX]
+    add rdi,r9
+    lea r11,[rip+A]
+    movss xmm4,[r11+r8*4]
+    lea r11,[rip+GSC]
+    movss xmm5,[r11+r8*4]
+    xor ebx,ebx
+.Lnew_gxi:
+    lea r10,[rip+Q]
+    movss xmm2,[r10+rbx*4]
+    mulss xmm2,xmm5
+    lea r10,[rip+GH]
+    movss xmm3,[r10+rbx*4]
+    mulss xmm3,xmm4
+    mov eax,ebx
+    shl eax,6
+    lea r10,[rip+WK]
+    add r10,rax
+    lea r11,[rip+WV]
+    add r11,rax
+    xor ecx,ecx
+.Lnew_gxj:
+    movss xmm0,[r10+rcx*4]
+    mulss xmm0,xmm2
+    movss xmm1,[r11+rcx*4]
+    mulss xmm1,xmm3
+    addss xmm0,xmm1
+    addss xmm0,[rdi+rcx*4]
+    movss [rdi+rcx*4],xmm0
+    inc ecx
+    cmp ecx,D
+    jb .Lnew_gxj
+    inc ebx
+    cmp ebx,D
+    jb .Lnew_gxi
+    inc r8d
+    cmp r8d,CTX
+    jb .Lnew_gxt
+    # dX[last,j] += WQ^T[j,i] * dQ[i]
+    xor ebx,ebx
+.Lnew_gradq_row:
+    lea r10,[rip+GQ]
+    movss xmm2,[r10+rbx*4]
+    mov eax,ebx
+    shl eax,6
+    lea r10,[rip+WQ]
+    add r10,rax
+    lea rdi,[rip+GX+448]
+    xor ecx,ecx
+.Lnew_gradq_j:
+    movss xmm0,[r10+rcx*4]
     mulss xmm0,xmm2
     addss xmm0,[rdi+rcx*4]
     movss [rdi+rcx*4],xmm0
-    movss xmm1,[r11+rcx*4]
-    mulss xmm1,xmm2
-    addss xmm1,[rsi+rcx*4]
-    movss [rsi+rcx*4],xmm1
     inc ecx
     cmp ecx,D
-    jb .Lgradscorej
-    inc r8d
-    cmp r8d,CTX
-    jb .Lgradscoret
+    jb .Lnew_gradq_j
+    inc ebx
+    cmp ebx,D
+    jb .Lnew_gradq_row
     # Residual gradient from Y -> H -> last input.
     xor ecx,ecx
 .Lresidual:
@@ -702,6 +813,71 @@ backward:
     inc ecx
     cmp ecx,D
     jb .Lresidual
+    # Update WQ/WK/WV only AFTER dX used the OLD projection weights.
+    # dWQ[i,j]=dQ[i]*X[last,j]
+    # dWK[i,j]=sum_t GS[t]*Q[i]*X[t,j]
+    # dWV[i,j]=sum_t A[t]*GH[i]*X[t,j]
+    xor r8d,r8d
+.Lnew_proj_update_i:
+    lea r10,[rip+GQ]
+    movss xmm4,[r10+r8*4]
+    lea r10,[rip+Q]
+    movss xmm5,[r10+r8*4]
+    lea r10,[rip+GH]
+    movss xmm6,[r10+r8*4]
+    mov r9d,r8d
+    shl r9d,6
+    lea r10,[rip+WQ]
+    add r10,r9
+    lea r11,[rip+WK]
+    add r11,r9
+    lea rdi,[rip+WV]
+    add rdi,r9
+    xor ecx,ecx
+.Lnew_proj_update_j:
+    lea rbx,[rip+X+448]
+    movss xmm0,[rbx+rcx*4]
+    mulss xmm0,xmm4
+    mulss xmm0,[rip+lr]
+    movss xmm1,[r10+rcx*4]
+    subss xmm1,xmm0
+    movss [r10+rcx*4],xmm1
+    xorps xmm2,xmm2
+    xorps xmm3,xmm3
+    xor edx,edx
+.Lnew_proj_update_t:
+    mov eax,edx
+    shl eax,4
+    add eax,ecx
+    lea rbx,[rip+X]
+    movss xmm0,[rbx+rax*4]
+    lea rbx,[rip+GSC]
+    movss xmm1,[rbx+rdx*4]
+    mulss xmm1,xmm0
+    addss xmm2,xmm1
+    lea rbx,[rip+A]
+    movss xmm1,[rbx+rdx*4]
+    mulss xmm1,xmm0
+    addss xmm3,xmm1
+    inc edx
+    cmp edx,CTX
+    jb .Lnew_proj_update_t
+    mulss xmm2,xmm5
+    mulss xmm3,xmm6
+    mulss xmm2,[rip+lr]
+    mulss xmm3,[rip+lr]
+    movss xmm0,[r11+rcx*4]
+    subss xmm0,xmm2
+    movss [r11+rcx*4],xmm0
+    movss xmm0,[rdi+rcx*4]
+    subss xmm0,xmm3
+    movss [rdi+rcx*4],xmm0
+    inc ecx
+    cmp ecx,D
+    jb .Lnew_proj_update_j
+    inc r8d
+    cmp r8d,D
+    jb .Lnew_proj_update_i
     # Update trainable embeddings and position vectors; repeated tokens accumulate.
     xor r8d,r8d
 .Lembedt:
@@ -793,6 +969,25 @@ _start:
     inc r12d
     cmp r12d,(params_end-params_start)/4
     jb .Linit
+    # Identity initialization keeps initial Q/K/V mathematically equivalent
+    # to old identity-tied attention; all three are independently trained.
+    lea rdi,[rip+WQ]
+    xor eax,eax
+    mov ecx,768
+    rep stosd
+    xor ecx,ecx
+.Lqkv_identity:
+    mov eax,ecx
+    imul eax,17
+    lea rdi,[rip+WQ]
+    mov dword ptr [rdi+rax*4],0x3f800000
+    lea rdi,[rip+WK]
+    mov dword ptr [rdi+rax*4],0x3f800000
+    lea rdi,[rip+WV]
+    mov dword ptr [rdi+rax*4],0x3f800000
+    inc ecx
+    cmp ecx,D
+    jb .Lqkv_identity
     .endif
     # vocabulary includes exactly the bytes in training corpus
     lea rbx,[rip+train_bytes]
@@ -830,6 +1025,10 @@ _start:
     subss xmm10,xmm0
     call backward
     inc r13d
+    .ifdef ONE_STEP
+    # Test-only: exactly one update, then ordinary metrics/export.
+    jmp .Lnext_epoch
+    .endif
     cmp r13d,N
     jb .Lnexttrain
     mov eax,r12d

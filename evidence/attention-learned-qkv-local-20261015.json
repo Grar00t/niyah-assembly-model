@@ -1,0 +1,30 @@
+{
+  "model": "NIYAH pure-assembly attention LM",
+  "model_type": "trainable WQ/WK/WV single-head attention with ReLU FFN and SGD",
+  "not_a_large_language_model": true,
+  "tests": "PASS",
+  "binary_sha256_first_run": "ecf14bf581517fe327385e7ce0456c19546b651b225078a426d31c7cb3320ff8",
+  "weight_sha256": "c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46",
+  "train_loss_initial_millinats": 2500,
+  "train_loss_final_millinats": 167,
+  "heldout_loss_untrained_millinats": 2498,
+  "heldout_loss_trained_millinats": 238,
+  "independent_oracle_train_millinats": 166.523,
+  "independent_oracle_heldout_millinats": 238.447,
+  "same_last_2_context_l1_difference": 1.10443155,
+  "train_sample_elapsed_seconds": 0.2,
+  "sample_total_bytes": 72,
+  "sample_sha256": "a600ba6dbaa4991309e2c3e67f031258e24cb12d6891d1b982c24831baa36183",
+  "checks": [
+    "static native ELF",
+    "no libc/interpreter",
+    "two identical seeded runs",
+    "different sampling seed",
+    "vocabulary bound",
+    "training loss improvement",
+    "heldout vs untrained",
+    "independent numerical oracle",
+    "8-byte context intervention",
+    "finite exported weights"
+  ]
+}

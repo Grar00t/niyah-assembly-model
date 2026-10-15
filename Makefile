@@ -1,7 +1,7 @@
 # GNU assembler via GCC/cc on Linux/WSL. No MSVC cl.exe or license.
 CC = cc
 .PHONY: all run test checkpoint verify generate test-checkpoint \
-        run-attention run-attention-auto test-attention test-simd \
+        run-attention run-attention-auto test-attention test-simd test-qkv-gradients \
         attention-checkpoint verify-attention generate-attention \
         generate-attention-auto test-attention-checkpoint \
         test-attention-negative bench-avx2 verify-all clean
@@ -37,6 +37,8 @@ test-attention:
 	python3 tests/test_attention.py
 test-simd:
 	python3 tests/test_simd.py
+test-qkv-gradients:
+	python3 tests/test_qkv_gradients.py
 attention-checkpoint:
 	python3 tools/checkpoint_attention.py train
 verify-attention:
@@ -53,7 +55,7 @@ bench-avx2:
 	python3 tools/bench_avx2.py --epochs 1200 --repeats 12
 verify-all:
 	$(MAKE) all
-	$(MAKE) test test-attention test-simd
+	$(MAKE) test test-attention test-simd test-qkv-gradients
 	$(MAKE) checkpoint verify test-checkpoint
 	$(MAKE) attention-checkpoint verify-attention test-attention-checkpoint
 	$(MAKE) test-attention-negative generate-attention-auto

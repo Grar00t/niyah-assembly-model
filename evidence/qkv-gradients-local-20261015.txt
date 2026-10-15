@@ -1,0 +1,5 @@
+WQ selected_offdiag 18 native_gradient -3.8522040313182515e-06 reference_gradient -3.8522032082729165e-06 relative_error 2.1365569640984e-07 native_step_delta -9.630510078295629e-08
+WK selected_offdiag 33 native_gradient -3.8522040313182515e-06 reference_gradient -3.8522032082729165e-06 relative_error 2.1365569640984e-07 native_step_delta -9.630510078295629e-08
+WV selected_offdiag 66 native_gradient -0.003334649372845888 reference_gradient -0.0033346495607785207 relative_error 5.6357535968417204e-08 native_step_delta -8.33662343211472e-05
+PASS: independently checked WQ/WK/WV one-step SGD gradients
+LOSS one-step before 2.5178064973076397 after 2.491438666899255
