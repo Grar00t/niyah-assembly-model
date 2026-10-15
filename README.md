@@ -25,6 +25,29 @@ multi-layer decoder blocks, LayerNorm, BPE, extended context, or instruction
 tuning. Generation is stochastic sampling from trained next-byte probabilities,
 not a demonstrated capability to discover knowledge outside the weights/input.
 
+## New: runtime-dispatched AVX2/FMA3 Assembly kernels (2026-10-15)
+
+Three real linear-algebra dot-products (attention Q/K, residual FFN and
+output projection) now share a hand-written x86-64 `dot16` kernel.
+`make run-attention-auto` uses `CPUID` and `XGETBV` to enable AVX2+FMA3
+only when the CPU **and OS** support it; otherwise it runs the safe scalar
+fallback. `make test-simd` compares both Assembly paths to an independent
+floating-point reference and checks training/dispatch reproducibility.
+
+On one local WSL machine, 1,200 training epochs with 12 interleaved wall-clock
+repetitions took 0.395372 s (scalar median) versus 0.363059 s
+(CPUID-dispatched AVX2 median): **1.089x speedup for this tiny workload**.
+AVX2/SSE numerical associations
+differ slightly; they are not claimed to be bit-identical, but all relevant
+loss and gradient regression tests passed locally.
+
+The fast kernel is inspired by (not copied from)
+[NN_S](https://github.com/zenyyxz/NN_S) (MIT) and Intel's published
+SIMD optimization guidance. Detailed CPU checks, numerical tolerances and
+all raw timing samples are in [docs/SIMD.md](docs/SIMD.md) and
+[evidence/simd-benchmark-local.json](evidence/simd-benchmark-local.json).
+This is a **kernel optimization, not an increase in model intelligence**.
+
 ## Run the real program locally
 
 Requires Linux x86-64 (or Ubuntu on WSL), GCC or compatible C driver with GNU
@@ -33,12 +56,15 @@ packaging**. Neither training executable requires a Python runtime.
 
 ```bash
 make
-make run-attention        # train from deterministic initialized weights and sample
+make run-attention-auto   # recommended: AVX2/FMA3 when safe, scalar otherwise
+make run-attention        # explicit portable scalar training and sample
+make test-simd            # independent scalar/SIMD mathematical checks
 make test-attention       # independent math-oracle verification
 make attention-checkpoint
 make verify-attention
 make test-attention-checkpoint
-make generate-attention   # pure Assembly inference from saved .incbin weights; no training
+make generate-attention-auto  # pure Assembly inference, runtime-dispatched
+make generate-attention   # pure scalar Assembly inference from saved weights; no training
 ```
 
 To run the untouched trigram baseline:
@@ -74,8 +100,11 @@ the local executable reported negative log-likelihood in **milli-nats**:
 - Heldout before training: 2.498 nats/token.
 - Heldout after training: 0.240 nats/token.
 
-The independent Python **test oracle** recomputed 0.174263 and 0.240447
-nats/token from exported Assembly-trained float32 weights. The normalized
+The independent Python **test oracle** in the original scalar release
+recomputed 0.174263 and 0.240447
+nats/token from exported Assembly-trained float32 weights. Small floating-
+point association changes in the new shared dot16 scalar kernel yield
+0.174228 and 0.240282. The normalized
 output distributions for two contexts with identical final two bytes
 (`the cat ` vs `the rat `) differed in L1 by 0.83645707: this is not
 a two-byte lookup table. The fixture is far too small to claim language
