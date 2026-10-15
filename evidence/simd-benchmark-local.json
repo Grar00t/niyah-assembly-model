@@ -1,0 +1,59 @@
+{
+  "host": "DESKTOP-2P1JAIV (Ubuntu under WSL)",
+  "cpu_model": "Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz",
+  "epochs": 1200,
+  "repeated_trials_per_kernel": 12,
+  "median_seconds": {
+    "scalar": 0.395372,
+    "auto": 0.363059,
+    "avx2_forced": 0.362985
+  },
+  "speedup_auto_vs_scalar": 1.089,
+  "speedup_forced_avx2_vs_scalar": 1.0892,
+  "all_seconds": {
+    "scalar": [
+      0.395523,
+      0.408081,
+      0.395221,
+      0.394844,
+      0.394597,
+      0.393806,
+      0.394439,
+      0.396474,
+      0.398475,
+      0.402018,
+      0.39319,
+      0.411069
+    ],
+    "auto": [
+      0.361522,
+      0.365784,
+      0.365754,
+      0.366204,
+      0.36493,
+      0.361229,
+      0.362067,
+      0.363922,
+      0.364459,
+      0.362195,
+      0.361203,
+      0.361933
+    ],
+    "avx2_forced": [
+      0.374482,
+      0.363979,
+      0.363002,
+      0.360367,
+      0.364771,
+      0.358605,
+      0.372765,
+      0.362022,
+      0.359545,
+      0.374845,
+      0.359592,
+      0.362969
+    ]
+  },
+  "method": "warm twice, rotate invocation order, subprocess run perf_counter medians",
+  "limits": "93-byte corpus with 1200 epochs; clock/scheduling may vary; not general LLM throughput"
+}

@@ -8,16 +8,20 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-      - name: Build both native Assembly models
+      - name: Build native Assembly binaries (portable and CPUID-dispatched)
         run: make
       - name: Trigram generation tests
         run: make test
-      - name: Assembly attention + independent oracle
+      - name: Assembly attention and independent math oracle
         run: make test-attention
+      - name: AVX2 FMA versus scalar differential verification
+        run: make test-simd
       - name: Trigram checkpoint train, identity and replay
         run: make checkpoint verify test-checkpoint
-      - name: Neural attention checkpoint train, identity and exact inference replay
-        run: make attention-checkpoint verify-attention test-attention-checkpoint
+      - name: Neural attention checkpoint, identity, replay and corruption rejection
+        run: make attention-checkpoint verify-attention test-attention-checkpoint test-attention-negative
+      - name: Pure assembly auto-kernel inference from verified weights
+        run: make generate-attention-auto
       - name: Upload bounded verification receipts
         if: always()
         uses: actions/upload-artifact@v4
