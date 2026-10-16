@@ -1,0 +1,28 @@
+{
+  "status": "BLOCKED_ON_OOV_NOT_SCORED",
+  "dataset": "roneneldan/TinyStories",
+  "source_split": "validation",
+  "row_indices": [
+    200,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207
+  ],
+  "lowercase_bytes": 12381,
+  "processed_sha256": "57c7ceb60e460aaf9d69f3ec58f163f81055195f07268fefe9566ad7f8b0975a",
+  "unseen_byte_values": [
+    45,
+    48,
+    49,
+    50,
+    51,
+    56,
+    57
+  ],
+  "training_alphabet": "from train rows 0..11",
+  "caveat": "Blocked due to train-alphabet masking; no model loss was computed"
+}
