@@ -10,6 +10,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Build native Assembly binaries (portable and CPUID-dispatched)
         run: make
+      - name: Exact rational Assembly differential and failure tests
+        run: make test-exactcalc
       - name: Trigram generation tests
         run: make test
       - name: Assembly attention and independent math oracle
@@ -22,6 +24,8 @@ jobs:
         run: make checkpoint verify test-checkpoint
       - name: Neural attention checkpoint, identity, replay and corruption rejection
         run: make attention-checkpoint verify-attention test-attention-checkpoint test-attention-negative
+      - name: Inference checkpoint TOCTOU regression
+        run: make test-attention-snapshot
       - name: Pure assembly auto-kernel inference from verified weights
         run: make generate-attention-auto
       - name: Upload bounded verification receipts

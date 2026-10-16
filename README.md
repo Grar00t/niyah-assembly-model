@@ -11,6 +11,36 @@ reasoning.** The current text fixture has 93 training bytes and 68 related
 validation bytes. The model cannot be claimed to understand language based
 on these results. Python is *only* a test/packaging/benchmark harness.
 
+## Exact mathematical engine and checkpoint safety (October 2026)
+
+Niyah now includes an independently testable **pure Assembly exact rational
+calculator**, implemented alongside (not inside) the educational byte-level
+neural model. It computes reduced fractions using checked signed64
+intermediates and Euclid's GCD. Unlike floating-point, fractional answers
+within its declared domain are exact:
+
+~~~sh
+make exactcalc
+./build/exactcalc add 1 10 2 10    # 3/10 (exact)
+./build/exactcalc add 1 3 1 6      # 1/2
+./build/exactcalc div 5 7 -2 9     # -45/14
+make test-exactcalc
+~~~
+
+It takes signed32 decimal numerators and positive <=2147483647
+denominators; unsupported ranges, division by zero and malformed input
+are deliberately rejected. **5,897 reference-oracle calculations and 24
+failure vectors passed locally**. This is not an arbitrary-precision or
+universal error-free mathematical system. See
+[docs/EXACT_MATH.md](docs/EXACT_MATH.md).
+
+The saved-attention inference path also closes a verification-to-use
+(TOCTOU) gap by assembling from **a separately verified private snapshot**
+of source, corpora and weights, not the mutable project files. Both
+adversarial file-replacement tests passed locally using disposable copies.
+See [docs/SECURITY_AUDIT.md](docs/SECURITY_AUDIT.md) and
+`make test-attention-snapshot`. No flight hardware is operated.
+
 ## What runs on the machine?
 
 | | Legacy trigram baseline | Native neural attention |
@@ -37,7 +67,10 @@ GNU assembler+linker accessed via `cc`/`gcc`, `make`. Python 3 is only needed
 for external differential tests/checkpoint packaging.
 
 ```bash
-make                        # build legacy and portable/auto attention binaries
+make                        # build legacy, neural attention and exact rational binaries
+make exactcalc               # independent pure Assembly rational arithmetic
+make test-exactcalc          # independent Fraction oracle and parser/ELF checks
+make test-attention-snapshot # mutate disposable checkpoint files around compile
 make run-attention-auto     # train from scratch and sample; CPUID-guarded AVX2
 make run-attention          # explicitly portable scalar variant
 make test-attention        # independent mathematical forward oracle
