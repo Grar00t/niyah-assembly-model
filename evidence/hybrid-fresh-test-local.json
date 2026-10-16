@@ -1,0 +1,74 @@
+{
+  "protocol": "2026-10-16-predeclared-unseen-valid-offset-100",
+  "data_url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+  "reference_paper_url": "https://aclanthology.org/D16-1124/",
+  "neural_runtime": "pure x86-64 Assembly, 9616 floats, native masked softmax",
+  "statistical_runtime": "CPython n-gram + linear probability interpolation; not part of Assembly binary",
+  "epochs": 32,
+  "lambda_grid": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "lambda_interpretation": "weight of native attention in mixture; 0 = pure trigram",
+  "lambda_selected_from_calibration_only": 0.4,
+  "calibration_source": "validation official split rows 0..5 (previously measured)",
+  "train_source": "train official split rows 0..11",
+  "fresh_test_source": "validation official split rows 100..107",
+  "train_sha256": "d284702c7392bedc3373d0a4f0400870d563265c41d479c6a7d9c57904f3dca4",
+  "calibration_sha256": "ad1d534077e9e29b21c9e4bb912afa05f309bf5d4cedafcdb77c3b16b9660660",
+  "fresh_test_sha256": "13140d20d59ed4aebd0bc088a0fdb78fe8292eb51e39230d35ae4b7126ae97c1",
+  "fresh_test_source_doc_sha256": [
+    "9fd8421fa0c7f9c1c1c2f58a56c221648ec4d089be90eb60a4500e1cfcafecaa",
+    "686a92e685889cc1c0a63f95948aa0be6a089db137aec24e127b2726cb2a7b89",
+    "3350f4362314094ca4f2bf25949ec5413bf29a0e2c415d51c6eb80c7688412ff",
+    "6200d94eb577250ef9a0a3adfbcbaa4ffa91dc7f4a9856d3b36f3b8044ffc293",
+    "7a9418cef734deaa7d44598cd6d487606464323b7232ba377c72a9476d0ec562",
+    "e711a56e0b95cda683e9e43dfb9a61a99db889ff0149f1ffd10edbb241235b66",
+    "f785ff4b7fb28bdb571f96960fb197ce7f1ee6978f2746f4217b39c92e4685e8",
+    "449efea95c7ef2c89ad9e712a8afd9fa43819a496afc4c02f99c9b5ef76b9834"
+  ],
+  "train_doc_count": 12,
+  "calibration_doc_count": 6,
+  "test_doc_count": 8,
+  "train_bytes": 8575,
+  "calibration_bytes": 4212,
+  "fresh_test_bytes": 5571,
+  "no_raw_dataset_committed": true,
+  "calibration_losses_nats_per_byte": {
+    "0.0": 2.068352939,
+    "0.05": 2.04582897,
+    "0.1": 2.030753921,
+    "0.2": 2.013003573,
+    "0.4": 2.008260536,
+    "0.6": 2.036008735,
+    "0.8": 2.103941445,
+    "1.0": 2.314576654
+  },
+  "calibration_native_receipt": {
+    "native_reported_nll": 2.315,
+    "independent_nll": 2.314576654
+  },
+  "fresh_test_native_receipt": {
+    "native_reported_nll": 2.242,
+    "independent_nll": 2.242482512
+  },
+  "fresh_test_trigram_nll": 2.035952147,
+  "fresh_test_native_nll": 2.242482512,
+  "fresh_test_hybrid_nll": 1.975534497,
+  "fresh_test_hybrid_minus_trigram": -0.06041765,
+  "outperform_trigram_on_fresh_test": true,
+  "metric": "mean negative log of true next-byte probability, nats/byte, positions 8..N-1",
+  "caveats": [
+    "No independent hidden benchmark performed by a third party.",
+    "Only 12 training stories; previously observed calibration slice.",
+    "Lambda is a static mixture; not a trained neural gating model.",
+    "Validation records are document-disjoint by split indices; near-duplicates not ruled out.",
+    "Unseen test is a pre-registered new offset and not used to tune this run."
+  ]
+}

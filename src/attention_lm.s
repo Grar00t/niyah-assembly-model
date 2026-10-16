@@ -60,6 +60,8 @@ s_final: .ascii "final_train_loss_x1000 "
 .equ l_final, . - s_final
 s_valid: .ascii "heldout_loss_x1000 "
 .equ l_valid, . - s_valid
+s_dump: .ascii "VALID_TRUE_PROBS_F32\n"
+.equ l_dump, . - s_dump
 s_epoch: .ascii "epoch "
 .equ l_epoch, . - s_epoch
 s_loss: .ascii " loss_x1000 "
@@ -1064,6 +1066,35 @@ _start:
     call eval_current
     SAY s_valid,l_valid
     call print_metric
+    # Opt-in raw float32 probability for each true validation byte. No SGD
+    # updates happen in this path; eval only. A separate harness checks that
+    # -log(prob) reproduces the native heldout loss before using the stream.
+    .ifdef DUMP_VALID_PROBS
+    .ifdef EXPORT_WEIGHTS
+    .error "DUMP_VALID_PROBS and EXPORT_WEIGHTS are mutually exclusive"
+    .endif
+    SAY s_dump,l_dump
+    lea rax,[rip+valid_bytes]
+    mov [rip+seqbase],rax
+    mov dword ptr [rip+seqlen],NV
+    mov r13d,CTX
+.Ldump_next:
+    cmp r13d,NV
+    jae .Ldump_end
+    call forward
+    lea rbx,[rip+valid_bytes]
+    movzx eax,byte ptr [rbx+r13]
+    lea r10,[rip+PROB]
+    lea rsi,[r10+rax*4]
+    mov edx,4
+    call write_all
+    inc r13d
+    jmp .Ldump_next
+.Ldump_end:
+    mov eax,60
+    xor edi,edi
+    syscall
+    .endif
     .ifdef EXPORT_WEIGHTS
     lea rsi,[rip+params_start]
     mov edx,(params_end-params_start)

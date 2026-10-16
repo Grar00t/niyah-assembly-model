@@ -14,6 +14,8 @@ jobs:
         run: make test-exactcalc
       - name: Offline native-Assembly heldout evaluator regression
         run: make test-tinystories-eval
+      - name: Offline hybrid native probability and independent trigram oracle
+        run: make test-hybrid-eval
       - name: Trigram generation tests
         run: make test
       - name: Assembly attention and independent math oracle
