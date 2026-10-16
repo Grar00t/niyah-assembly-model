@@ -2,7 +2,7 @@
 CC = cc
 .PHONY: all run test checkpoint verify generate test-checkpoint \
         run-attention run-attention-auto test-attention test-simd test-qkv-gradients \
-        exactcalc test-exactcalc test-attention-snapshot test-tinystories-eval \
+        exactcalc test-exactcalc test-attention-snapshot test-tinystories-eval test-hybrid-eval \
         attention-checkpoint verify-attention generate-attention \
         generate-attention-auto test-attention-checkpoint \
         test-attention-negative bench-avx2 verify-all clean
@@ -25,6 +25,8 @@ test-exactcalc: build/exactcalc
 	python3 tests/test_exactcalc.py
 test-tinystories-eval:
 	python3 tests/test_tinystories_eval.py
+test-hybrid-eval:
+	python3 tests/test_hybrid_eval.py
 test-attention-snapshot:
 	python3 tests/test_checkpoint_snapshot.py
 

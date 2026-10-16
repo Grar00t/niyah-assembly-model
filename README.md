@@ -61,6 +61,27 @@ with network access to reproduce the real dataset evaluation.
 Method, fixed row IDs, masks, no-leakage caveats, license and
 limitations: [docs/TINYSTORIES_EVAL.md](docs/TINYSTORIES_EVAL.md).
 
+## Fixed-weight hybrid: external real-data check (2026-10-16)
+
+A separate, opt-in native Assembly path now streams the actual true-byte
+probabilities after training without changing normal inference. A Python
+benchmark combines these with a train-only smoothed trigram using the
+published count/neural language-model hybrid idea. Selection used prior
+validation rows 0..5 only; on **new** TinyStories validation rows 100..107,
+native-only NLL was 2.242483, trigram was 2.035952, and the 0.4/0.6
+hybrid was **1.975534 nats/byte** (2.97% lower than trigram).
+This is an **in-vocabulary, eight-story experiment**, NOT native hybrid
+generation: the mixture itself is currently a Python evaluation step.
+
+A second predeclared slice (rows 200..207) had unseen digits/hyphens
+and could not be scored fairly under the existing masked vocabulary.
+The failure was preserved, not substituted with a more convenient test.
+
+Use `make test-hybrid-eval` for network-free native output regression,
+and `python3 tools/hybrid_eval.py --epochs 32` to reproduce with pinned
+Hugging Face data. Full metrics, limitations and next test:
+[docs/HYBRID_EVAL.md](docs/HYBRID_EVAL.md).
+
 ## What runs on the machine?
 
 | | Legacy trigram baseline | Native neural attention |
