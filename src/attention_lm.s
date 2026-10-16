@@ -34,6 +34,17 @@
 .if SEED == 0
 .error "seed must be nonzero"
 .endif
+# The v2 checkpoint contract does not store a vocabulary policy.
+# Prevent using a full-byte training or inference distribution under a
+# manifest that asserts the legacy train-seen-only vocabulary.
+.ifdef FULL_BYTE_VOCAB
+    .ifdef INFERENCE
+        .error "FULL_BYTE_VOCAB cannot use v2 checkpoint inference"
+    .endif
+    .ifdef EXPORT_WEIGHTS
+        .error "FULL_BYTE_VOCAB cannot export v2 checkpoint weights"
+    .endif
+.endif
 .section .rodata
 train_bytes: .incbin "data/corpus.txt"
 .equ N, . - train_bytes
@@ -991,7 +1002,14 @@ _start:
     cmp ecx,D
     jb .Lqkv_identity
     .endif
-    # vocabulary includes exactly the bytes in training corpus
+    # Default: training-seen-only mask (unchanged checkpoint semantics).
+    # Opt-in: all 256 byte IDs have support, including validation OOV.
+    .ifdef FULL_BYTE_VOCAB
+    lea rdi,[rip+MASK]
+    mov eax,1
+    mov ecx,V
+    rep stosb
+    .else
     lea rbx,[rip+train_bytes]
     lea rdx,[rip+MASK]
     xor ecx,ecx
@@ -1001,6 +1019,7 @@ _start:
     inc ecx
     cmp ecx,N
     jb .Lmaskinit
+    .endif
     .ifndef INFERENCE
     lea rax,[rip+train_bytes]
     mov [rip+seqbase],rax

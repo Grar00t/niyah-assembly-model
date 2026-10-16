@@ -82,6 +82,32 @@ and `python3 tools/hybrid_eval.py --epochs 32` to reproduce with pinned
 Hugging Face data. Full metrics, limitations and next test:
 [docs/HYBRID_EVAL.md](docs/HYBRID_EVAL.md).
 
+## Opt-in full-byte OOV evaluation (2026-10-16)
+
+An explicitly separate native Assembly compilation mode now evaluates
+all 256 byte IDs, including targets never seen in training. The default
+training-seen-only model and v2 checkpoint contract remain unchanged;
+using full-byte mode with v2 inference/export fails at assembly time.
+
+On previously rejected TinyStories validation rows 200..207 (12,381 bytes),
+the 32-epoch native model produced finite OOV target probabilities. With
+trigram alpha=0.01 and static mixture lambda=0.4 calibrated on rows 0..5:
+
+| Metric (nats/byte, lower is better) | Calibrated trigram | Native attention | Python hybrid |
+| --- | ---: | ---: | ---: |
+| All 12,373 scored targets | 2.498354 | 2.535610 | **2.221572** |
+| Only 8 truly OOV targets | **8.860953** | 15.159669 | 9.365569 |
+
+The hybrid beats trigram on aggregate but **loses on OOV-only targets**.
+This is a previously inspected OOV slice, **not a fresh blind test**,
+and the count/hybrid logic remains a Python evaluator, not Assembly generation.
+The previous masked-vocabulary 100..107 test is not directly comparable.
+
+Offline: run make test-fullbyte-oov; for the optional external dataset
+revisit run python3 tools/oov_revisit.py --epochs 32.
+Protocol, SHA-256 source checks, numerical evidence and limits:
+[docs/FULLBYTE_OOV.md](docs/FULLBYTE_OOV.md).
+
 ## What runs on the machine?
 
 | | Legacy trigram baseline | Native neural attention |

@@ -32,8 +32,9 @@ FRESH_TEST_OFFSET=100
 FRESH_TEST_COUNT=8
 FRESH_TEST_SHA256="13140d20d59ed4aebd0bc088a0fdb78fe8292eb51e39230d35ae4b7126ae97c1"
 
-def count_model(train, k=2, alpha=0.5):
+def count_model(train, k=2, alpha=0.5, full_byte_vocab=False):
     if len(train)<CTX+1:raise ValueError("train too short")
+    if not math.isfinite(alpha) or alpha<=0:raise ValueError("alpha must be finite and positive")
     vocabulary=set(train)
     counts=collections.defaultdict(collections.Counter)
     totals=collections.Counter()
@@ -41,17 +42,19 @@ def count_model(train, k=2, alpha=0.5):
         ctx=train[i-k:i] if k else b""
         counts[ctx][train[i]]+=1
         totals[ctx]+=1
-    return counts,totals,alpha*len(vocabulary)
+    return counts,totals,alpha*(256 if full_byte_vocab else len(vocabulary))
 
-def true_probs_ngram(train, valid, k=2, alpha=0.5):
-    if not set(valid)<=set(train):raise ValueError("validation OOV: evaluation unsupported")
-    counts,totals,denom=count_model(train,k,alpha)
+def true_probs_ngram(train, valid, k=2, alpha=0.5, full_byte_vocab=False):
+    if not full_byte_vocab and not set(valid)<=set(train):
+        raise ValueError("validation OOV: evaluation unsupported")
+    counts,totals,denom=count_model(train,k,alpha,full_byte_vocab)
     return [(counts[valid[i-k:i]][valid[i]]+alpha)/(totals[valid[i-k:i]]+denom)
             for i in range(CTX,len(valid))]
 
-def native_true_probs(train,valid,epochs=32):
+def native_true_probs(train,valid,epochs=32,full_byte_vocab=False):
     if epochs<0 or epochs>100:raise ValueError("epochs out of bounds")
-    if not set(valid)<=set(train):raise ValueError("validation OOV: evaluation unsupported")
+    if not full_byte_vocab and not set(valid)<=set(train):
+        raise ValueError("validation OOV: evaluation unsupported")
     with tempfile.TemporaryDirectory(prefix="niyah-prob-export-") as folder:
         root=pathlib.Path(folder)
         (root/"src").mkdir()
@@ -64,6 +67,7 @@ def native_true_probs(train,valid,epochs=32):
                         "-Wa,--defsym,SAMPLE_LEN=0",
                         "-Wa,--defsym,AVX2_AUTO=1",
                         "-Wa,--defsym,DUMP_VALID_PROBS=1",
+                        *(["-Wa,--defsym,FULL_BYTE_VOCAB=1"] if full_byte_vocab else []),
                         "-o","attention_lm","src/attention_lm.s"],cwd=root,
                        capture_output=True,check=True,timeout=45)
         p=subprocess.run([str(root/"attention_lm")],cwd=root,capture_output=True,check=True,timeout=120)

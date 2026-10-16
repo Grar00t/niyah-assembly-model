@@ -109,3 +109,23 @@ path yet. This model must not be marketed as GPT-scale or production-ready.
 A future milestone could implement a second decoder block and test
 document-level heldout corpora with independent full gradient checks;
 any proposed rented GPU should have user approval and a concrete budget.
+
+
+## Opt-in all-byte probability support (2026-10-16)
+
+The default model's softmax MASK still covers ONLY training-seen byte IDs,
+preserving original golden tests and v2 checkpoint semantics. The GNU
+assembler switch -Wa,--defsym,FULL_BYTE_VOCAB=1 initializes all 256
+MASK entries. This is used by the external evaluation harness
+for previously unscoreable OOV targets. The count-based baseline uses
+a matching 256-element additive-smoothing denominator.
+
+FULL_BYTE_VOCAB is intentionally rejected when assembled together with
+INFERENCE or EXPORT_WEIGHTS: v2 checkpoint metadata cannot distinguish
+these incompatible vocabulary policies. Positive support in exact math
+does not guarantee nonzero float32 probability in all circumstances,
+and the native-probability evaluator fails closed on zero/non-finite
+values. This neither adds extra attention blocks nor proves language
+understanding.
+
+See [FULLBYTE_OOV.md](FULLBYTE_OOV.md) and make test-fullbyte-oov.

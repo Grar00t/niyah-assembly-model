@@ -1,0 +1,108 @@
+{
+  "protocol": "2026-10-16-revisit-observed-failing-OOV-slice",
+  "not_a_blind_heldout_result": true,
+  "dataset": "roneneldan/TinyStories",
+  "license": "CDLA-Sharing-1.0",
+  "source_api": "https://datasets-server.huggingface.co/rows",
+  "train_rows": "train 0..11",
+  "calibration_rows": "validation 0..5; previously measured",
+  "oov_test_rows": "validation 200..207; previously examined OOV slice",
+  "neural_runtime": "x86-64 GNU Assembly, native learned Q/K/V, full-byte mask",
+  "ngram_and_blend_runtime": "Python external evaluator, not Assembly generation",
+  "all_byte_support": 256,
+  "legacy_v2_checkpoint_compatible": false,
+  "epochs": 32,
+  "alpha_grid": [
+    0.001,
+    0.01,
+    0.05,
+    0.1,
+    0.25,
+    0.5,
+    1.0
+  ],
+  "alpha_calibration_nll_grid": {
+    "0.001": 2.41202388,
+    "0.01": 2.259417667,
+    "0.05": 2.333884841,
+    "0.1": 2.461726689,
+    "0.25": 2.747244983,
+    "0.5": 3.051123099,
+    "1.0": 3.414662838
+  },
+  "alpha_selected_from_calibration_only": 0.01,
+  "lambda_grid": [
+    0.0,
+    0.05,
+    0.1,
+    0.2,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "lambda_calibration_nll_grid": {
+    "0.0": 2.259417667,
+    "0.05": 2.118580083,
+    "0.1": 2.073110243,
+    "0.2": 2.029899,
+    "0.4": 2.010492647,
+    "0.6": 2.038435096,
+    "0.8": 2.114168596,
+    "1.0": 2.323681044
+  },
+  "lambda_selected_from_calibration_only": 0.4,
+  "train_sha256": "d284702c7392bedc3373d0a4f0400870d563265c41d479c6a7d9c57904f3dca4",
+  "calibration_sha256": "ad1d534077e9e29b21c9e4bb912afa05f309bf5d4cedafcdb77c3b16b9660660",
+  "oov_test_sha256": "57c7ceb60e460aaf9d69f3ec58f163f81055195f07268fefe9566ad7f8b0975a",
+  "oov_test_source_doc_sha256": [
+    "da4878dbb649c95ed3db40ac2485554fcf01d9da79607410269bba5875f79bb4",
+    "08d0cfbbddcb12f35e743b25ad0f6f22e420e4ca22a8c97ec64baefefb43c0a4",
+    "92326344ccfa8537eb3df1bb4955952ee236b85f907acb984cb718b787ba85fc",
+    "3aa514ec51c394f079bda6964b7915b77474a91ad32c98cd609a2d63380d4a21",
+    "08de92a5b0672f791a6a3cb2cde1cbf306dfa9124ab220ac762fac1d3f0a9ac9",
+    "f405ebd3078b141d91c23208fa8a9cbc1ed5cfcc583d7dab9bfda89617664ee2",
+    "9bd13a8cdcb9ff4a04a54a81569ddc0a29115d933a9add863c15ff37b6761574",
+    "8209a31c07dc0a791ac485f74f5d242607ea3ad057d75649ced1f7cf2bc41561"
+  ],
+  "train_bytes": 8575,
+  "calibration_bytes": 4212,
+  "oov_test_bytes": 12381,
+  "oov_byte_ids": [
+    45,
+    48,
+    49,
+    50,
+    51,
+    56,
+    57
+  ],
+  "scored_oov_positions": 8,
+  "scored_total_positions": 12373,
+  "calibration_native_receipt": {
+    "native_reported_nll": 2.324,
+    "independent_nll": 2.323681044
+  },
+  "test_native_receipt": {
+    "native_reported_nll": 2.536,
+    "independent_nll": 2.53561033
+  },
+  "naive_alpha_0_5_trigram_nll": 3.235971189,
+  "calibrated_trigram_nll": 2.498353803,
+  "fullbyte_native_nll": 2.53561033,
+  "calibrated_hybrid_nll": 2.22157202,
+  "calibrated_hybrid_minus_calibrated_trigram": -0.276781783,
+  "calibrated_hybrid_beats_calibrated_trigram": true,
+  "oov_only_trigram_nll": 8.860952821,
+  "oov_only_neural_nll": 15.159668574,
+  "oov_only_hybrid_nll": 9.365568785,
+  "metric": "mean true-next-byte -log(p), nats/byte; valid indices CTX..N-1",
+  "limitations": [
+    "Not blind. The OOV slice was previously inspected, not hyperparameter selected.",
+    "Only 8 OOV target positions; full-set aggregate is dominated by seen bytes.",
+    "Alpha and lambda picked on previously measured 6-document calibration set.",
+    "One seed and 12 training stories; near-duplicate contents possible.",
+    "Full-byte trained checkpoints require a new manifest protocol.",
+    "No end-to-end pure-Assembly count-hybrid inference, semantic competence or user benefit established."
+  ]
+}

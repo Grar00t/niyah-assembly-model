@@ -1,0 +1,142 @@
+make all
+make[1]: Entering directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+mkdir -p build
+cc -nostdlib -static -no-pie -o build/trigram src/trigram.s
+mkdir -p build
+cc -nostdlib -static -no-pie -o build/attention_lm src/attention_lm.s
+mkdir -p build
+cc -nostdlib -static -no-pie -Wa,--defsym,AVX2_AUTO=1 -o build/attention_lm_auto src/attention_lm.s
+mkdir -p build
+cc -nostdlib -static -no-pie -o build/exactcalc src/exactcalc.s
+make[1]: Leaving directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+make test test-attention test-simd test-qkv-gradients
+make[1]: Entering directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+python3 tests/test_generation.py
+PASS: seed 1
+PASS: seed 42
+PASS: replay
+PASS: seed 2463534242
+PASS: seed 4294967295
+5/5
+python3 tests/test_attention.py
+{
+  "model": "NIYAH pure-assembly attention LM",
+  "model_type": "trainable WQ/WK/WV single-head attention with ReLU FFN and SGD",
+  "not_a_large_language_model": true,
+  "tests": "PASS",
+  "binary_sha256_first_run": "c3bca9ddb90a9f970d399d660f777154ac0fada0ed657a3e182caed4252535ab",
+  "weight_sha256": "c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46",
+  "train_loss_initial_millinats": 2500,
+  "train_loss_final_millinats": 167,
+  "heldout_loss_untrained_millinats": 2498,
+  "heldout_loss_trained_millinats": 238,
+  "independent_oracle_train_millinats": 166.523,
+  "independent_oracle_heldout_millinats": 238.447,
+  "same_last_2_context_l1_difference": 1.10443155,
+  "train_sample_elapsed_seconds": 0.199,
+  "sample_total_bytes": 72,
+  "sample_sha256": "a600ba6dbaa4991309e2c3e67f031258e24cb12d6891d1b982c24831baa36183",
+  "checks": [
+    "static native ELF",
+    "no libc/interpreter",
+    "two identical seeded runs",
+    "different sampling seed",
+    "vocabulary bound",
+    "training loss improvement",
+    "heldout vs untrained",
+    "independent numerical oracle",
+    "8-byte context intervention",
+    "finite exported weights"
+  ]
+}
+python3 tests/test_simd.py
+PASS: static self-contained ELF, no interpreter or dynamic runtime
+PASS: true scalar and forced fallback identical trained weights
+PASS: CPUID guarded AVX2/FMA runtime dispatch (reported=1)
+PASS: independent forward oracle and 240-epoch training (all paths)
+PASS: independently verified loss and output probability equivalence
+PASS: deterministic 240-epoch train repeats
+MEASURE maximum_weight_abs_delta 0.0678094774
+MEASURE maximum_context_distribution_l1_delta 0.00168739895
+MEASURE trained_loss_gap_millinats 0.0182109632
+MEASURE heldout_loss_gap_millinats 0.0755226275
+MEASURE scalar_training_weight_sha256 c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+MEASURE optimized_training_weight_sha256 0c1da7874da8241f5f3f2a23be0ded1a4b337100d0b6bff7ce6f0812c3bf8f43
+python3 tests/test_qkv_gradients.py
+WQ selected_offdiag 18 native_gradient -3.8522040313182515e-06 reference_gradient -3.8522032082729165e-06 relative_error 2.1365569640984e-07 native_step_delta -9.630510078295629e-08
+WK selected_offdiag 33 native_gradient -3.8522040313182515e-06 reference_gradient -3.8522032082729165e-06 relative_error 2.1365569640984e-07 native_step_delta -9.630510078295629e-08
+WV selected_offdiag 66 native_gradient -0.003334649372845888 reference_gradient -0.0033346495607785207 relative_error 5.6357535968417204e-08 native_step_delta -8.33662343211472e-05
+PASS: independently checked WQ/WK/WV one-step SGD gradients
+LOSS one-step before 2.5178064973076397 after 2.491438666899255
+make[1]: Leaving directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+make checkpoint verify test-checkpoint
+make[1]: Entering directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+python3 tools/checkpoint.py train
+PASS: checkpoint saved and verified
+python3 tools/checkpoint.py verify
+PASS: checkpoint identity
+python3 tools/checkpoint.py test
+PASS: checkpoint replay and truncated-file rejection
+make[1]: Leaving directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+make attention-checkpoint verify-attention test-attention-checkpoint
+make[1]: Entering directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+python3 tools/checkpoint_attention.py train
+PASS checkpoint train sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46 bytes=38464
+python3 tools/checkpoint_attention.py verify
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+python3 tools/checkpoint_attention.py test
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+PASS exact train -> saved weights -> inference replay
+make[1]: Leaving directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+make test-attention-negative test-attention-snapshot generate-attention-auto
+make[1]: Entering directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+python3 tests/test_checkpoint_negative.py
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+PASS negative modified training parameter: rejected (ValueError)
+PASS negative truncated parameters: rejected (ValueError)
+PASS negative tampered source digest: rejected (ValueError)
+PASS negative missing parameters: rejected (FileNotFoundError)
+PASS corruption tests used only disposable weight/manifest copies
+python3 tests/test_checkpoint_snapshot.py
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+PASS: post-verification original weight modification does NOT alter inference
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+PASS: changed original between verification and snapshot fails closed
+PASS: production model weights are unchanged; all attacks used private copies
+python3 tools/checkpoint_attention.py generate-auto
+--- attention sample ---
+the cat sat on the mat. the rat sat on the cat. the cat sat on the rat. 
+PASS attention checkpoint verified sha256=c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46
+make[1]: Leaving directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+make test-exactcalc test-tinystories-eval test-hybrid-eval test-fullbyte-oov
+make[1]: Entering directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
+python3 tests/test_exactcalc.py
+PASS: pure native x86-64, no runtime libraries, nonexecutable stack
+PASS: 885 deterministic integer boundary combinations
+PASS: 5885 successful exact outputs match Fraction oracle
+PASS: 24 malformed/zero-division vectors rejected with exact exit codes
+PASS: human-readable exact-decimal example (1/10 + 2/10 = 3/10)
+PASS: untrusted input is strictly bounded to 10 digit scans per operand
+TOTAL_SUCCESS_CASES=5897
+TOTAL_FAILURE_CASES=24
+python3 tests/test_tinystories_eval.py
+PASS: offline native Assembly build/train/validation
+PASS: independent exact unigram oracle
+PASS: no network, checkpoint, or external training data required
+PASS: no LM runtime except Linux syscalls
+python3 tests/test_hybrid_eval.py
+PASS: independent trigram oracle, matching CTX windows
+PASS: native Assembly probability bytes reproduce native NLL
+PASS: mixing weights 0 and 1 exactly recover components
+PASS: nonnegative normalization-domain and fail-closed OOV
+PASS: external dataset and network not required
+python3 tests/test_fullbyte_oov.py
+PASS: masked legacy path rejects unseen bytes
+PASS: 256-byte additive-smoothing n-gram matches independent count oracle
+PASS: native GNU x86-64 Assembly exports valid OOV true-byte probabilities
+PASS: full-byte stream recreates native NLL, fixed mixture boundaries
+PASS: full-byte mode cannot silently share v2 checkpoint/export semantics
+make[1]: Leaving directory '/home/a/projects/niyah-assembly-fullbyte-20261016'
