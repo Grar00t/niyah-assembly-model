@@ -3,3 +3,6 @@ models/
 __pycache__/
 verification_results.json
 attention_verification.json
+
+# License-controlled dataset bytes are retrieved locally, never committed.
+data/external/

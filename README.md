@@ -41,6 +41,26 @@ adversarial file-replacement tests passed locally using disposable copies.
 See [docs/SECURITY_AUDIT.md](docs/SECURITY_AUDIT.md) and
 `make test-attention-snapshot`. No flight hardware is operated.
 
+## Honest evaluation on real held-out stories
+
+The pure-Assembly attention model was evaluated on two **distinct original
+TinyStories dataset splits**, using 12 training stories (8,575 bytes)
+and 6 validation stories (4,212 bytes), same ASCII-lowercase preprocessing.
+The network/data fetch occurs only for on-device measurement; dataset
+bytes are **not committed**.
+
+At 8 and 32 epochs, heldout losses were **2.317** and **2.315
+nats/byte**, compared with a smoothed two-byte-context trigram baseline
+of **2.068353** on the identical validation positions. **The neural
+model loses to this statistical baseline** on these data; more epochs
+did not fix the gap.
+
+Run `make test-tinystories-eval` to verify the offline test harness.
+Run `python3 tools/evaluate_tinystories.py --epochs 8` on a machine
+with network access to reproduce the real dataset evaluation.
+Method, fixed row IDs, masks, no-leakage caveats, license and
+limitations: [docs/TINYSTORIES_EVAL.md](docs/TINYSTORIES_EVAL.md).
+
 ## What runs on the machine?
 
 | | Legacy trigram baseline | Native neural attention |
