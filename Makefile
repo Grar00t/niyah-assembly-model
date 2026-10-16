@@ -2,7 +2,7 @@
 CC = cc
 .PHONY: all run test checkpoint verify generate test-checkpoint \
         run-attention run-attention-auto test-attention test-simd test-qkv-gradients \
-        exactcalc test-exactcalc test-attention-snapshot \
+        exactcalc test-exactcalc test-attention-snapshot test-tinystories-eval \
         attention-checkpoint verify-attention generate-attention \
         generate-attention-auto test-attention-checkpoint \
         test-attention-negative bench-avx2 verify-all clean
@@ -23,6 +23,8 @@ build/exactcalc: src/exactcalc.s
 exactcalc: build/exactcalc
 test-exactcalc: build/exactcalc
 	python3 tests/test_exactcalc.py
+test-tinystories-eval:
+	python3 tests/test_tinystories_eval.py
 test-attention-snapshot:
 	python3 tests/test_checkpoint_snapshot.py
 
@@ -69,6 +71,6 @@ verify-all:
 	$(MAKE) checkpoint verify test-checkpoint
 	$(MAKE) attention-checkpoint verify-attention test-attention-checkpoint
 	$(MAKE) test-attention-negative test-attention-snapshot generate-attention-auto
-	$(MAKE) test-exactcalc
+	$(MAKE) test-exactcalc test-tinystories-eval
 clean:
 	rm -f build/trigram build/attention_lm build/attention_lm_auto build/exactcalc
