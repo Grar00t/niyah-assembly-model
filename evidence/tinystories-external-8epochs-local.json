@@ -1,0 +1,84 @@
+{
+  "dataset": "roneneldan/TinyStories",
+  "dataset_license": "CDLA-Sharing-1.0",
+  "source_api": "https://datasets-server.huggingface.co/rows",
+  "train_rows": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+  ],
+  "validation_rows": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "disjoint_source_splits": true,
+  "preprocessing": "concatenate whole stories with two LF bytes; UTF-8 encode then ASCII lowercase",
+  "train_bytes": 8575,
+  "validation_bytes": 4212,
+  "train_sha256": "d284702c7392bedc3373d0a4f0400870d563265c41d479c6a7d9c57904f3dca4",
+  "validation_sha256": "ad1d534077e9e29b21c9e4bb912afa05f309bf5d4cedafcdb77c3b16b9660660",
+  "document_source_sha256": [
+    "119fa0a93338a3977fc6fd3c4137dca51bef14ee72824613f4d94f7945a75816",
+    "aa9c1bda023047131b12140c085ab9f0fb0b2ed4793abe89f0cdb8da5f8b61fa",
+    "4c4f5a8e1100202bb4f16ab7bc730e0f24d4c8b3d3401c382c63ab63a51a660a",
+    "121f6b0bffb672022e7c01fe6b51b95e3e52b32994a2506e73f2efb905b3b715",
+    "4c155f8c4caa5ab597ca415b3f1aae24d7cddd26a86b6be84b0edb0587e2b60f",
+    "279a43ef8f2990917810146fcde317ed42507008067afbd8aafd758a27ea0723",
+    "f8a8fbc99d7b87bfd33bc32412fedf27e8ccde809087a8170eddb0520243709a",
+    "60947846d9ff06b3e7192b665f1f7319dbe243a7de26d51f36b3b245b681bc8d",
+    "1e212bc49dccd2e750f52c2d97b0e7dcf823cc5f259c188fe9b4830e6060561a",
+    "0ffabd45275e88e0ae5a05c5d7561ef746825423836077968ee6a4b6b31360f0",
+    "8ad496580328bb64340735684a09c6e2a99da0b38ba5433857096fc7c6810b12",
+    "11ae9a114ab436c1d6f1edc53f5feaa6f0ae07d8572415bb02f59da1236d36db",
+    "d5007ad17381162e9d918928df0e279c411b3ba35261c78fd8a89c50e123b484",
+    "9c6f6d8dd5aa5c54b11df0856ede9510fcce06d1aaed5203113741f45ee475d9",
+    "379b3688fcff190aa402be537e5b1ed197d88db35de06f8bf1281c2e2cae3c9f",
+    "0474c3c1af2bd061babeb5fcf42dbc992cd63137323cbc945145063e2f51a25a",
+    "b7d400f4345f69a7999da9a3c0ddabc760d4e3d9caa55a4f99e7108b6437482d",
+    "ad73e7615ee927fa42869eb5c48415d77f9f3d16f08e7b7b870dae8623ae8613"
+  ],
+  "ctx_bytes": 8,
+  "model_parameters": 9616,
+  "notes": [
+    "0gram=unigram,1gram=one preceding byte,2gram=two preceding bytes",
+    "all smoothed baselines count contexts in the same training bytes only",
+    "all validation metrics score indices CTX..N-1 for matched denominators",
+    "native model vocabulary is training-byte set, which covers validation bytes",
+    "data and bytes NOT committed",
+    "lowercase preprocessing is reported; natural language metrics are not instruction following",
+    "train+valid concatenated stories mean at most 8 cross-story context boundary tokens per story"
+  ],
+  "native_untrained": {
+    "epochs": 0,
+    "train_nll_nats_byte": 3.538,
+    "validation_nll_nats_byte": 3.538,
+    "elapsed_seconds": 0.0875,
+    "kernel": true
+  },
+  "native_trained": {
+    "epochs": 8,
+    "train_nll_nats_byte": 2.089,
+    "validation_nll_nats_byte": 2.317,
+    "elapsed_seconds": 0.6714,
+    "kernel": true
+  },
+  "baseline_metrics": {
+    "0gram_smoothed_nll": 2.963911722800764,
+    "1gram_smoothed_nll": 2.300459449375779,
+    "2gram_smoothed_nll": 2.068352939196024
+  },
+  "native_validation_vs_best_ngram_delta": 0.248647
+}

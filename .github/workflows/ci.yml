@@ -12,6 +12,8 @@ jobs:
         run: make
       - name: Exact rational Assembly differential and failure tests
         run: make test-exactcalc
+      - name: Offline native-Assembly heldout evaluator regression
+        run: make test-tinystories-eval
       - name: Trigram generation tests
         run: make test
       - name: Assembly attention and independent math oracle
