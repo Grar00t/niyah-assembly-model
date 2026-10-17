@@ -168,8 +168,12 @@ python3 tools/local_byte_eval.py --train path/to/train.bin --test path/to/test.b
 ~~~
 
 Raw input is not included in the report; only SHA-256 hashes, NLL and OOV
-byte IDs/counts. Independent test data required; 128-KiB input cap; GNU
-x86-64 Linux/WSL toolchain required. Run make test-local-byte-eval.
+byte IDs/counts. Independent test data required; 128-KiB per-input cap
+plus a 262,144 byte-pass combined work limit; GNU x86-64 Linux/WSL
+toolchain required. Existing symlink/hard-link aliases to input are
+rejected and unrelated reports are written by same-directory atomic
+replacement. Run make test-local-byte-eval. Always use replaceable input
+copies when testing unfamiliar path layouts.
 See [docs/LOCAL_BYTE_EVAL.md](docs/LOCAL_BYTE_EVAL.md).
 
 ## What runs on the machine?

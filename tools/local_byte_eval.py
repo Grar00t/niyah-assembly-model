@@ -4,9 +4,53 @@ import argparse
 import hashlib
 import json
 import math
+import os
+import subprocess
+import tempfile
 from pathlib import Path
 
 from hybrid_eval import CTX, blended, native_true_probs, nll, true_probs_ngram
+
+
+# This is a conservative local-work budget, not a wall-clock SLA. The
+# native process also has a fixed timeout; a timeout is reported fail-closed.
+MAX_WORK_BYTES = 262144
+
+
+def reject_output_alias(output, inputs):
+    """Detect pathname, symlink and hard-link aliases before any write."""
+    if output.is_symlink():
+        raise ValueError("output must not be a symlink")
+    if output.resolve() in {source.resolve() for source in inputs}:
+        raise ValueError("output must not overwrite the input files")
+    if output.exists():
+        if not output.is_file():
+            raise ValueError("output must be a regular file")
+        if any(os.path.samefile(output, source) for source in inputs):
+            raise ValueError("output must not alias an input hard link")
+
+
+def write_report_atomic(output, inputs, rendered):
+    """Stage on the same filesystem and rename; never truncate shared inodes."""
+    reject_output_alias(output, inputs)
+    staged = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", newline="\n",
+            dir=output.parent, prefix=".niyah-report-", suffix=".tmp",
+            delete=False,
+        ) as handle:
+            staged = Path(handle.name)
+            handle.write(rendered)
+            handle.flush()
+            os.fsync(handle.fileno())
+        # Recheck after preparation; os.replace cannot truncate a hardlink
+        # even if an alias is swapped into the path between the two checks.
+        reject_output_alias(output, inputs)
+        os.replace(staged, output)
+    finally:
+        if staged is not None:
+            staged.unlink(missing_ok=True)
 
 
 def file_bytes(path, max_size):
@@ -34,8 +78,17 @@ def evaluate(train, test, *, epochs=2, alpha=0.01, lam=0.4):
         raise ValueError("lambda must be finite and within 0..1")
     if train == test:
         raise ValueError("identical train/test bytes; supply an independent test file")
+    work_bytes = max(epochs, 1) * len(train) + len(test)
+    if work_bytes > MAX_WORK_BYTES:
+        raise ValueError(
+            f"workload exceeds bounded local budget ({work_bytes} > {MAX_WORK_BYTES} byte-passes); "
+            "reduce input sizes or epochs"
+        )
     gram = true_probs_ngram(train, test, alpha=alpha, full_byte_vocab=True)
-    native, receipt = native_true_probs(train, test, epochs=epochs, full_byte_vocab=True)
+    try:
+        native, receipt = native_true_probs(train, test, epochs=epochs, full_byte_vocab=True)
+    except subprocess.TimeoutExpired as exc:
+        raise RuntimeError("native execution timed out; reduce input sizes or epochs") from exc
     mix = blended(gram, native, lam)
     known = set(train)
     unseen = [i - CTX for i in range(CTX, len(test)) if test[i] not in known]
@@ -85,18 +138,19 @@ def main():
     if not 9 <= args.max_bytes <= 131072:
         parser.error("--max-bytes must be between 9 and 131072")
     try:
+        # Fast refusal before training; check again at the actual write.
+        if args.output is not None:
+            reject_output_alias(args.output, (args.train, args.test))
         train = file_bytes(args.train, args.max_bytes)
         test = file_bytes(args.test, args.max_bytes)
         result = evaluate(train, test, epochs=args.epochs, alpha=args.alpha, lam=args.lambda_weight)
+        rendered = json.dumps(result, indent=2) + "\n"
+        if args.output is not None:
+            write_report_atomic(args.output, (args.train, args.test), rendered)
+        else:
+            print(rendered, end="")
     except (ValueError, OSError, RuntimeError) as exc:
         parser.exit(2, f"evaluation refused: {exc}\n")
-    rendered = json.dumps(result, indent=2) + "\n"
-    if args.output:
-        if args.output.is_symlink() or args.output.resolve() in (args.train.resolve(), args.test.resolve()):
-            parser.error("output must not overwrite the input files or follow a symlink")
-        args.output.write_text(rendered, encoding="utf-8")
-    else:
-        print(rendered, end="")
 
 
 if __name__ == "__main__":
