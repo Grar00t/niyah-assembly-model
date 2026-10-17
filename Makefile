@@ -2,7 +2,7 @@
 CC = cc
 .PHONY: all run test checkpoint verify generate test-checkpoint \
         run-attention run-attention-auto test-attention test-simd test-qkv-gradients \
-        exactcalc test-exactcalc test-attention-snapshot test-tinystories-eval test-hybrid-eval test-fullbyte-oov test-preregistered-eval \
+        exactcalc test-exactcalc test-attention-snapshot test-tinystories-eval test-hybrid-eval test-fullbyte-oov test-local-byte-eval test-preregistered-eval \
         attention-checkpoint verify-attention generate-attention \
         generate-attention-auto test-attention-checkpoint \
         test-attention-negative bench-avx2 verify-all clean
@@ -29,6 +29,9 @@ test-hybrid-eval:
 	python3 tests/test_hybrid_eval.py
 test-fullbyte-oov:
 	python3 tests/test_fullbyte_oov.py
+
+test-local-byte-eval:
+	python3 tests/test_local_byte_eval.py
 test-preregistered-eval:
 	python3 tests/test_preregistered_eval.py
 test-attention-snapshot:
@@ -77,6 +80,6 @@ verify-all:
 	$(MAKE) checkpoint verify test-checkpoint
 	$(MAKE) attention-checkpoint verify-attention test-attention-checkpoint
 	$(MAKE) test-attention-negative test-attention-snapshot generate-attention-auto
-	$(MAKE) test-exactcalc test-tinystories-eval test-hybrid-eval test-fullbyte-oov test-preregistered-eval
+	$(MAKE) test-exactcalc test-tinystories-eval test-hybrid-eval test-fullbyte-oov test-local-byte-eval test-preregistered-eval
 clean:
 	rm -f build/trigram build/attention_lm build/attention_lm_auto build/exactcalc

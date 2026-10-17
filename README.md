@@ -156,6 +156,26 @@ and [Hugging Face release gate](docs/HF_RELEASE_GATE.md).
 Hugging Face publication is **not complete**: author license and
 write-authorized account access are still required.
 
+## Offline byte-file evaluation for developers
+
+Use the native Assembly attention model to benchmark your own local byte files
+against a smoothed trigram and a Python-only static mixture. This is an
+educational, offline evaluator, not a chatbot, code translator or proof of
+faster execution.
+
+~~~sh
+python3 tools/local_byte_eval.py --train path/to/train.bin --test path/to/test.bin --epochs 2 --output local-report.json
+~~~
+
+Raw input is not included in the report; only SHA-256 hashes, NLL and OOV
+byte IDs/counts. Independent test data required; 128-KiB per-input cap
+plus a 262,144 byte-pass combined work limit; GNU x86-64 Linux/WSL
+toolchain required. Existing symlink/hard-link aliases to input are
+rejected and unrelated reports are written by same-directory atomic
+replacement. Run make test-local-byte-eval. Always use replaceable input
+copies when testing unfamiliar path layouts.
+See [docs/LOCAL_BYTE_EVAL.md](docs/LOCAL_BYTE_EVAL.md).
+
 ## What runs on the machine?
 
 | | Legacy trigram baseline | Native neural attention |

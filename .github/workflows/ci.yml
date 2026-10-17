@@ -18,6 +18,8 @@ jobs:
         run: make test-hybrid-eval
       - name: Full-byte OOV probability and checkpoint-policy regression
         run: make test-fullbyte-oov
+      - name: Offline local byte-file evaluator contract
+        run: make test-local-byte-eval
       - name: Offline preregistered story-level scoring and source-identity regression
         run: make test-preregistered-eval
       - name: Trigram generation tests

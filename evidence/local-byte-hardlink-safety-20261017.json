@@ -1,0 +1,45 @@
+{
+  "schema": "niyah-pr9-hardlink-remediation-v1",
+  "date": "2026-10-17",
+  "repository": "Grar00t/niyah-assembly-model",
+  "pull_request": 9,
+  "branch": "feat/offline-local-byte-evaluator-20261017",
+  "original_head": "55dd0c5538c08e71e627b177a416c84ad1ac568b",
+  "defects_from_review": {
+    "P1": "Existing output hard link aliases same inode as input but in-place write truncated input",
+    "P2": "large train/test times high epochs accepted despite backend fixed 120s timeout"
+  },
+  "pre_fix_reproduction": {
+    "scope": "disposable TemporaryDirectory ONLY",
+    "synthetic_input_sha256_before": "201b9fc78afc9228903ab727c15d6c398c11998ccd1816bdb98fa24ff2ceff2b",
+    "synthetic_input_sha256_after": "e5a3133b07b836bac7bd69dbf9b034e0cebca15774893574b9100e799284b244",
+    "unpatched_process_exit": 0,
+    "synthetic_input_modified": true,
+    "real_user_input_modified": false
+  },
+  "after_fix": {
+    "source_alias_policy": "Path identity + os.path.samefile for existing outputs; symlinks refused",
+    "output_write_policy": "private same-directory temporary report, fsync, os.replace; no O_TRUNC of preexisting inode",
+    "max_native_work_proxy_byte_passes": 262144,
+    "fixed_native_timeout_seconds": 120,
+    "timeout_handling": "caught and reported as evaluation refused (exit 2)",
+    "test_data": "synthetic temporary train/test/report files, never original user input",
+    "local_target_test": "PASS",
+    "full_suite_command": "make verify-all",
+    "full_suite_execution": "disposable /tmp repository copy excluding .git, build, models, data/external",
+    "full_suite_exit_code": 0,
+    "full_suite_stdout_log_sha256": "53d52300fd7427a2dd5c8b270fbeb9d393bfb391b66ddb89ad9eaa80786744bb",
+    "source_sha256": {
+      "tools/local_byte_eval.py": "ed34b8f10072f5be2644c04afffc42c86e6c043156c08cb7f046acbb4c0606f2",
+      "tests/test_local_byte_eval.py": "f9b422ffc64b330b40132919f09ca19e91c8b1494100d4ac09c383ecc9ec0383",
+      "docs/LOCAL_BYTE_EVAL.md": "018c4bd83cb2aa02da56fda7c91d7a1532d4cfa98a2f1f17255c23230cd5dd45",
+      "README.md": "fae82e1495d2b69ec5e214c0199e5d392e68a2dc141e3874398e52af51ef86fa"
+    }
+  },
+  "boundaries": [
+    "A workload proxy is not a wall-clock SLA; slower devices may still time out safely.",
+    "No formal guarantee against a malicious same-user process racing on source/parent directory paths.",
+    "No personal source content was tested or uploaded; original user files remain outside test execution.",
+    "Does not independently establish downstream human benefit or arbitrary path-tree security."
+  ]
+}
