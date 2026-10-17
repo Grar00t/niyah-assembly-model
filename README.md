@@ -127,6 +127,35 @@ This is a **methodology and correctness** advance, not a new neural
 architecture or evidence that useful language has emerged. Actual
 human benefit is NOT MEASURED.
 
+## Preregistered TinyStories story-level result (2026-10-17)
+
+A frozen evaluation was committed as
+[f7540b9](https://github.com/Grar00t/niyah-assembly-model/commit/f7540b990d7eee0888bd9cb3e6208d80270533b9)
+**before downloading the test stories**. Native Assembly probabilities were
+compared against a separately calibrated 256-byte n-gram reference on official
+TinyStories validation rows 1200..1223. First-8-byte context and artificial
+story separators were excluded from scored targets.
+
+| Mean next-byte NLL (lower is better) | Calibrated 2-gram | Native Assembly | Fixed 0.4 neural mixture |
+| --- | ---: | ---: | ---: |
+| All 16805 within-story targets | 2.258089 | 2.452823 | **2.069129** |
+| The 6 truly unseen-byte targets | **6.329330** | 11.049475 | 6.827065 |
+
+On this locked 24-story test, the mixture reduced aggregate NLL by **8.37%**
+against the alpha-tuned count baseline and won on all 24 story averages;
+a deterministic paired-story bootstrap yielded a descriptive 95% interval
+of [-0.212287, -0.163354] nats/byte for hybrid-minus-count NLL.
+**OOV-only prediction remained worse than the count baseline.**
+These are reproducible scoring observations, **not proof of language
+understanding, a useful assistant, or a societal benefit**.
+
+See the [frozen protocol](docs/PREREGISTERED_EVAL.md),
+[result and caveats](docs/PREREGISTERED_RESULTS_20261017.md),
+[immutable source hashes and machine receipt](evidence/preregistered-oov-story-local-20261017.json),
+and [Hugging Face release gate](docs/HF_RELEASE_GATE.md).
+Hugging Face publication is **not complete**: author license and
+write-authorized account access are still required.
+
 ## What runs on the machine?
 
 | | Legacy trigram baseline | Native neural attention |

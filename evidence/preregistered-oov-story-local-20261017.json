@@ -1,0 +1,354 @@
+{
+  "protocol": "NIYAH-2026-10-17-preregistered-story-OOV-v1",
+  "precommitted_test_split": "validation",
+  "precommitted_offset": 1200,
+  "precommitted_story_count": 24,
+  "epochs": 32,
+  "seed_native": 2463534242,
+  "calibration_train_rows": "train 0..11",
+  "calibration_dev_rows": "validation 0..5",
+  "test_source_sha256": "3b6a01db09383c69184980dc54f75e11b3e483ef391675f2d674a3c9bb5ad710",
+  "test_source_story_sha256": [
+    "5e0f4d81f4a4c2b1249dc9ef7469467a0795ed02eee58e90370fb4bc2409e846",
+    "d34f29a6ae167c4146b40731c60238518026343d09126906636c283115ed1cef",
+    "5b229bb503dda74afe47f0de7d0a7bd29fc102d46d6d57e7ac50f8a29586ebd7",
+    "d5841bf6620d4e81e2bdd01dd382757b5c518f65af0982a2625cce5364babe8a",
+    "7bc23fff76fa41ff1f1f3bf70211807f49063ecf317e281436f5bd13849a91a6",
+    "15e72f3124b506a6fa4ce20a3bddee61fdff927f92302a30510fdf0163d00c62",
+    "e05ac75923747a9f09b9cc2597b742d50289b2c4d8cef259abcbecd91c167fe1",
+    "e278a527443462bb1aa456008e452375335390535ee7db50a6cc8f96b177855f",
+    "d3cbaea974df47a6da46a9f52c4b006b7f8a40e712b328a372bdce465590b28f",
+    "45496acd44fb3e724ca0597022c2984e379f95eb4c7d4d3031676f024bc4a587",
+    "023ec8c0a929fb821af4d5443e7f933ee3315650dc885da39125b1f7a876dd96",
+    "902de9fa7c5786d772a073c91814e0f9761497292fb7aa52059177e81f2f90bb",
+    "5557d7a35e31689e10dbbdd534f075edaea13f9676e2dc3f14a9f406f086ad47",
+    "144142db9aeba0df92ba436fef4631d17f14f910608f5d333ee7f696856d8320",
+    "2874ced4e7ac0aa04291a934fc686af5d0bd9bffb254b0500213a74f472b031b",
+    "cdb06bc564efc01c6ff0ce4b0de1e0dea396775c3c9ffb18b28002a934ca118f",
+    "af310bb4e0faac67e3a988436f441e67990ac506887b6ed13e8227ddc98e72c4",
+    "946b682792418bb4cd21b8cf349777c2b8fc1cd8bdb4c0ab1157b09c95d6859f",
+    "754e06a51add6baf9e2ccd9a61fe190a48045f806513806614b2b2cef89a7f11",
+    "c3f800f7a9460fa0ab25c6941265a880d38beac6e0a0d94cdb8520ea7d1535bd",
+    "865cf814377bb77ab71cfbad6caec7ef3dd5f27355d67ca59a66835e69b04df8",
+    "56188f86602dc292195dfaa860d686820fd6de5a849ccc6f312bab4c24dd1305",
+    "7a7a440c9ca00e333156d5cff54ea6d4703c6bea182ee63c1a37346f4ecc43da",
+    "fda56c1fc1342b94bbad77f3624a1df25f395fe4e0733b9bb61ca2ed649d8bb7"
+  ],
+  "train_sha256": "d284702c7392bedc3373d0a4f0400870d563265c41d479c6a7d9c57904f3dca4",
+  "calibration_sha256": "ad1d534077e9e29b21c9e4bb912afa05f309bf5d4cedafcdb77c3b16b9660660",
+  "test_bytes": 17044,
+  "oov_test_byte_ids": [
+    45,
+    58
+  ],
+  "data_source": "https://huggingface.co/datasets/roneneldan/TinyStories",
+  "dataset_license": "cdla-sharing-1.0",
+  "native_runtime": "x86-64 Assembly compiled to ELF; 256-byte support, full native probability stream",
+  "statistical_runtime": "Python evaluator only; count baseline and fixed mixture",
+  "calibration": {
+    "n_gram_order": 2,
+    "alpha": 0.01,
+    "lambda": 0.4,
+    "count_calibration_grid": {
+      "0:0.001": 2.963941799,
+      "0:0.01": 2.964174477,
+      "0:0.05": 2.965207838,
+      "0:0.1": 2.966497795,
+      "0:0.25": 2.970356056,
+      "0:0.5": 2.976747979,
+      "0:1.0": 2.989388903,
+      "1:0.001": 2.418136045,
+      "1:0.01": 2.369127553,
+      "1:0.05": 2.363210907,
+      "1:0.1": 2.384195612,
+      "1:0.25": 2.459621552,
+      "1:0.5": 2.574412046,
+      "1:1.0": 2.758171236,
+      "2:0.001": 2.41202388,
+      "2:0.01": 2.259417667,
+      "2:0.05": 2.333884841,
+      "2:0.1": 2.461726689,
+      "2:0.25": 2.747244983,
+      "2:0.5": 3.051123099,
+      "2:1.0": 3.414662838
+    },
+    "mixture_calibration_grid": {
+      "0.0": 2.259417667,
+      "0.05": 2.118580083,
+      "0.1": 2.073110243,
+      "0.2": 2.029899,
+      "0.4": 2.010492647,
+      "0.6": 2.038435096,
+      "0.8": 2.114168596,
+      "1.0": 2.323681044
+    },
+    "calibration_native_receipt": {
+      "native_reported_nll": 2.324,
+      "independent_nll": 2.323681044
+    }
+  },
+  "native_test_receipt_all_positions": {
+    "native_reported_nll": 2.438,
+    "independent_nll": 2.437783585
+  },
+  "scoring": {
+    "excludes": "first 8 targets of every story, all inter-story delimiter bytes",
+    "target_scope": "only within-story positions after 8 preceding bytes",
+    "nll_units": "nats/byte",
+    "aggregate": {
+      "all_nll": {
+        "count": 2.258089451,
+        "native": 2.452823074,
+        "hybrid": 2.069128925
+      },
+      "oov_nll": {
+        "count": 6.329330232,
+        "native": 11.049474663,
+        "hybrid": 6.827065217
+      },
+      "seen_nll": {
+        "count": 2.25663535,
+        "native": 2.449752659,
+        "hybrid": 2.067429561
+      },
+      "scored_targets": 16805,
+      "oov_targets": 6
+    },
+    "per_story": [
+      {
+        "scored_positions": 703,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1551.2598960162272,
+          "native": 1783.0930042164373,
+          "hybrid": 1458.2808589278816
+        }
+      },
+      {
+        "scored_positions": 651,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1534.449355398498,
+          "native": 1659.5247552786795,
+          "hybrid": 1394.8437018349227
+        }
+      },
+      {
+        "scored_positions": 747,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1616.9220248921033,
+          "native": 1767.049915943632,
+          "hybrid": 1481.536120898998
+        }
+      },
+      {
+        "scored_positions": 693,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1778.6070002986046,
+          "native": 1880.8199664037652,
+          "hybrid": 1623.6027001158377
+        }
+      },
+      {
+        "scored_positions": 815,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1812.2792510779109,
+          "native": 1997.4897584424439,
+          "hybrid": 1679.1636927493407
+        }
+      },
+      {
+        "scored_positions": 739,
+        "oov_targets": 1,
+        "component_loss_sums": {
+          "count": 1713.8273688338784,
+          "native": 1978.4059517483925,
+          "hybrid": 1627.6005298016173
+        }
+      },
+      {
+        "scored_positions": 939,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 2281.404408317094,
+          "native": 2342.101528512066,
+          "hybrid": 2020.7816275571297
+        }
+      },
+      {
+        "scored_positions": 730,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1659.852036569186,
+          "native": 1723.8888831755269,
+          "hybrid": 1478.228948483497
+        }
+      },
+      {
+        "scored_positions": 744,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1712.4093272631046,
+          "native": 1779.0140377637906,
+          "hybrid": 1542.3637684890994
+        }
+      },
+      {
+        "scored_positions": 626,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1344.1266386365282,
+          "native": 1535.4466147373128,
+          "hybrid": 1254.7416112304059
+        }
+      },
+      {
+        "scored_positions": 665,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1390.3240647727466,
+          "native": 1568.8053751827779,
+          "hybrid": 1311.8639236443014
+        }
+      },
+      {
+        "scored_positions": 339,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 700.9918323607923,
+          "native": 770.1924769740507,
+          "hybrid": 648.8918514885103
+        }
+      },
+      {
+        "scored_positions": 749,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1564.0897377591516,
+          "native": 1779.0433414981303,
+          "hybrid": 1493.7654804963954
+        }
+      },
+      {
+        "scored_positions": 695,
+        "oov_targets": 5,
+        "component_loss_sums": {
+          "count": 1624.0275691176194,
+          "native": 1793.178434592055,
+          "hybrid": 1480.2700684379524
+        }
+      },
+      {
+        "scored_positions": 641,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1439.103913341459,
+          "native": 1523.2714524874311,
+          "hybrid": 1305.7763940747757
+        }
+      },
+      {
+        "scored_positions": 756,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1748.2447441014187,
+          "native": 1854.8131329864418,
+          "hybrid": 1557.908563025941
+        }
+      },
+      {
+        "scored_positions": 855,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1921.516386060007,
+          "native": 1957.1750540156283,
+          "hybrid": 1712.4592728703817
+        }
+      },
+      {
+        "scored_positions": 851,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1966.8893119968561,
+          "native": 1998.5155444600982,
+          "hybrid": 1723.8102935828708
+        }
+      },
+      {
+        "scored_positions": 635,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1353.9602418650034,
+          "native": 1473.6175511672477,
+          "hybrid": 1253.2932353964868
+        }
+      },
+      {
+        "scored_positions": 659,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1567.5123744614364,
+          "native": 1769.9330137851105,
+          "hybrid": 1451.2619172254992
+        }
+      },
+      {
+        "scored_positions": 696,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1583.110863415501,
+          "native": 1684.3628349607484,
+          "hybrid": 1447.2719589338265
+        }
+      },
+      {
+        "scored_positions": 611,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1486.018138886502,
+          "native": 1558.9871127561994,
+          "hybrid": 1344.5462012744633
+        }
+      },
+      {
+        "scored_positions": 659,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1394.9781469602506,
+          "native": 1664.9088145830776,
+          "hybrid": 1339.1457494489916
+        }
+      },
+      {
+        "scored_positions": 607,
+        "oov_targets": 0,
+        "component_loss_sums": {
+          "count": 1201.2885945792623,
+          "native": 1376.0532047631293,
+          "hybrid": 1140.3031222595232
+        }
+      }
+    ],
+    "paired_story_bootstrap": {
+      "unit": "whole story (paired resampling)",
+      "seed": 20261017,
+      "repeats": 2000,
+      "hybrid_minus_count_95pct_descriptive_interval_nats_byte": [
+        -0.212287025,
+        -0.163354378
+      ]
+    }
+  },
+  "interpretation_limits": [
+    "One fixed seed and only twelve training stories: no semantic language understanding shown",
+    "Holdout row IDs frozen before fetch; data source revisions may affect reproducibility",
+    "Calibration source previously inspected; hyperparameter search is small and predefined",
+    "Bootstrap interval is descriptive and does not account for all experiment choices",
+    "Only the native neural probability stream is in Assembly; count and blend use Python",
+    "No generated-text user utility demonstrated; NLL does not measure instruction following",
+    "No model checkpoint artifact is exported in incompatible full-byte v2 format"
+  ]
+}
