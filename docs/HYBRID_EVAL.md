@@ -100,3 +100,28 @@ NEXT GATE: predefine a shared 256-byte positive support for both models,
 separate selection and truly fresh OOV-inclusive test, then verify
 predictive gain and memory/latency costs before integrating the
 count-based sidecar into a production Assembly predictor.
+
+
+## Follow-up: full-byte vocabulary evaluation (2026-10-16)
+
+The previous refusal of validation rows 200..207 remains an accurate
+historical observation: at that time, the native model and trigram
+were masked to bytes seen in the training corpus. A **separate opt-in**
+native Assembly compilation flag now permits 256-byte probabilities,
+with the count-model denominator using that SAME vocabulary.
+
+The locked, previously inspected OOV slice can now be scored; the
+32-epoch 256-byte evaluation found calibrated trigram 2.498354,
+native Assembly 2.535610 and static hybrid 2.221572 nats/byte.
+Yet the 8 genuinely unseen targets alone scored 8.860953,
+15.159669 and 9.365569, respectively: hybrid is WORSE than trigram
+on those target bytes. The smoothing alpha and mixture lambda are
+selected on calibration rows 0..5 only; test rows are not used for
+selection. This is exploratory, not a new blind test. These numbers
+are not directly comparable to the old restricted-vocabulary results.
+
+Commands, source SHA-256, exact grids, checkpoint policy and full
+machine-produced evidence: [FULLBYTE_OOV.md](FULLBYTE_OOV.md)
+and ../evidence/fullbyte-oov-revisit-local.json.
+The next gate is a truly untouched OOV-inclusive test with independent
+baselines and separate unseen-byte metrics.

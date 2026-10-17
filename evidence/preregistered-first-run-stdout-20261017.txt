@@ -1,0 +1,27 @@
+{
+  "protocol": "NIYAH-2026-10-17-preregistered-story-OOV-v1",
+  "train_sha256": "d284702c7392bedc3373d0a4f0400870d563265c41d479c6a7d9c57904f3dca4",
+  "test_sha256": "3b6a01db09383c69184980dc54f75e11b3e483ef391675f2d674a3c9bb5ad710",
+  "story_count": 24,
+  "scored_targets": 16805,
+  "oov_targets": 6,
+  "all_nll": {
+    "count": 2.258089451,
+    "native": 2.452823074,
+    "hybrid": 2.069128925
+  },
+  "oov_nll": {
+    "count": 6.329330232,
+    "native": 11.049474663,
+    "hybrid": 6.827065217
+  },
+  "bootstrap": {
+    "unit": "whole story (paired resampling)",
+    "seed": 20261017,
+    "repeats": 2000,
+    "hybrid_minus_count_95pct_descriptive_interval_nats_byte": [
+      -0.212287025,
+      -0.163354378
+    ]
+  }
+}

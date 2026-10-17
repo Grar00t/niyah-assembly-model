@@ -82,6 +82,80 @@ and `python3 tools/hybrid_eval.py --epochs 32` to reproduce with pinned
 Hugging Face data. Full metrics, limitations and next test:
 [docs/HYBRID_EVAL.md](docs/HYBRID_EVAL.md).
 
+## Opt-in full-byte OOV evaluation (2026-10-16)
+
+An explicitly separate native Assembly compilation mode now evaluates
+all 256 byte IDs, including targets never seen in training. The default
+training-seen-only model and v2 checkpoint contract remain unchanged;
+using full-byte mode with v2 inference/export fails at assembly time.
+
+On previously rejected TinyStories validation rows 200..207 (12,381 bytes),
+the 32-epoch native model produced finite OOV target probabilities. With
+trigram alpha=0.01 and static mixture lambda=0.4 calibrated on rows 0..5:
+
+| Metric (nats/byte, lower is better) | Calibrated trigram | Native attention | Python hybrid |
+| --- | ---: | ---: | ---: |
+| All 12,373 scored targets | 2.498354 | 2.535610 | **2.221572** |
+| Only 8 truly OOV targets | **8.860953** | 15.159669 | 9.365569 |
+
+The hybrid beats trigram on aggregate but **loses on OOV-only targets**.
+This is a previously inspected OOV slice, **not a fresh blind test**,
+and the count/hybrid logic remains a Python evaluator, not Assembly generation.
+The previous masked-vocabulary 100..107 test is not directly comparable.
+
+Offline: run make test-fullbyte-oov; for the optional external dataset
+revisit run python3 tools/oov_revisit.py --epochs 32.
+Protocol, SHA-256 source checks, numerical evidence and limits:
+[docs/FULLBYTE_OOV.md](docs/FULLBYTE_OOV.md).
+
+## Preregistered story-level OOV evaluation (2026-10-17)
+
+The earlier full-byte measurement revisited an **already examined** failing
+slice; it was not an untouched test. Before reading a new source slice, we
+froze the test IDs (official TinyStories validation rows 1200..1223),
+the full-byte native architecture and 32 epochs, alpha/order/lambda
+calibration grids, story-boundary exclusion and 2,000 paired bootstrap
+resamples of whole stories. The new test is fetched **only after**
+the protocol and its exact source code are committed on the public PR.
+
+Run make test-preregistered-eval offline to test source-ID protection,
+per-story OOV scoring and calibration isolation. For the optional bounded
+official dataset evaluation, see docs/PREREGISTERED_EVAL.md and
+tools/preregistered_eval.py. No raw licensed data will be committed.
+
+This is a **methodology and correctness** advance, not a new neural
+architecture or evidence that useful language has emerged. Actual
+human benefit is NOT MEASURED.
+
+## Preregistered TinyStories story-level result (2026-10-17)
+
+A frozen evaluation was committed as
+[f7540b9](https://github.com/Grar00t/niyah-assembly-model/commit/f7540b990d7eee0888bd9cb3e6208d80270533b9)
+**before downloading the test stories**. Native Assembly probabilities were
+compared against a separately calibrated 256-byte n-gram reference on official
+TinyStories validation rows 1200..1223. First-8-byte context and artificial
+story separators were excluded from scored targets.
+
+| Mean next-byte NLL (lower is better) | Calibrated 2-gram | Native Assembly | Fixed 0.4 neural mixture |
+| --- | ---: | ---: | ---: |
+| All 16805 within-story targets | 2.258089 | 2.452823 | **2.069129** |
+| The 6 truly unseen-byte targets | **6.329330** | 11.049475 | 6.827065 |
+
+On this locked 24-story test, the mixture reduced aggregate NLL by **8.37%**
+against the alpha-tuned count baseline and won on all 24 story averages;
+a deterministic paired-story bootstrap yielded a descriptive 95% interval
+of [-0.212287, -0.163354] nats/byte for hybrid-minus-count NLL.
+**OOV-only prediction remained worse than the count baseline.**
+These are reproducible scoring observations, **not proof of language
+understanding, a useful assistant, or a societal benefit**.
+
+See the [frozen protocol](docs/PREREGISTERED_EVAL.md),
+[result and caveats](docs/PREREGISTERED_RESULTS_20261017.md),
+[immutable source hashes and machine receipt](evidence/preregistered-oov-story-local-20261017.json),
+and [Hugging Face release gate](docs/HF_RELEASE_GATE.md).
+Hugging Face publication is **not complete**: author license and
+write-authorized account access are still required.
+
 ## What runs on the machine?
 
 | | Legacy trigram baseline | Native neural attention |
