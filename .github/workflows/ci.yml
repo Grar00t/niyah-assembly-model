@@ -18,6 +18,8 @@ jobs:
         run: make test-hybrid-eval
       - name: Full-byte OOV probability and checkpoint-policy regression
         run: make test-fullbyte-oov
+      - name: Offline preregistered story-level scoring and source-identity regression
+        run: make test-preregistered-eval
       - name: Trigram generation tests
         run: make test
       - name: Assembly attention and independent math oracle

@@ -108,6 +108,25 @@ revisit run python3 tools/oov_revisit.py --epochs 32.
 Protocol, SHA-256 source checks, numerical evidence and limits:
 [docs/FULLBYTE_OOV.md](docs/FULLBYTE_OOV.md).
 
+## Preregistered story-level OOV evaluation (2026-10-17)
+
+The earlier full-byte measurement revisited an **already examined** failing
+slice; it was not an untouched test. Before reading a new source slice, we
+froze the test IDs (official TinyStories validation rows 1200..1223),
+the full-byte native architecture and 32 epochs, alpha/order/lambda
+calibration grids, story-boundary exclusion and 2,000 paired bootstrap
+resamples of whole stories. The new test is fetched **only after**
+the protocol and its exact source code are committed on the public PR.
+
+Run make test-preregistered-eval offline to test source-ID protection,
+per-story OOV scoring and calibration isolation. For the optional bounded
+official dataset evaluation, see docs/PREREGISTERED_EVAL.md and
+tools/preregistered_eval.py. No raw licensed data will be committed.
+
+This is a **methodology and correctness** advance, not a new neural
+architecture or evidence that useful language has emerged. Actual
+human benefit is NOT MEASURED.
+
 ## What runs on the machine?
 
 | | Legacy trigram baseline | Native neural attention |
