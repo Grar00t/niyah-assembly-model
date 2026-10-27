@@ -1,0 +1,139 @@
+{
+  "schema": "niyah-published-source-verification-v1",
+  "recorded_utc": "2026-10-27T16:22:51.732078+00:00",
+  "basis": "Source-only review snapshot rebuilt in clean sibling clones. Only build orchestration and documentation changed.",
+  "source_snapshot": "0fbc64a13a30d2a31d7bdbf4892b3d65b0eda93c",
+  "source_sha256": {
+    "Makefile": "cbf592a0afe44bad2590d4ea5bbb56e95779d379e940414ae57778f7d73063cb",
+    "Makefile.auditor": "ab2303bb973842bda593ed30701004dc1459987d0c29e3527436390142b3d96e",
+    "Makefile.ir": "c0fc7396ce1bad0d3742a51d64ad2c47673cda12e8eee77a136dc8faeafafd7d",
+    "Makefile.kernels": "18961363d47abaf4a6e5804cf4c94ed247e2813041bac2bb79884b4287f0e867",
+    "Makefile.lora": "64f7ec3f6f762ec25b8c3a2ad0fbc38f305585efc6bf2c1150b682e2f638e802",
+    "Makefile.morph": "f83b04eb1c34f75a44285adabc42f4958fe3f401fd9398c32bd52c2d6d3121d9",
+    "evidence/local-audit/verified-source/Makefile": "d3d92b5fe3cc0cb3ef8f0a21bcd0a1679073ece5649a6749ccdc5e7841e04657",
+    "src/attention_lm.s": "6eaf674b45e893efcc94fffdab53146b1cd06d0eace4448db1e1128e7e8b8af4",
+    "src/continual_lora.s": "cca24f736a4c18a3b759df4d17d561caf12439b596abbfc608a429adb1de1150",
+    "src/exactcalc.s": "e8e57055d0ae1771c981e3f9e9695180eaddacb2ad498bfceff45a97acefefdf",
+    "src/morph_tokenizer/start.s": "5b5bbe4172f4d3975579e53cfc0251e5feba8a0118ac5464deff1f20106b0985",
+    "src/morph_tokenizer/tokenizer.c": "3335f2d67ba2d617089ffbff699a51ae2969cdef5a46e251d2fa8911a99c3c5b",
+    "src/morph_tokenizer/upstream/LICENSE": "7528c4d642d894f8e2e67e48da0f8bbd609842e78c4341a6d40b646ac4de1666",
+    "src/morph_tokenizer/upstream/PROVENANCE.json": "fa5773fbc623a5e132933946962e856cd0a122deef88e5b144bad72406b8f298",
+    "src/morph_tokenizer/upstream/attention_byte_v2.s": "f7e66d703c388fe8a110e95569481ea869ca4cd43a7029c69e5f040ff92a0450",
+    "src/morph_tokenizer/upstream/lexer.h": "ceda4418cb1f9ba1f9ffb63c2cc55483cb52d9a465c6bc61abfe124ad5d7cc6b",
+    "src/morph_tokenizer/upstream/morph.c": "0c62989c1a532e01a4591074add544bd6a9945f45201d5ef87bf01306861189e",
+    "src/morph_tokenizer/upstream/morph.h": "fccc0c7f23d327af86439ee6bfcbef793a5ae006bca535e4f7f2cf8d529f9b4d",
+    "src/morph_tokenizer/vocab.h": "6bdd68ad768d280eecc92704d639c8a3c4cab7a7f64e205d2f6db77cfc6fc20b",
+    "src/morph_tokenizer/vocab.json": "1939a48174247d0012e934206e31e02f2d6d795ee622647faf07c1209e010d43",
+    "src/nexus_audit.s": "b5e23ddf5789799c3919462c95c3266be9d36b62bd8a14ba16d7e1122f40752d",
+    "src/tensor_dispatch.s": "48e924edf1d2835a033b34375285837f536af23d0cceabbf304a3d34a42069b6",
+    "src/tensor_runtime.s": "14b675c767073d88a048d61d8ef5c8911ddc00c941bd8ce049c67cd3edd94e78",
+    "src/tile_allocator.s": "35593e3d336495dc5d5d2987c18bdfc6a931db645fe69a118f514d4fbd282baf",
+    "src/tile_kernels.s": "5ba864f438fa422496772dd63220eb7e927d982cfe625d38c1969bdd26303846",
+    "src/tile_probe.s": "ca1edf01d0c53a2c69bb67491bd5a0f9e2296125eafd413024f439de05af4df7",
+    "src/trigram.s": "390234b720148ccad50190626debb1bda178e63476e0d1dce803fea2b8b3f477",
+    "tests/test_attention.py": "8511296248fb23b0dbf174887cd224263619c4d83f64665b5fac001f7e8c8267",
+    "tests/test_checkpoint_negative.py": "b6c4cbaa5b84c7f63f079954c01a5156f334b00105a86efd9814db9d4dd7af20",
+    "tests/test_checkpoint_snapshot.py": "b929e80e5ca71873bfd05947ccaad6e6bb7638586d69657560f0ed0e55ee05bf",
+    "tests/test_continual_lora.py": "c08a400730b0d8f2d348691d4790f773b1bdfd68a934afcb323be6a52591c76b",
+    "tests/test_dispatch_contract.py": "09d53c9742bd48e0e144228a19061a7d803b4341885028b86b3c99089065d234",
+    "tests/test_exactcalc.py": "051483a0616aebb4ca3ae88893cab23f37a801add422d24199d36538d12b573b",
+    "tests/test_generation.py": "b0765bad9a87e9b44833bdebedf542f6769843f5857a51a8713c7733701a349a",
+    "tests/test_hybrid_eval.py": "f31c361600596dba51eceb2d978674b8d93420d316df1deec4bde8de7c315905",
+    "tests/test_ir_bridge.py": "0ec28322b13f071a2cf60b1fac3e2f997646f4622c33ed7f244b5d2772d82482",
+    "tests/test_morph_attention.py": "e370e27ea6a842be0eedfc3db2911aed1821b3f949a422f7c95be8e0c5bd23b7",
+    "tests/test_morph_tokenizer.py": "281a82c9f04a147e00564707b7ac1c8a07cb7af43b76be3284f28af11f91974d",
+    "tests/test_nexus_audit.py": "ce73b4ae717d816fe2bc58dd9c80971b53b5d1e22b428027679d331129f01fde",
+    "tests/test_qkv_gradients.py": "cf3072077e01abf43f8e36e7dda30c333a9c1e9b30cea6ece959cd56a10b594f",
+    "tests/test_simd.py": "0271d39a2eb60a1d0c6de63633ad4fe578652b093e0935b7a4606bb05a7c927b",
+    "tests/test_tile_allocator.py": "3768ef4599b4fb6684c06aa29271d7db18032e9100e5181741ec4e7cfaa07020",
+    "tests/test_tile_kernels.py": "3deccf22119d4b9c52383e04d9b52e1c2c3b93482406af4e928dbe6f498a92b1",
+    "tests/test_tinystories_eval.py": "470eb3838f441466a9a4c72fb1ab02483c87bce4f51fbede949133f7fe812a3e",
+    "tools/bench_avx2.py": "9b85c0645135e63ac13ffa5828d68ba702745d297ac9f04201fa2646ce7b1adf",
+    "tools/bench_native_tiles.py": "762948070005dc2eea277acb04a0600fc5b327c9d5d288ed52eba14c7dfe69c0",
+    "tools/checkpoint.py": "6a650c71b72b6b48636faaffbb7d5cfb8da7643a385a9428385392d782d68ad9",
+    "tools/checkpoint_attention.py": "c2b5ef66951eb037e516b51bc90cc33f06964916f1134be05fb82c352a6d8530",
+    "tools/evaluate_tinystories.py": "3c432736552df52a0360962eb4393c7fb2d9128f3a688a88c7a7c7fb06912e2d",
+    "tools/hybrid_eval.py": "2e96084a958ce6d0b5eee287191c83b212ed3a5522504c7e7e4c0cfd41a15fb8",
+    "tools/morph_attention.py": "a54bd5f979caddc2188ebc606165a2fd73ecb5d965a5e5c11f09e9fb8552b60a",
+    "tools/verify_local.py": "ac05d40ad3b4797e06f592e8699549b760101de0473392a670266f2435cc435f"
+  },
+  "commands": [
+    {
+      "label": "fresh_build_after",
+      "argv": [
+        "make",
+        "-j2",
+        "all",
+        "NIYAH_MODEL=../niyah-assembly-model"
+      ],
+      "exit_code": 0,
+      "seconds": 5.147827232001873
+    },
+    {
+      "label": "published_ast_gate",
+      "argv": [
+        "make",
+        "test-ast-tensor",
+        "NIYAH_MODEL=../niyah-assembly-model"
+      ],
+      "exit_code": 0,
+      "seconds": 36.68428865500027
+    },
+    {
+      "label": "published_nexus_gate",
+      "argv": [
+        "make",
+        "nexus-native",
+        "verify-nexus",
+        "NIYAH_LANG=../niyah-lang"
+      ],
+      "exit_code": 0,
+      "seconds": 33.152606029994786
+    }
+  ],
+  "ast_counts": {
+    "static_ELF_dependency_checks": 3,
+    "ASan_UBSan_API_cases": 26,
+    "canonical_IR_parity": 226,
+    "assembly_byte_parity": 226,
+    "whole_ELF_byte_parity": 226,
+    "C_reference_native_comparisons": 99,
+    "INT32_elements_compared": 274176,
+    "unsupported_ISA_rejections": 22,
+    "predicted_demo_identity": 1,
+    "distinct_same_root_metadata": 2,
+    "pressure_rejections": 37,
+    "intrinsic_syntax_binary_parity": 3,
+    "invalid_AST_or_semantics": 20,
+    "source_size_boundary": 1,
+    "output_failure_74": 4,
+    "no_overwrite": 1,
+    "no_symlink_overwrite": 1,
+    "isolated_compiler_no_helpers": 1
+  },
+  "binary_identities": {
+    "c_reference": {
+      "bytes": 9968,
+      "sha256": "7511ec98bbae153e5e8d6e3424e40312c8ff65ca255cc73f0c42cff97b831d66"
+    },
+    "compiler": {
+      "bytes": 112640,
+      "sha256": "10e20146bbe04418bb716e661f9eabf7276faa03d181f26645ab41dea9aae669"
+    },
+    "demo_elf": {
+      "bytes": 11888,
+      "sha256": "460d3d202fd42d389ff03e7c6305c6c7296480752ff81bead47550187db3c0f4"
+    },
+    "allocator_unchanged": "59447d2ededb37fb66985be7cbb2bb3c4e7b8326443141b61880ece2158e0866",
+    "sidecar_unchanged": "b6924af76ea75dd3f23ef80ff926d67f74959185c346ec178c8df03ad543afe8"
+  },
+  "legacy_scalar_binary_parity_rerun": false,
+  "amx_hardware_executed": false,
+  "avx512_hardware_executed": false,
+  "github_actions_executed": false,
+  "limits": [
+    "Local WSL tests, not a successful cloud CI run.",
+    "Optional old scalar binary baseline was absent from fresh clones.",
+    "No exhaustive security audit or language-quality claim."
+  ]
+}

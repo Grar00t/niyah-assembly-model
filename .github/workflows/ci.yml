@@ -1,44 +1,27 @@
-name: assembly-model
+name: Verify native source pair
+
 on:
   workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
   verify:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - name: Build native Assembly binaries (portable and CPUID-dispatched)
-        run: make
-      - name: Exact rational Assembly differential and failure tests
-        run: make test-exactcalc
-      - name: Offline native-Assembly heldout evaluator regression
-        run: make test-tinystories-eval
-      - name: Offline hybrid native probability and independent trigram oracle
-        run: make test-hybrid-eval
-      - name: Trigram generation tests
-        run: make test
-      - name: Assembly attention and independent math oracle
-        run: make test-attention
-      - name: Independent QKV finite-difference gradient checks
-        run: make test-qkv-gradients
-      - name: AVX2 FMA versus scalar differential verification
-        run: make test-simd
-      - name: Trigram checkpoint train, identity and replay
-        run: make checkpoint verify test-checkpoint
-      - name: Neural attention checkpoint, identity, replay and corruption rejection
-        run: make attention-checkpoint verify-attention test-attention-checkpoint test-attention-negative
-      - name: Inference checkpoint TOCTOU regression
-        run: make test-attention-snapshot
-      - name: Pure assembly auto-kernel inference from verified weights
-        run: make generate-attention-auto
-      - name: Upload bounded verification receipts
-        if: always()
-        uses: actions/upload-artifact@v4
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
-          name: assembly-model-verification
-          path: |
-            verification_results.json
-            attention_verification.json
-          if-no-files-found: ignore
+          path: niyah-assembly-model
+          persist-credentials: false
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: Grar00t/niyah-lang
+          ref: 545498ea74320abaac0d64ff1ba8d741af64702b
+          path: niyah-lang
+          persist-credentials: false
+      - name: Build reference allocator
+        run: make -C niyah-assembly-model tile-allocator
+      - name: Run local verification gates
+        run: make -C niyah-assembly-model nexus-native verify-nexus NIYAH_LANG=../niyah-lang

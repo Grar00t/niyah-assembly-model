@@ -1,5 +1,5 @@
 # Morphology/typed-IR integration. Build tools are not runtime dependencies.
-NIYAH_LANG ?= ../niyah-lang-integrated-20261027
+NIYAH_LANG ?= ../niyah-lang
 IR_LANG = $(abspath $(NIYAH_LANG))
 IR_BUILD ?= build/ir_bridge
 IR_OUT = $(abspath $(IR_BUILD))
