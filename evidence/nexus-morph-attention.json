@@ -1,0 +1,910 @@
+{
+  "schema": "niyah-morph-attention-tests-v1",
+  "result": "PASS",
+  "exit": 0,
+  "workdir": "${WORKSPACE}/niyah-assembly-model/build/morph_native",
+  "elapsed_seconds": 0.9827819040001486,
+  "vocab_size": 294,
+  "vocab_sha256": "1939a48174247d0012e934206e31e02f2d6d795ee622647faf07c1209e010d43",
+  "weight_bytes": 43480,
+  "train_bytes": 198,
+  "train_tokens": 61,
+  "valid_bytes": 74,
+  "valid_tokens": 23,
+  "initial_train_millinats_per_token": 2827,
+  "final_train_millinats_per_token": 30,
+  "heldout_millinats_per_token": 5358,
+  "binary_sha256": {
+    "morph-train": "696387bb9cd6f01fb4e3db7d5fcf8e5f6d706d3fd5b8ed1badb07b6a3e973173",
+    "morph-export": "5d82a8d39f5e02f1df9deb8fd0ce48bc416b2b45394512e1781f6240d2b0ddef",
+    "morph-infer": "6c98f30b8bb0c4cdc39c46863482d76b065237c1c103407352289592cd590006"
+  },
+  "weights_sha256": "3b68b2dfd1f61fa56903ebe700a576f0e36bc919ae09f0b44ebd98bac3793c76",
+  "manifest_sha256": "7f89b579a0784e31452ae8f3afc5547b08eaf8d6b7d0f38e9db8f28c541eda0e",
+  "generated_sample": "والكتاب كتاب. سيكتبها طالب. كتابه واليكتب. طالب علم. فهم كتاب. كتابه طالب. والكتاب كتابه. يكتبها طالب. طالب فهم كتابه. والكتاب علم. سي",
+  "old_byte_checkpoint_compatible": false,
+  "no_libc": true,
+  "runtime_dependencies": [
+    "Linux x86-64 syscall ABI"
+  ],
+  "test_exit": 0,
+  "test_elapsed_seconds": 1.6381573059989023,
+  "independent_oracle_train_millinats_per_token": 30.098088459577152,
+  "independent_oracle_heldout_millinats_per_token": 5358.275401316704,
+  "rejected_incompatible_checkpoints": [
+    {
+      "name": "contract_format",
+      "rejected": true,
+      "reason": "incompatible checkpoint/tokenizer contract"
+    },
+    {
+      "name": "contract_vocab_sha256",
+      "rejected": true,
+      "reason": "incompatible checkpoint/tokenizer contract"
+    },
+    {
+      "name": "contract_vocab_size",
+      "rejected": true,
+      "reason": "incompatible checkpoint/tokenizer contract"
+    },
+    {
+      "name": "contract_context_tokens",
+      "rejected": true,
+      "reason": "incompatible checkpoint/tokenizer contract"
+    },
+    {
+      "name": "contract_weights_bytes",
+      "rejected": true,
+      "reason": "incompatible checkpoint/tokenizer contract"
+    },
+    {
+      "name": "member_weights.f32",
+      "rejected": true,
+      "reason": "incompatible checkpoint geometry"
+    },
+    {
+      "name": "member_weights.f32",
+      "rejected": true,
+      "reason": "non-finite checkpoint"
+    },
+    {
+      "name": "member_weights.f32",
+      "rejected": true,
+      "reason": "incompatible checkpoint geometry"
+    },
+    {
+      "name": "member_train.ids",
+      "rejected": true,
+      "reason": "checkpoint member mismatch: train.ids"
+    },
+    {
+      "name": "member_valid.ids",
+      "rejected": true,
+      "reason": "checkpoint member mismatch: valid.ids"
+    },
+    {
+      "name": "member_morph_attention.s",
+      "rejected": true,
+      "reason": "checkpoint member mismatch: morph_attention.s"
+    },
+    {
+      "name": "member_vocab.json",
+      "rejected": true,
+      "reason": "checkpoint member mismatch: vocab.json"
+    }
+  ],
+  "roundtrip_train_to_frozen_inference": true,
+  "u16_ids_above_255_exercised": true,
+  "qkv_parameters_changed_by_native_sgd": true,
+  "untrained_heldout_millinats_per_token": 2824,
+  "heldout_worse_than_untrained": true,
+  "native_atomic_utf8_validation": [
+    {
+      "input_hex": "",
+      "exit": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "415343494900",
+      "exit": 0,
+      "stdout_bytes": 6
+    },
+    {
+      "input_hex": "d985d8b1d8add8a8d8a7",
+      "exit": 0,
+      "stdout_bytes": 10
+    },
+    {
+      "input_hex": "7fc280dfbfe0a080ed9fbfee8080f0908080f48fbfbf",
+      "exit": 0,
+      "stdout_bytes": 22
+    },
+    {
+      "input_hex": "80",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "c0af",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "c1bf",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "c2",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "c241",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "e09fbf",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "eda080",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "edbfbf",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "e282",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "f08fbfbf",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "f4908080",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "f5808080",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "f09080",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "ff",
+      "exit": 2,
+      "stdout_bytes": 0
+    },
+    {
+      "input_hex": "efbfbf",
+      "exit": 0,
+      "stdout_bytes": 3
+    },
+    {
+      "input_hex": "676f6f64ff",
+      "exit": 2,
+      "stdout_bytes": 0
+    }
+  ],
+  "generation_utf8_policy": "validate complete generated surface bytes before sample stdout; invalid exits2",
+  "token_reduction_vs_raw_byte_fixture_only": {
+    "train_ratio": 3.2459016393442623,
+    "valid_ratio": 3.217391304347826
+  },
+  "memory_continual_lora_implemented": false,
+  "kv_cache_reduction_measured": false,
+  "arabic_quality_or_bpe_advantage_verified": false,
+  "commands": [
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph-tokenizer",
+        "encode"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0007958000023791101,
+      "stdout_bytes": 186,
+      "stdout_sha256": "94ae496a6a01efe26f1fc32f00e1e0004fc486abc03580a49bc871dc4915dfcd",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph-tokenizer",
+        "decode"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0007447999996657018,
+      "stdout_bytes": 198,
+      "stdout_sha256": "9d066b37b19d2cbb584fc8a8ea6e1357d1cedce8511017170368d9a4d9a58ccd",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph-tokenizer",
+        "encode"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0005779999992228113,
+      "stdout_bytes": 110,
+      "stdout_sha256": "f9f69ebf4b3a8d1933e8261a961ed88bbeba0a47330e7f2cb8cef91390e3b328",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph-tokenizer",
+        "decode"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0008230999992520083,
+      "stdout_bytes": 74,
+      "stdout_sha256": "c221005698c95fb671ea87156fb0c23c4c44246a24a1ad699fd0002b90f985b8",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wl,--build-id=none",
+        "-Wa,--defsym,EPOCHS=240",
+        "-Wa,--defsym,SEED=42",
+        "-Wa,--defsym,SAMPLE_LEN=64",
+        "-o",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-train",
+        "morph_attention.s"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model/build/morph_native",
+      "exit": 0,
+      "seconds": 0.2234355010004947,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 207,
+      "stderr_sha256": "79c391277927b30425097af573f756cd3a7760cb00171080bfa9b86cca1e9f11"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-lW",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-train"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0011279000027570873,
+      "stdout_bytes": 812,
+      "stdout_sha256": "3529e227ad27cad02ecc9a8d681de0824ae30e6664d17b9d2b9824548bf051c6",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-dW",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-train"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.000991600001725601,
+      "stdout_bytes": 43,
+      "stdout_sha256": "8f440b11aa34c5145152189d4391ece1272b24d2739a2a33ebcdb30fa0d8d29d",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "nm",
+        "-u",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-train"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.011889600002177758,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-train"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.13178370000241557,
+      "stdout_bytes": 583,
+      "stdout_sha256": "9e5ff8717640165befb8af2a81b312a355a7fb5682b1c0d37c58e24fe9837b54",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wl,--build-id=none",
+        "-Wa,--defsym,EPOCHS=240",
+        "-Wa,--defsym,SEED=42",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-Wa,--defsym,EXPORT_WEIGHTS=1",
+        "-o",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-export",
+        "morph_attention.s"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model/build/morph_native",
+      "exit": 0,
+      "seconds": 0.22038960099962424,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 207,
+      "stderr_sha256": "79c391277927b30425097af573f756cd3a7760cb00171080bfa9b86cca1e9f11"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-lW",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-export"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0011283999992883764,
+      "stdout_bytes": 812,
+      "stdout_sha256": "6e7732b2db1e734b69841f65e81bcfb28be27307dc927b58d0cd977b9f86963a",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-dW",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-export"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0009716000022308435,
+      "stdout_bytes": 43,
+      "stdout_sha256": "8f440b11aa34c5145152189d4391ece1272b24d2739a2a33ebcdb30fa0d8d29d",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "nm",
+        "-u",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-export"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.011131699997349642,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-export"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.1334177009994164,
+      "stdout_bytes": 43800,
+      "stdout_sha256": "032679e55e1fef44d139d3d5253238e52da67704a8f7114dbdf8043aa5912870",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wl,--build-id=none",
+        "-Wa,--defsym,INFERENCE=1",
+        "-Wa,--defsym,SEED=42",
+        "-Wa,--defsym,SAMPLE_LEN=64",
+        "-o",
+        "/tmp/niyah-morph-infer-8_hgdqhr/infer",
+        "morph_attention.s"
+      ],
+      "cwd": "/tmp/niyah-morph-infer-8_hgdqhr",
+      "exit": 0,
+      "seconds": 0.22199050100243767,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 207,
+      "stderr_sha256": "79c391277927b30425097af573f756cd3a7760cb00171080bfa9b86cca1e9f11"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-lW",
+        "/tmp/niyah-morph-infer-8_hgdqhr/infer"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0011183999995409977,
+      "stdout_bytes": 812,
+      "stdout_sha256": "a490aeb74752f8c710cdbb5ac4c3672303282267f420226cdd15b82e36b92018",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-dW",
+        "/tmp/niyah-morph-infer-8_hgdqhr/infer"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0009781000007933471,
+      "stdout_bytes": 43,
+      "stdout_sha256": "8f440b11aa34c5145152189d4391ece1272b24d2739a2a33ebcdb30fa0d8d29d",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "nm",
+        "-u",
+        "/tmp/niyah-morph-infer-8_hgdqhr/infer"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.011045499999454478,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-infer"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0007468000003427733,
+      "stdout_bytes": 351,
+      "stdout_sha256": "c4466bb7af406d7d3f91886ce17b6674a8a0d01e5c818519af39028f08504dff",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-train"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.13241990000096848,
+      "stdout_bytes": 583,
+      "stdout_sha256": "9e5ff8717640165befb8af2a81b312a355a7fb5682b1c0d37c58e24fe9837b54",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-infer"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0007594999988214113,
+      "stdout_bytes": 351,
+      "stdout_sha256": "c4466bb7af406d7d3f91886ce17b6674a8a0d01e5c818519af39028f08504dff",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wl,--build-id=none",
+        "-Wa,--defsym,EPOCHS=0",
+        "-Wa,--defsym,SEED=42",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-o",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-untrained",
+        "morph_attention.s"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model/build/morph_native",
+      "exit": 0,
+      "seconds": 0.22552890099905198,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 207,
+      "stderr_sha256": "79c391277927b30425097af573f756cd3a7760cb00171080bfa9b86cca1e9f11"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-lW",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-untrained"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0013935000024503097,
+      "stdout_bytes": 812,
+      "stdout_sha256": "f5a05b53bb4a35be460a4d47d0d13cbc8dc1cabd4a02017500b774945b3a464b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-dW",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-untrained"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.001131500001065433,
+      "stdout_bytes": 43,
+      "stdout_sha256": "8f440b11aa34c5145152189d4391ece1272b24d2739a2a33ebcdb30fa0d8d29d",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "nm",
+        "-u",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-untrained"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.011366999999154359,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-untrained"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0012100999992981087,
+      "stdout_bytes": 223,
+      "stdout_sha256": "c368bea3b9b7425faf81a8e6e53ddca7511dca144f5d0d10dc6a36437b4ee4a1",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wl,--build-id=none",
+        "-Wa,--defsym,EPOCHS=0",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-Wa,--defsym,MORPH_UTF8_SELFTEST=1",
+        "-o",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test",
+        "morph_attention.s"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model/build/morph_native",
+      "exit": 0,
+      "seconds": 0.22118390100149554,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 207,
+      "stderr_sha256": "79c391277927b30425097af573f756cd3a7760cb00171080bfa9b86cca1e9f11"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-lW",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0010928999981842935,
+      "stdout_bytes": 812,
+      "stdout_sha256": "3c4f05b9d69a2a4bc4e82b7712013ad594a926d7eef3e66dcf781699a7bd65ed",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "readelf",
+        "-dW",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0010311000005458482,
+      "stdout_bytes": 43,
+      "stdout_sha256": "8f440b11aa34c5145152189d4391ece1272b24d2739a2a33ebcdb30fa0d8d29d",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "nm",
+        "-u",
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.01177090000055614,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.00037770000199088827,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.00041589999818825163,
+      "stdout_bytes": 6,
+      "stdout_sha256": "5f997b2b41a03c14afe256506aa994aa205d788e2ff34bfbbd829899001606ea",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.00040860000081011094,
+      "stdout_bytes": 10,
+      "stdout_sha256": "80eff1a750bb540045622ad23c148c8875790515e3f768c77d5dff8c1d221b49",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.0004360999992059078,
+      "stdout_bytes": 22,
+      "stdout_sha256": "9454335522081c74814da7f4f948ecae9fcca74ea825f25bf1b0245fceb8d6ed",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.0004239000008965377,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.00041539999801898375,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.0004091000009793788,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.0004453000001376495,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.00043279999954393134,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.00046129999827826396,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.0004284999995434191,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.0003910000014002435,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.0003828000008070376,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.00036130000080447644,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.00036389999877428636,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.00036720000207424164,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.00046440000005532056,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.0003524000021570828,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 0,
+      "seconds": 0.00039679999827058055,
+      "stdout_bytes": 3,
+      "stdout_sha256": "2c34e62119d9c5fc3aa11640bd7945d6bf309acc6e99d8054f54ae5110e343f6",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 2,
+      "seconds": 0.0004704000020865351,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "${WORKSPACE}/niyah-assembly-model/build/morph_native/morph-utf8-test"
+      ],
+      "cwd": "${WORKSPACE}/niyah-assembly-model",
+      "exit": 4,
+      "seconds": 0.00037090000114403665,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# Morphology/typed-IR integration. Build tools are not runtime dependencies.
+NIYAH_LANG ?= ../niyah-lang
+IR_LANG = $(abspath $(NIYAH_LANG))
+IR_BUILD ?= build/ir_bridge
+IR_OUT = $(abspath $(IR_BUILD))
+.PHONY: ir-bridge ir-demo test-ir-bridge
+ir-bridge: build/tile_allocator $(IR_BUILD)/tensor_runtime.o $(IR_BUILD)/tensor_dispatch.o
+	$(MAKE) -C "$(IR_LANG)" tensor-backend
+$(IR_BUILD)/tensor_runtime.o: src/tensor_runtime.s
+	mkdir -p $(IR_BUILD)
+	$(AS) --64 -o $@ $<
+$(IR_BUILD)/tensor_dispatch.o: src/tensor_dispatch.s
+	mkdir -p $(IR_BUILD)
+	$(AS) --64 -o $@ $<
+ir-demo: ir-bridge
+	"$(IR_LANG)/niyahc-tile" --ir examples/tensor_arabic.niyah > "$(IR_OUT)/demo.nir"
+	"$(IR_LANG)/niyahc-tile" --intervals "$(IR_OUT)/demo.nir" > "$(IR_OUT)/demo.intervals"
+	./build/tile_allocator < "$(IR_OUT)/demo.intervals" > "$(IR_OUT)/demo.assignment"
+	"$(IR_LANG)/niyahc-tile" --asm "$(IR_OUT)/demo.nir" "$(IR_OUT)/demo.assignment" > "$(IR_OUT)/demo.s"
+	$(AS) --64 -o "$(IR_OUT)/demo.o" "$(IR_OUT)/demo.s"
+	$(LD) -static --build-id=none -z noexecstack -o "$(IR_OUT)/demo.elf" "$(IR_OUT)/demo.o" "$(IR_OUT)/tensor_runtime.o" "$(IR_OUT)/tensor_dispatch.o"
+test-ir-bridge: ir-demo
+	python3 tests/test_ir_bridge.py --compiler "$(IR_LANG)/niyahc-tile" --allocator "$(CURDIR)/build/tile_allocator" --runtime "$(IR_OUT)/tensor_runtime.o" --dispatch "$(IR_OUT)/tensor_dispatch.o" --lang "$(IR_LANG)" --evidence "$(IR_OUT)/test_receipt.json"
+	python3 tests/test_dispatch_contract.py --dispatch "$(IR_OUT)/tensor_dispatch.o" --runtime "$(IR_OUT)/tensor_runtime.o" --program "$(IR_OUT)/demo.o" --evidence "$(IR_OUT)/dispatch_receipt.json"
+nexus-native: ir-bridge
+verify-nexus: test-ir-bridge

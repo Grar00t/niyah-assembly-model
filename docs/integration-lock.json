@@ -1,0 +1,8 @@
+{
+  "schema": "niyah-compatible-source-pair-v1",
+  "compiler_repository": "Grar00t/niyah-lang",
+  "compiler_source_snapshot": "545498ea74320abaac0d64ff1ba8d741af64702b",
+  "backend_repository": "Grar00t/niyah-assembly-model",
+  "backend_source_snapshot": "0fbc64a13a30d2a31d7bdbf4892b3d65b0eda93c",
+  "note": "Immutable implementation snapshots. Review follow-ups contain the explicit fresh-build prerequisite and documentation. These are build-time source dependencies, not runtime services."
+}

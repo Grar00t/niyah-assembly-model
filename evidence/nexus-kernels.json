@@ -1,0 +1,1176 @@
+{
+  "status": "PASS",
+  "features": {
+    "cpuid1_ecx": 4277842467,
+    "cpuid7_ebx": 10233769,
+    "cpuid7_edx": 3154117632,
+    "xcr0": 7,
+    "max_leaf": 22,
+    "avx2_fma_os": true,
+    "avx512f_fma_os": false,
+    "amx_int8_xcr0": false
+  },
+  "gemm_fixture_count": 35,
+  "executed_fp32_paths": [
+    "scalar",
+    "auto",
+    "avx2"
+  ],
+  "gemm_max_abs_error": 3.6434619339331675e-06,
+  "expected_negative_vectors": 12,
+  "unsupported": {
+    "avx512": "observed native exit77 before unsupported instructions",
+    "amx-int8": "observed native exit77 before unsupported instructions"
+  },
+  "amx": {
+    "hardware_executed": false
+  },
+  "tiled_attention": {
+    "epochs": 240,
+    "byte_identical_scalar_vs_tiled": true,
+    "byte_identical_auto_vs_tiled": true,
+    "forced_scalar_verified": true
+  },
+  "native_binary_sha256": "1a848b2cc14254e539e49ff2e5eaa15e1318299c971ad39c8de5d568a48f9c91",
+  "native_binary_bytes": 10000,
+  "static_elf_no_interp_no_needed_no_undefined": true,
+  "commands": [
+    {
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wl,-z,noexecstack",
+        "-o",
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "src/tile_probe.s",
+        "src/tile_kernels.s"
+      ],
+      "exit_code": 0,
+      "seconds": 0.21890139999959501
+    },
+    {
+      "command": [
+        "readelf",
+        "-l",
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0014484999992419034
+    },
+    {
+      "command": [
+        "readelf",
+        "-d",
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0011807000009866897
+    },
+    {
+      "command": [
+        "nm",
+        "-u",
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe"
+      ],
+      "exit_code": 0,
+      "seconds": 0.011676000001898501
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "features"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00036890000046696514
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0005270000001473818
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00039670000114711
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004990999987057876
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004608000017469749
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003851000001304783
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00035989999742014334
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004579999986162875
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0005770999996457249
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.000442300002760021
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0005071999985375442
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003501999999571126
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00035149999894201756
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00046520000250893645
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00057820000074571
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0005848999971931335
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00042270000267308205
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003856999974232167
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003875999973388389
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003968999990320299
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00047679999988758937
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004229000005580019
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.000567299997783266
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00041319999945699237
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004579999986162875
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00044779999734601006
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00037030000021331944
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003968999990320299
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00037659999725292437
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003775000004679896
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003628999984357506
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00037320000046747737
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00038190000122995116
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00038080000012996607
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00048779999997350387
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00038669999776175246
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003723999980138615
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003805999986070674
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003842000005533919
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00038240000139921904
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0005024000020057429
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00039339999784715474
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00037509999674512073
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.000374700000975281
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00037200000224402174
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003735999998752959
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0005937000023550354
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004535999978543259
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00047500000073341653
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00043790000199805945
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00045229999886942096
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00045230000250739977
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00045759999920846894
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00046129999827826396
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004564000009850133
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00045789999785483815
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00047190000259433873
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004716000003099907
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0005462000008265022
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0005837999997311272
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003713000005518552
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004735000002256129
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0007753999998385552
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00047059999997145496
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00047819999963394366
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004760000010719523
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004780999988724943
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00041629999759607017
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003713999976753257
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00036920000275131315
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00031799999851500615
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00041899999996530823
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00045590000081574544
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004363000007288065
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00033239999902434647
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003357999994477723
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00030419999893638305
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003285999991931021
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003147000024910085
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00034139999843318947
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00033999999868683517
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00033010000333888456
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003434999998717103
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003806000022450462
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003595000016503036
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003628000013122801
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00041199999759555794
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00036109999928157777
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003069000013056211
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003374999978404958
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003752999982680194
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00042580000081215985
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003332999986014329
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003093999985139817
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003727000002982095
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00033210000037797727
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004112999995413702
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004028000003017951
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00031519999902229756
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003132999991066754
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0003025999976671301
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.000529200002347352
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004245000018272549
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.0004974999974365346
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.000332799998432165
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx2"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00034670000241021626
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "avx512"
+      ],
+      "exit_code": 77,
+      "seconds": 0.00036099999852012843
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "amx-int8"
+      ],
+      "exit_code": 77,
+      "seconds": 0.0003656999979284592
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe"
+      ],
+      "exit_code": 64,
+      "seconds": 0.0003240999976696912
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "unknown"
+      ],
+      "exit_code": 64,
+      "seconds": 0.00037929999962216243
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "0"
+      ],
+      "exit_code": 64,
+      "seconds": 0.00033319999783998355
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "-1"
+      ],
+      "exit_code": 64,
+      "seconds": 0.00032730000020819716
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "10000001"
+      ],
+      "exit_code": 64,
+      "seconds": 0.0004063000014866702
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        ""
+      ],
+      "exit_code": 64,
+      "seconds": 0.000316099998599384
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "features",
+        "2"
+      ],
+      "exit_code": 64,
+      "seconds": 0.00036389999877428636
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 65,
+      "seconds": 0.00038560000029974617
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 65,
+      "seconds": 0.0004103999999642838
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 65,
+      "seconds": 0.000356099997588899
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "scalar"
+      ],
+      "exit_code": 65,
+      "seconds": 0.0003629000020737294
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto",
+        "3"
+      ],
+      "exit_code": 0,
+      "seconds": 0.00034360000063315965
+    },
+    {
+      "command": [
+        "${WORKSPACE}/niyah-assembly-model/build/tile_probe",
+        "auto",
+        "stdout=/dev/full"
+      ],
+      "exit_code": 74
+    },
+    {
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wa,--defsym,EPOCHS=240",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-Wa,--defsym,EXPORT_WEIGHTS=1",
+        "-o",
+        "/tmp/niyah-tiled-grk01nrs/scalar",
+        "src/attention_lm.s"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2165261010013637
+    },
+    {
+      "command": [
+        "/tmp/niyah-tiled-grk01nrs/scalar"
+      ],
+      "exit_code": 0,
+      "seconds": 0.19807000000218977
+    },
+    {
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wa,--defsym,EPOCHS=240",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-Wa,--defsym,EXPORT_WEIGHTS=1",
+        "-Wa,--defsym,TILED_PROJECTIONS=1",
+        "-o",
+        "/tmp/niyah-tiled-grk01nrs/scalar_tiled",
+        "src/attention_lm.s"
+      ],
+      "exit_code": 0,
+      "seconds": 0.22560430000157794
+    },
+    {
+      "command": [
+        "/tmp/niyah-tiled-grk01nrs/scalar_tiled"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2028862000006484
+    },
+    {
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wa,--defsym,EPOCHS=240",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-Wa,--defsym,EXPORT_WEIGHTS=1",
+        "-Wa,--defsym,AVX2_AUTO=1",
+        "-o",
+        "/tmp/niyah-tiled-grk01nrs/auto",
+        "src/attention_lm.s"
+      ],
+      "exit_code": 0,
+      "seconds": 0.22187950000079582
+    },
+    {
+      "command": [
+        "/tmp/niyah-tiled-grk01nrs/auto"
+      ],
+      "exit_code": 0,
+      "seconds": 0.1578633009994519
+    },
+    {
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wa,--defsym,EPOCHS=240",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-Wa,--defsym,EXPORT_WEIGHTS=1",
+        "-Wa,--defsym,AVX2_AUTO=1",
+        "-Wa,--defsym,TILED_PROJECTIONS=1",
+        "-o",
+        "/tmp/niyah-tiled-grk01nrs/auto_tiled",
+        "src/attention_lm.s"
+      ],
+      "exit_code": 0,
+      "seconds": 0.21874900000329944
+    },
+    {
+      "command": [
+        "/tmp/niyah-tiled-grk01nrs/auto_tiled"
+      ],
+      "exit_code": 0,
+      "seconds": 0.15095279999877675
+    },
+    {
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wa,--defsym,EPOCHS=240",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-Wa,--defsym,EXPORT_WEIGHTS=1",
+        "-Wa,--defsym,AVX2_AUTO=1",
+        "-Wa,--defsym,FORCE_SCALAR=1",
+        "-Wa,--defsym,TILED_PROJECTIONS=1",
+        "-o",
+        "/tmp/niyah-tiled-grk01nrs/fallback_tiled",
+        "src/attention_lm.s"
+      ],
+      "exit_code": 0,
+      "seconds": 0.22439849999864236
+    },
+    {
+      "command": [
+        "/tmp/niyah-tiled-grk01nrs/fallback_tiled"
+      ],
+      "exit_code": 0,
+      "seconds": 0.2017684000020381
+    }
+  ]
+}
