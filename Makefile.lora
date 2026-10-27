@@ -1,0 +1,8 @@
+# Optional native rank-2 adaptation component; runtime uses Linux syscalls only.
+.PHONY: continual-lora test-continual-lora
+build/continual_lora: src/continual_lora.s
+	mkdir -p build
+	$(CC) -nostdlib -static -no-pie -Wl,--build-id=none -o $@ $<
+continual-lora: build/continual_lora
+test-continual-lora: build/continual_lora
+	python3 tests/test_continual_lora.py

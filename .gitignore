@@ -6,3 +6,20 @@ attention_verification.json
 
 # License-controlled dataset bytes are retrieved locally, never committed.
 data/external/
+
+# Local compiler, credentials and model artifacts
+/niyahc-tile
+/niyahc.baseline
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+*.p12
+*.safetensors
+*.gguf
+*.pt
+*.pth
+*.ckpt
+*.f32

@@ -76,3 +76,17 @@ verify-all:
 	$(MAKE) test-exactcalc test-tinystories-eval
 clean:
 	rm -f build/trigram build/attention_lm build/attention_lm_auto build/exactcalc
+
+# Native Nexus milestone: runtime components use raw Linux syscalls.
+include Makefile.kernels
+include Makefile.morph
+include Makefile.lora
+include Makefile.auditor
+.PHONY: nexus-native verify-nexus
+nexus-native: native-kernels morph-tokenizer morph-attention continual-lora nexus-audit
+verify-nexus:
+	$(MAKE) verify-all test-hybrid-eval
+	$(MAKE) test-kernels test-morph-tokenizer test-morph-attention test-continual-lora test-nexus-audit
+
+# Native morphology / typed tensor IR bridge.
+include Makefile.ir

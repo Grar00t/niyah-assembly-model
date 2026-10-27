@@ -1,0 +1,26 @@
+# Optional native Nexus components; Python is a verification/build harness only.
+.PHONY: native-kernels test-kernels bench-kernels
+native-kernels: build/tile_probe build/attention_lm_tiled
+build/tile_probe: src/tile_probe.s src/tile_kernels.s
+	mkdir -p build
+	$(CC) -nostdlib -static -no-pie -Wl,-z,noexecstack -o $@ $^
+build/attention_lm_tiled: src/attention_lm.s data/corpus.txt data/heldout.txt
+	mkdir -p build
+	$(CC) -nostdlib -static -no-pie -Wl,-z,noexecstack -Wa,--defsym,AVX2_AUTO=1 -Wa,--defsym,TILED_PROJECTIONS=1 -o $@ $<
+test-kernels:
+	python3 tests/test_tile_kernels.py
+bench-kernels: native-kernels
+	python3 tools/bench_native_tiles.py
+
+# Verified syscall-only interval coloring; no AMX instruction is executed here.
+.PHONY: tile-allocator test-tile-allocator
+native-kernels: build/tile_allocator
+test-kernels: test-tile-allocator
+tile-allocator: build/tile_allocator
+build/tile_allocator.o: src/tile_allocator.s
+	mkdir -p build
+	$(AS) --64 -o $@ $<
+build/tile_allocator: build/tile_allocator.o
+	$(LD) -static --build-id=none -z noexecstack -o $@ $<
+test-tile-allocator: build/tile_allocator
+	python3 tests/test_tile_allocator.py

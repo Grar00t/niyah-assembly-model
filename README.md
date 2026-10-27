@@ -11,6 +11,55 @@ reasoning.** The current text fixture has 93 training bytes and 68 related
 validation bytes. The model cannot be claimed to understand language based
 on these results. Python is *only* a test/packaging/benchmark harness.
 
+
+## Native Nexus integration milestone (2026-10-27)
+
+The new optional components are executable on Linux/WSL, use raw kernel
+syscalls, and do not link libc or depend on PyTorch/CUDA at runtime:
+
+```sh
+make nexus-native
+make verify-nexus
+./build/morph_native/morph-infer
+./build/nexus_audit add 1 10 2 10 3/10
+```
+
+- `attention_lm_tiled`: four-row AVX2 Q/K/V projection, preserving the
+  original path's trained weights exactly in the 240-epoch regression.
+- `tile_probe`: fixed-shape scalar/AVX2 GEMM plus guarded AVX512F and
+  AMX INT8 paths. The current i5-10400F executes AVX2; requests for the
+  unsupported paths return 77. This is an OS-hosted static ELF, not a
+  bootable bare-metal environment.
+- `morph-tokenizer`: lossless Arabic surface segmentation using the
+  existing user-owned niyah-lang morphology implementation, with byte
+  fallback and a versioned 294-token vocabulary.
+- `morph_native/morph-infer`: a distinct u16-token attention model and
+  versioned checkpoint, with whole-sample strict UTF-8 output checking.
+  The existing byte checkpoints are incompatible with this new model.
+  Native implementation checks pass. The tiny Arabic experiment OVERFITS:
+  heldout loss rises from 2.824 to 5.358 nats/token. It is not a language
+  quality success or a measured KV-cache reduction.
+- `continual_lora`: isolated rank-2 online projection adaptation,
+ 64 trainable parameters, frozen native base, bounded steps, replay
+  checks, persisted generations, and rejection without overwriting the
+  previous adapter. It is not yet wired into language-model generation.
+- `nexus_audit`: compares a candidate rational answer with the sibling
+  native exactcalc using fork/pipe/execve/wait4. Only its declared
+  arithmetic domain is verified.
+
+See [native tiles](docs/NATIVE_TILES.md),
+[morphology](docs/MORPH_TOKENIZER.md),
+[continual adaptation](docs/CONTINUAL_LORA.md), and
+[symbolic auditor](docs/NATIVE_AUDITOR.md). Build/test orchestration uses
+GNU tools and Python's standard library; the produced native executables
+run independently of Python. The separate niyah-lang compiler remains
+hosted C, while its generated ELF programs are syscall-only.
+
+Measured local speed ratios and all raw samples are in
+`evidence/nexus-native-benchmark.json`. They describe fixed tiny workloads,
+not general large-language-model throughput. Visual context compression
+is not implemented: the current text model has no trained vision encoder.
+
 ## Exact mathematical engine and checkpoint safety (October 2026)
 
 Niyah now includes an independently testable **pure Assembly exact rational

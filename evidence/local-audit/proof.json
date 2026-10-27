@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "project": "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model",
+  "project": "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-assembly-model",
   "machine": "x86_64",
   "operations": [
     {
@@ -22,8 +22,8 @@
         "-static",
         "-no-pie",
         "-o",
-        "/home/a/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/trigram",
-        "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s"
+        "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/trigram",
+        "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s"
       ],
       "exit_code": 0,
       "seconds": 0.222001,
@@ -32,7 +32,7 @@
     {
       "name": "training",
       "command": [
-        "/home/a/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/trigram"
+        "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/trigram"
       ],
       "exit_code": 0,
       "seconds": 0.022242,
@@ -42,7 +42,7 @@
       "name": "package-tests",
       "command": [
         "/usr/bin/python3",
-        "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model/tests/test_generation.py"
+        "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-assembly-model/tests/test_generation.py"
       ],
       "exit_code": 0,
       "seconds": 1.211236,
@@ -52,10 +52,10 @@
       "name": "extended-tests",
       "command": [
         "/usr/bin/python3",
-        "/home/a/trigram-py67LL90/verify_model.py",
-        "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s",
+        "${WORKSPACE}/trigram-py67LL90/verify_model.py",
+        "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s",
         "--lexer",
-        "/home/a/niyah-input-fix-xbgJg8lR/niyahlex"
+        "${WORKSPACE}/niyah-input-fix-xbgJg8lR/niyahlex"
       ],
       "exit_code": 0,
       "seconds": 3.419197,
@@ -70,8 +70,8 @@
         "-no-pie",
         "-Wa,--defsym,INFERENCE=1",
         "-o",
-        "/home/a/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/generate",
-        "/home/a/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s"
+        "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/generate",
+        "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-assembly-model/src/trigram.s"
       ],
       "exit_code": 0,
       "seconds": 0.500821,
@@ -80,7 +80,7 @@
     {
       "name": "inference",
       "command": [
-        "/home/a/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/generate"
+        "${WORKSPACE}/niyah-project-OCSIHxhj/niyah-proof-jk6ow5kb/generate"
       ],
       "exit_code": 0,
       "seconds": 0.000857,

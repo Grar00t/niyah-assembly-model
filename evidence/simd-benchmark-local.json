@@ -1,5 +1,5 @@
 {
-  "host": "DESKTOP-2P1JAIV (Ubuntu under WSL)",
+  "host": "local-x86-64-host (Ubuntu under WSL)",
   "cpu_model": "Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz",
   "epochs": 1200,
   "repeated_trials_per_kernel": 12,
