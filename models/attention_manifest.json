@@ -1,0 +1,26 @@
+{
+  "format": "niyah-attention-f32-v2-learned-qkv",
+  "architecture": "D=16, CTX=8, trainable WQ/WK/WV, one-head attention, residual ReLU FFN",
+  "epoch_count": 240,
+  "weights_len": 38464,
+  "sha256_weights": "c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46",
+  "sha256_assembly": "6eaf674b45e893efcc94fffdab53146b1cd06d0eace4448db1e1128e7e8b8af4",
+  "sha256_train_corpus": "73607c19ac2af04dd21962735e596f41e4f8fe2cd2027050ae783100532cc5e0",
+  "sha256_heldout_corpus": "d6e10c272d3e08e52441079aca61c6d5cc8576424aa7d15d6e8271970f98e792",
+  "stdout_metrics": [
+    "initial_train_loss_x1000 2500",
+    "epoch 0  loss_x1000 2441",
+    "epoch 40  loss_x1000 421",
+    "epoch 80  loss_x1000 243",
+    "epoch 120  loss_x1000 214",
+    "epoch 160  loss_x1000 266",
+    "epoch 200  loss_x1000 200",
+    "final_train_loss_x1000 167",
+    "heldout_loss_x1000 238"
+  ],
+  "warnings": [
+    "SHA-256 is integrity, not authenticity",
+    "no optimizer state; individual file replacements are not a transaction",
+    "training corpus is too small to establish broad generalization"
+  ]
+}

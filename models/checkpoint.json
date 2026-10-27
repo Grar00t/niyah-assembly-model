@@ -1,0 +1,10 @@
+{
+  "format": "raw-float32-le",
+  "weight_bytes": 67108864,
+  "files": {
+    "src/trigram.s": "390234b720148ccad50190626debb1bda178e63476e0d1dce803fea2b8b3f477",
+    "data/corpus.txt": "73607c19ac2af04dd21962735e596f41e4f8fe2cd2027050ae783100532cc5e0"
+  },
+  "weights_sha256": "a3e84a9e8cdd3dfff466b43f6716b00b796132c8e49fb7c9978ef19b288ffdcb",
+  "optimizer_state_saved": false
+}

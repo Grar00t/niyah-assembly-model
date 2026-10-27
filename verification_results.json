@@ -1,0 +1,35 @@
+{
+  "tests": [
+    {
+      "test": "seed 1",
+      "pass": true,
+      "length": 4096,
+      "outside": 0
+    },
+    {
+      "test": "seed 42",
+      "pass": true,
+      "length": 4096,
+      "outside": 0
+    },
+    {
+      "test": "replay",
+      "pass": true
+    },
+    {
+      "test": "seed 2463534242",
+      "pass": true,
+      "length": 4096,
+      "outside": 0
+    },
+    {
+      "test": "seed 4294967295",
+      "pass": true,
+      "length": 4096,
+      "outside": 0
+    }
+  ],
+  "passed": 5,
+  "total": 5,
+  "memory_safety_proven": false
+}

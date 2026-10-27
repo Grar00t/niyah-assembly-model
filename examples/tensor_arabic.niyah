@@ -1,0 +1,5 @@
+reserve 1;
+input_a والكتاب;
+input_b سيكتب;
+gemm نتيجة = والكتاب * سيكتب;
+emit نتيجة;

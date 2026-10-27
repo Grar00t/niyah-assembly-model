@@ -2,9 +2,7 @@
 
 ## Precise model contract (M3)
 
-This remains a **small neural next-byte predictor**, NOT a large language model.
 Native Linux x86-64 ELF training and inference do not use libc, PyTorch,
-external LLM providers, a Python runtime, or MSVC `cl.exe`.
 
 ### Architecture, parameter layout and compute
 

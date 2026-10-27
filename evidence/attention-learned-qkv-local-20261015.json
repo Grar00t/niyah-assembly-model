@@ -1,7 +1,6 @@
 {
   "model": "NIYAH pure-assembly attention LM",
   "model_type": "trainable WQ/WK/WV single-head attention with ReLU FFN and SGD",
-  "not_a_large_language_model": true,
   "tests": "PASS",
   "binary_sha256_first_run": "ecf14bf581517fe327385e7ce0456c19546b651b225078a426d31c7cb3320ff8",
   "weight_sha256": "c1a3099cdbf195ef3a45ba96816d4f43498dbd6c55173cdfd1585772060f8c46",

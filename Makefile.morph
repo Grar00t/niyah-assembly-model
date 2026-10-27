@@ -1,0 +1,14 @@
+# Optional native morphology targets; include from root Makefile.
+MORPH_CFLAGS = -O2 -std=c11 -Wall -Wextra -Werror -ffreestanding -fno-builtin -fno-stack-protector -fno-tree-loop-distribute-patterns -fno-asynchronous-unwind-tables -fno-unwind-tables
+MORPH_LINK = -nostdlib -static -no-pie -Wl,--build-id=none
+.PHONY: morph-tokenizer test-morph-tokenizer morph-attention test-morph-attention
+morph-tokenizer: build/morph-tokenizer
+build/morph-tokenizer: src/morph_tokenizer/tokenizer.c src/morph_tokenizer/start.s src/morph_tokenizer/vocab.h src/morph_tokenizer/upstream/morph.c src/morph_tokenizer/upstream/morph.h src/morph_tokenizer/upstream/lexer.h
+	mkdir -p build
+	$(CC) $(MORPH_CFLAGS) $(MORPH_LINK) -o $@ src/morph_tokenizer/start.s src/morph_tokenizer/tokenizer.c src/morph_tokenizer/upstream/morph.c
+test-morph-tokenizer: build/morph-tokenizer
+	python3 tests/test_morph_tokenizer.py
+morph-attention: build/morph-tokenizer
+	python3 tools/morph_attention.py build
+test-morph-attention: build/morph-tokenizer
+	python3 tests/test_morph_attention.py

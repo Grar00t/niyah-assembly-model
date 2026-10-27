@@ -7,7 +7,7 @@ CC = cc
         generate-attention-auto test-attention-checkpoint \
         test-attention-negative bench-avx2 verify-all clean
 
-all: build/trigram build/attention_lm build/attention_lm_auto build/exactcalc
+all: build/trigram build/attention_lm
 build/trigram: src/trigram.s data/corpus.txt
 	mkdir -p build
 	$(CC) -nostdlib -static -no-pie -o $@ $<
@@ -20,9 +20,6 @@ build/attention_lm_auto: src/attention_lm.s data/corpus.txt data/heldout.txt
 build/exactcalc: src/exactcalc.s
 	mkdir -p build
 	$(CC) -nostdlib -static -no-pie -o $@ $<
-exactcalc: build/exactcalc
-test-exactcalc: build/exactcalc
-	python3 tests/test_exactcalc.py
 test-tinystories-eval:
 	python3 tests/test_tinystories_eval.py
 test-hybrid-eval:
@@ -45,8 +42,6 @@ test-checkpoint:
 
 run-attention: build/attention_lm
 	./build/attention_lm
-run-attention-auto: build/attention_lm_auto
-	./build/attention_lm_auto
 test-attention:
 	python3 tests/test_attention.py
 test-simd:
@@ -59,8 +54,6 @@ verify-attention:
 	python3 tools/checkpoint_attention.py verify
 generate-attention:
 	python3 tools/checkpoint_attention.py generate
-generate-attention-auto:
-	python3 tools/checkpoint_attention.py generate-auto
 test-attention-checkpoint:
 	python3 tools/checkpoint_attention.py test
 test-attention-negative:
@@ -76,3 +69,17 @@ verify-all:
 	$(MAKE) test-exactcalc test-tinystories-eval
 clean:
 	rm -f build/trigram build/attention_lm build/attention_lm_auto build/exactcalc
+
+# Native Nexus milestone: runtime components use raw Linux syscalls.
+include Makefile.kernels
+include Makefile.morph
+include Makefile.lora
+include Makefile.auditor
+.PHONY: nexus-native verify-nexus
+nexus-native: native-kernels morph-tokenizer morph-attention continual-lora nexus-audit
+verify-nexus:
+	$(MAKE) verify-all test-hybrid-eval
+	$(MAKE) test-kernels test-morph-tokenizer test-morph-attention test-continual-lora test-nexus-audit
+
+# Native morphology / typed tensor IR bridge.
+include Makefile.ir

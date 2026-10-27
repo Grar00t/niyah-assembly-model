@@ -290,6 +290,80 @@ dot16:
     jb .Ldot16_scalar_loop
     ret
 
+
+# Four-row tiled projection. ABI: RDI=W16x16, RSI=x16, RDX=y16.
+# Preserves RBX/R8/R9/R12-R15; clobbers RAX/RCX/R10/R11 and XMM0-XMM6.
+# Floating reduction order per row exactly matches the existing dot16 SIMD.
+.ifdef TILED_PROJECTIONS
+matvec16_tiled:
+ .ifdef AVX2_AUTO
+ cmp dword ptr [rip+simd_capable],0
+ je .Lmv_scalar
+ .endif
+ .if COMPILE_SIMD
+ vmovups ymm4,[rsi]
+ vmovups ymm5,[rsi+32]
+ xor eax,eax
+ xor ecx,ecx
+.Lmv_block:
+ vmovups ymm0,[rdi+rax+0]
+ vmulps ymm0,ymm0,ymm4
+ vmovups ymm6,[rdi+rax+32]
+ vfmadd231ps ymm0,ymm6,ymm5
+ vmovups ymm1,[rdi+rax+64]
+ vmulps ymm1,ymm1,ymm4
+ vmovups ymm6,[rdi+rax+96]
+ vfmadd231ps ymm1,ymm6,ymm5
+ vmovups ymm2,[rdi+rax+128]
+ vmulps ymm2,ymm2,ymm4
+ vmovups ymm6,[rdi+rax+160]
+ vfmadd231ps ymm2,ymm6,ymm5
+ vmovups ymm3,[rdi+rax+192]
+ vmulps ymm3,ymm3,ymm4
+ vmovups ymm6,[rdi+rax+224]
+ vfmadd231ps ymm3,ymm6,ymm5
+ vextractf128 xmm6,ymm0,1
+ vaddps xmm0,xmm0,xmm6
+ vhaddps xmm0,xmm0,xmm0
+ vhaddps xmm0,xmm0,xmm0
+ vmovss [rdx+rcx+0],xmm0
+ vextractf128 xmm6,ymm1,1
+ vaddps xmm1,xmm1,xmm6
+ vhaddps xmm1,xmm1,xmm1
+ vhaddps xmm1,xmm1,xmm1
+ vmovss [rdx+rcx+4],xmm1
+ vextractf128 xmm6,ymm2,1
+ vaddps xmm2,xmm2,xmm6
+ vhaddps xmm2,xmm2,xmm2
+ vhaddps xmm2,xmm2,xmm2
+ vmovss [rdx+rcx+8],xmm2
+ vextractf128 xmm6,ymm3,1
+ vaddps xmm3,xmm3,xmm6
+ vhaddps xmm3,xmm3,xmm3
+ vhaddps xmm3,xmm3,xmm3
+ vmovss [rdx+rcx+12],xmm3
+ add eax,256
+ add ecx,16
+ cmp eax,1024
+ jb .Lmv_block
+ vzeroupper
+ ret
+ .endif
+.Lmv_scalar:
+ xor eax,eax
+.Lmv_scalar_row:
+ lea r10,[rdi+rax]
+ mov r11,rsi
+ call dot16
+ mov ecx,eax
+ shr ecx,4
+ movss [rdx+rcx],xmm0
+ add eax,64
+ cmp eax,1024
+ jb .Lmv_scalar_row
+ ret
+.endif
+
 # Forward: r13 = position >= CTX, seqbase = ptr, predicts token at r13.
 # Q=WQ*X[last], K[t]=WK*X[t], V[t]=WV*X[t].
 # attention = softmax(Q*K/sqrt(16)); H=X[last]+attention*V;
@@ -324,6 +398,32 @@ forward:
     inc r8d
     cmp r8d,CTX
     jb .Lctx
+    .ifdef TILED_PROJECTIONS
+    # Q/K/V projection shares input loads across four output rows.
+    lea rdi,[rip+WQ]
+    lea rsi,[rip+X+448]
+    lea rdx,[rip+Q]
+    call matvec16_tiled
+    xor r8d,r8d
+.Ltiled_kv:
+    mov eax,r8d
+    shl eax,6
+    lea rsi,[rip+X]
+    add rsi,rax
+    lea rdi,[rip+WK]
+    lea rdx,[rip+K]
+    add rdx,rax
+    call matvec16_tiled
+    mov eax,r8d
+    shl eax,6
+    lea rdi,[rip+WV]
+    lea rdx,[rip+VCTX]
+    add rdx,rax
+    call matvec16_tiled
+    inc r8d
+    cmp r8d,CTX
+    jb .Ltiled_kv
+    .else
     # Actual *learnable*, independent query/key/value projection matrices.
     # Shape: WQ, WK, WV = [16,16] row-major float32.
     xor r8d,r8d
@@ -372,6 +472,7 @@ forward:
     inc r8d
     cmp r8d,CTX
     jb .Lkv_t
+    .endif
     xor r8d,r8d
 .Lscores:
     mov r9d,r8d

@@ -1,8 +1,15 @@
 build/
-models/
+build_*/
+*.o
+*.exe
+*.precleanup
+*.bak
+mary.zip
+corpus.json
+shakespeare.txt
+models/*.f32
+models/*.bin
 __pycache__/
-verification_results.json
-attention_verification.json
-
-# License-controlled dataset bytes are retrieved locally, never committed.
-data/external/
+*.pyc
+runs/
+artifacts/

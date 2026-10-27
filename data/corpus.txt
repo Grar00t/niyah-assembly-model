@@ -1,1 +1,360 @@
-the cat sat on the mat. the cat ate the rat. the rat sat on the cat. the mat sat on the rat. 
+	.file	"Xtransutil.c"
+	.text
+	.ident	"GCC: (Debian 16.2.0-1) 16.2.0"
+	.section	.note.GNU-stack,"",@progbits
+	.file	"transport.c"
+	.text
+	.section	.rodata.str1.1,"aMS",@progbits,1
+.LC0:
+	.string	"%s"
+	.text
+	.p2align 4
+	.type	ErrorF.constprop.0, @function
+ErrorF.constprop.0:
+	subq	$216, %rsp
+	movq	%rsi, 40(%rsp)
+	movq	%rdx, 48(%rsp)
+	movq	%rcx, 56(%rsp)
+	movq	%r8, 64(%rsp)
+	movq	%r9, 72(%rsp)
+	testb	%al, %al
+	je	.L3
+	movaps	%xmm0, 80(%rsp)
+	movaps	%xmm1, 96(%rsp)
+	movaps	%xmm2, 112(%rsp)
+	movaps	%xmm3, 128(%rsp)
+	movaps	%xmm4, 144(%rsp)
+	movaps	%xmm5, 160(%rsp)
+	movaps	%xmm6, 176(%rsp)
+	movaps	%xmm7, 192(%rsp)
+.L3:
+	leaq	224(%rsp), %rax
+	movq	stderr(%rip), %rdi
+	leaq	8(%rsp), %rdx
+	movl	$8, 8(%rsp)
+	movq	%rax, 16(%rsp)
+	leaq	.LC0(%rip), %rsi
+	leaq	32(%rsp), %rax
+	movl	$48, 12(%rsp)
+	movq	%rax, 24(%rsp)
+	call	vfprintf@PLT
+	movq	stderr(%rip), %rdi
+	call	fflush@PLT
+	addq	$216, %rsp
+	ret
+	.size	ErrorF.constprop.0, .-ErrorF.constprop.0
+	.section	.rodata.str1.1
+.LC1:
+	.string	"_XTrans"
+	.text
+	.p2align 4
+	.type	prmsg, @function
+prmsg:
+	subq	$232, %rsp
+	movq	%rdx, 64(%rsp)
+	movq	%rcx, 72(%rsp)
+	movq	%r8, 80(%rsp)
+	movq	%r9, 88(%rsp)
+	testb	%al, %al
+	je	.L9
+	movaps	%xmm0, 96(%rsp)
+	movaps	%xmm1, 112(%rsp)
+	movaps	%xmm2, 128(%rsp)
+	movaps	%xmm3, 144(%rsp)
+	movaps	%xmm4, 160(%rsp)
+	movaps	%xmm5, 176(%rsp)
+	movaps	%xmm6, 192(%rsp)
+	movaps	%xmm7, 208(%rsp)
+.L9:
+	leaq	240(%rsp), %rax
+	movl	$16, 24(%rsp)
+	movq	%rax, 32(%rsp)
+	leaq	48(%rsp), %rax
+	movl	$48, 28(%rsp)
+	movq	%rax, 40(%rsp)
+	cmpl	$1, %edi
+	je	.L11
+	addq	$232, %rsp
+	ret
+	.p2align 4,,10
+	.p2align 3
+.L11:
+	movq	%rbx, 224(%rsp)
+	movq	%rsi, %rbx
+	call	__errno_location@PLT
+	leaq	.LC1(%rip), %rsi
+	leaq	.LC0(%rip), %rdi
+	movl	(%rax), %r8d
+	movq	%rax, 8(%rsp)
+	xorl	%eax, %eax
+	movl	%r8d, 4(%rsp)
+	call	ErrorF.constprop.0
+	movq	stderr(%rip), %rdi
+	leaq	24(%rsp), %rdx
+	movq	%rbx, %rsi
+	call	vfprintf@PLT
+	movq	stderr(%rip), %rdi
+	call	fflush@PLT
+	movl	4(%rsp), %r8d
+	movq	8(%rsp), %rcx
+	movq	224(%rsp), %rbx
+	movl	%r8d, (%rcx)
+	addq	$232, %rsp
+	ret
+	.size	prmsg, .-prmsg
+	.section	.rodata.str1.1
+.LC2:
+	.string	"FreeConnInfo(%p)\n"
+	.text
+	.p2align 4
+	.globl	_XTransFreeConnInfo
+	.type	_XTransFreeConnInfo, @function
+_XTransFreeConnInfo:
+	pushq	%rbx
+	movq	%rdi, %rdx
+	movq	%rdi, %rbx
+	leaq	.LC2(%rip), %rsi
+	movl	$3, %edi
+	xorl	%eax, %eax
+	call	prmsg
+	movq	48(%rbx), %rdi
+	testq	%rdi, %rdi
+	je	.L13
+	call	free@PLT
+.L13:
+	movq	64(%rbx), %rdi
+	testq	%rdi, %rdi
+	je	.L14
+	call	free@PLT
+.L14:
+	movq	32(%rbx), %rdi
+	testq	%rdi, %rdi
+	je	.L15
+	call	free@PLT
+.L15:
+	movq	%rbx, %rdi
+	popq	%rbx
+	jmp	free@PLT
+	.size	_XTransFreeConnInfo, .-_XTransFreeConnInfo
+	.section	.rodata.str1.1
+.LC3:
+	.string	"SetOption(%d,%d,%d)\n"
+	.text
+	.p2align 4
+	.globl	_XTransSetOption
+	.type	_XTransSetOption, @function
+_XTransSetOption:
+	pushq	%r12
+	movl	%edx, %r8d
+	movl	%edx, %r12d
+	movl	%esi, %ecx
+	pushq	%rbp
+	xorl	%eax, %eax
+	pushq	%rbx
+	movl	28(%rdi), %ebp
+	movl	%esi, %ebx
+	movl	$2, %edi
+	leaq	.LC3(%rip), %rsi
+	movl	%ebp, %edx
+	call	prmsg
+	cmpl	$1, %ebx
+	je	.L27
+	cmpl	$2, %ebx
+	je	.L28
+.L30:
+	xorl	%eax, %eax
+.L26:
+	popq	%rbx
+	popq	%rbp
+	popq	%r12
+	ret
+	.p2align 4,,10
+	.p2align 3
+.L28:
+	movl	$1, %edx
+	movl	$2, %esi
+.L35:
+	popq	%rbx
+	movl	%ebp, %edi
+	xorl	%eax, %eax
+	popq	%rbp
+	popq	%r12
+	jmp	fcntl@PLT
+	.p2align 4,,10
+	.p2align 3
+.L27:
+	cmpl	$1, %r12d
+	jne	.L30
+	xorl	%edx, %edx
+	xorl	%eax, %eax
+	movl	$3, %esi
+	movl	%ebp, %edi
+	call	fcntl@PLT
+	cmpl	$-1, %eax
+	je	.L26
+	orb	$8, %ah
+	movl	$4, %esi
+	movl	%eax, %edx
+	jmp	.L35
+	.size	_XTransSetOption, .-_XTransSetOption
+	.p2align 4
+	.globl	_XTransBytesReadable
+	.type	_XTransBytesReadable, @function
+_XTransBytesReadable:
+	movq	(%rdi), %rax
+	jmp	*24(%rax)
+	.size	_XTransBytesReadable, .-_XTransBytesReadable
+	.p2align 4
+	.globl	_XTransRead
+	.type	_XTransRead, @function
+_XTransRead:
+	movq	(%rdi), %rax
+	jmp	*32(%rax)
+	.size	_XTransRead, .-_XTransRead
+	.p2align 4
+	.globl	_XTransWrite
+	.type	_XTransWrite, @function
+_XTransWrite:
+	movq	(%rdi), %rax
+	jmp	*40(%rax)
+	.size	_XTransWrite, .-_XTransWrite
+	.p2align 4
+	.globl	_XTransReadv
+	.type	_XTransReadv, @function
+_XTransReadv:
+	movq	(%rdi), %rax
+	jmp	*48(%rax)
+	.size	_XTransReadv, .-_XTransReadv
+	.p2align 4
+	.globl	_XTransWritev
+	.type	_XTransWritev, @function
+_XTransWritev:
+	movq	(%rdi), %rax
+	jmp	*56(%rax)
+	.size	_XTransWritev, .-_XTransWritev
+	.p2align 4
+	.globl	_XTransDisconnect
+	.type	_XTransDisconnect, @function
+_XTransDisconnect:
+	movq	(%rdi), %rax
+	jmp	*64(%rax)
+	.size	_XTransDisconnect, .-_XTransDisconnect
+	.section	.rodata.str1.1
+.LC4:
+	.string	"Close(%d)\n"
+	.text
+	.p2align 4
+	.globl	_XTransClose
+	.type	_XTransClose, @function
+_XTransClose:
+	pushq	%rbx
+	leaq	.LC4(%rip), %rsi
+	movq	%rdi, %rbx
+	xorl	%eax, %eax
+	subq	$16, %rsp
+	movl	28(%rdi), %edx
+	movl	$2, %edi
+	call	prmsg
+	movq	(%rbx), %rax
+	movq	%rbx, %rdi
+	call	*72(%rax)
+	movq	%rbx, %rdi
+	movl	%eax, 12(%rsp)
+	call	_XTransFreeConnInfo
+	movl	12(%rsp), %eax
+	addq	$16, %rsp
+	popq	%rbx
+	ret
+	.size	_XTransClose, .-_XTransClose
+	.section	.rodata.str1.1
+.LC5:
+	.string	"CloseForCloning(%d)\n"
+	.text
+	.p2align 4
+	.globl	_XTransCloseForCloning
+	.type	_XTransCloseForCloning, @function
+_XTransCloseForCloning:
+	pushq	%rbx
+	leaq	.LC5(%rip), %rsi
+	movq	%rdi, %rbx
+	xorl	%eax, %eax
+	subq	$16, %rsp
+	movl	28(%rdi), %edx
+	movl	$2, %edi
+	call	prmsg
+	movq	(%rbx), %rax
+	movq	%rbx, %rdi
+	call	*80(%rax)
+	movq	%rbx, %rdi
+	movl	%eax, 12(%rsp)
+	call	_XTransFreeConnInfo
+	movl	12(%rsp), %eax
+	addq	$16, %rsp
+	popq	%rbx
+	ret
+	.size	_XTransCloseForCloning, .-_XTransCloseForCloning
+	.p2align 4
+	.globl	_XTransIsLocal
+	.type	_XTransIsLocal, @function
+_XTransIsLocal:
+	xorl	%eax, %eax
+	cmpl	$1, 40(%rdi)
+	sete	%al
+	ret
+	.size	_XTransIsLocal, .-_XTransIsLocal
+	.section	.rodata.str1.1
+.LC6:
+	.string	"GetPeerAddr(%d)\n"
+.LC7:
+	.string	"GetPeerAddr: malloc failed\n"
+	.text
+	.p2align 4
+	.globl	_XTransGetPeerAddr
+	.type	_XTransGetPeerAddr, @function
+_XTransGetPeerAddr:
+	pushq	%r13
+	xorl	%eax, %eax
+	movq	%rsi, %r13
+	leaq	.LC6(%rip), %rsi
+	pushq	%r12
+	movq	%rcx, %r12
+	pushq	%rbp
+	movq	%rdi, %rbp
+	pushq	%rbx
+	movq	%rdx, %rbx
+	subq	$8, %rsp
+	movl	28(%rdi), %edx
+	movl	$2, %edi
+	call	prmsg
+	movl	40(%rbp), %eax
+	movl	%eax, 0(%r13)
+	movl	72(%rbp), %edx
+	movl	%edx, (%rbx)
+	movslq	%edx, %rbx
+	movq	%rbx, %rdi
+	call	malloc@PLT
+	movq	%rax, (%r12)
+	testq	%rax, %rax
+	je	.L51
+	movq	64(%rbp), %rsi
+	movq	%rbx, %rdx
+	movq	%rax, %rdi
+	call	memcpy@PLT
+	xorl	%eax, %eax
+.L47:
+	addq	$8, %rsp
+	popq	%rbx
+	popq	%rbp
+	popq	%r12
+	popq	%r13
+	ret
+.L51:
+	leaq	.LC7(%rip), %rsi
+	movl	$1, %edi
+	call	prmsg
+	movl	$-1, %eax
+	jmp	.L47
+	.size	_XTransGetPeerAddr, .-_XTransGetPeerAddr
+	.p2align 4
+	.globl	_XTransGetConnectionNumber
+	.type	_XTransGetConnectionNumber, @function

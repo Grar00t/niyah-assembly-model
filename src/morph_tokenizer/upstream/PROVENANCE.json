@@ -1,0 +1,31 @@
+{
+  "source_repository": "https://github.com/Grar00t/niyah-lang",
+  "source_head": "f96d8b0a3af12042af0fd7cfed2fbed6acc61579",
+  "license": "MIT, Copyright (c) 2026 Suliman Alshammari",
+  "files": [
+    {
+      "source": "/home/a/niyah-lang-integrated-20261027/src/morph.c",
+      "destination": "src/morph_tokenizer/upstream/morph.c",
+      "sha256": "0c62989c1a532e01a4591074add544bd6a9945f45201d5ef87bf01306861189e",
+      "bytes": 12350
+    },
+    {
+      "source": "/home/a/niyah-lang-integrated-20261027/src/morph.h",
+      "destination": "src/morph_tokenizer/upstream/morph.h",
+      "sha256": "fccc0c7f23d327af86439ee6bfcbef793a5ae006bca535e4f7f2cf8d529f9b4d",
+      "bytes": 2133
+    },
+    {
+      "source": "/home/a/niyah-lang-integrated-20261027/src/lexer.h",
+      "destination": "src/morph_tokenizer/upstream/lexer.h",
+      "sha256": "ceda4418cb1f9ba1f9ffb63c2cc55483cb52d9a465c6bc61abfe124ad5d7cc6b",
+      "bytes": 1128
+    },
+    {
+      "source": "/home/a/niyah-lang-integrated-20261027/LICENSE",
+      "destination": "src/morph_tokenizer/upstream/LICENSE",
+      "sha256": "7528c4d642d894f8e2e67e48da0f8bbd609842e78c4341a6d40b646ac4de1666",
+      "bytes": 1075
+    }
+  ]
+}

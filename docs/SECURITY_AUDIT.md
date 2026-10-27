@@ -14,7 +14,6 @@ gradient checks, AVX2 versus scalar behavior, exact checkpoint replay,
 source/corpus/weight SHA-256, and disposable corruption negative tests.
 
 The existing experimental model is **9,616 float32 parameters, 8-byte
-context**, not a large language model.
 
 ## Concrete vulnerability fixed: file verification-to-use race
 

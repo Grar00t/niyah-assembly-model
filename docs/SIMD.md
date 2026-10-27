@@ -47,7 +47,6 @@ model runs in native assembly with no Python interpreter loaded into it.
 All 36 raw timing values in
 [../evidence/simd-benchmark-local.json](../evidence/simd-benchmark-local.json).
 The performance estimate is specific to the **9,616-parameter, 8-byte context**
-M3 model, not an LLM throughput guarantee. OS scheduling and CPU clock
 changes can move these results.
 
 ## Independent numerical verification
@@ -88,5 +87,4 @@ corruption/missing-file cases are in GitHub Actions. No Win32/MSVC
 The new neural raw weight format is **v2** and intentionally fails closed
 on incompatible older v1 checkpoints.
 
-This is a kernel improvement and one learnable attention head, not an LLM
 or proof of invention outside learned parameters.

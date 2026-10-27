@@ -1,1 +1,36 @@
-the rat ate the mat. the mat sat on the cat. the cat sat on the rat.
+_XTransGetConnectionNumber:
+	movl	28(%rdi), %eax
+	ret
+	.size	_XTransGetConnectionNumber, .-_XTransGetConnectionNumber
+	.p2align 4
+	.globl	_XTransGetHostname
+	.type	_XTransGetHostname, @function
+_XTransGetHostname:
+	pushq	%r12
+	movq	%rdi, %r12
+	pushq	%rbp
+	pushq	%rbx
+	movl	%esi, %ebx
+	subq	$400, %rsp
+	movq	%rsp, %rdi
+	call	uname@PLT
+	leaq	65(%rsp), %rdi
+	call	strlen@PLT
+	leal	-1(%rbx), %edx
+	leaq	65(%rsp), %rsi
+	movq	%r12, %rdi
+	cmpl	%eax, %ebx
+	cmovg	%eax, %edx
+	movslq	%edx, %rbp
+	movq	%rbp, %rdx
+	call	memcpy@PLT
+	movb	$0, (%r12,%rbp)
+	movl	%ebp, %eax
+	addq	$400, %rsp
+	popq	%rbx
+	popq	%rbp
+	popq	%r12
+	ret
+	.size	_XTransGetHostname, .-_XTransGetHostname
+	.ident	"GCC: (Debian 16.2.0-1) 16.2.0"
+	.section	.note.GNU-stack,"",@progbits

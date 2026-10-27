@@ -1,0 +1,588 @@
+{
+  "cpu": "Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz",
+  "pinned_cpu": 0,
+  "method": "2 warmups; 11 alternating-order subprocess wall-time samples per path; identical output checked each run",
+  "gemm": {
+    "shape": "FP32 16x16 * 16x16",
+    "native_repetitions_per_sample": 100000,
+    "stats": {
+      "scalar": {
+        "n": 11,
+        "median_seconds": 0.2288993189977191,
+        "min_seconds": 0.22561811900231987,
+        "max_seconds": 0.2335084190017369,
+        "p10_seconds": 0.22584791899862466,
+        "p90_seconds": 0.23253402000045753,
+        "mad_seconds": 0.002659701003722148
+      },
+      "avx2_tiled": {
+        "n": 11,
+        "median_seconds": 0.011741300997528015,
+        "min_seconds": 0.011220601001696195,
+        "max_seconds": 0.013660101001732983,
+        "p10_seconds": 0.011407801001041662,
+        "p90_seconds": 0.011890601002960466,
+        "mad_seconds": 0.00014930000543245114
+      }
+    },
+    "all_seconds": {
+      "scalar": [
+        0.23253402000045753,
+        0.2335084190017369,
+        0.22561811900231987,
+        0.2318261199980043,
+        0.22648091899827705,
+        0.22925571900123032,
+        0.2267497189968708,
+        0.22827081899959012,
+        0.23155902000144124,
+        0.2288993189977191,
+        0.22584791899862466
+      ],
+      "avx2_tiled": [
+        0.011800501000834629,
+        0.011660301002848428,
+        0.011501401000714395,
+        0.011407801001041662,
+        0.011890601002960466,
+        0.01188480100245215,
+        0.011220601001696195,
+        0.011575501001061639,
+        0.011861601000418887,
+        0.011741300997528015,
+        0.013660101001732983
+      ]
+    },
+    "speedup_scalar_over_avx2_tiled": 19.49522621436168,
+    "avx2_gflop_per_second": 69.77080309690318
+  },
+  "model": {
+    "epochs": 1200,
+    "training_bytes": 93,
+    "stats": {
+      "dot16_avx2": {
+        "n": 11,
+        "median_seconds": 0.7729096530019888,
+        "min_seconds": 0.7689942799988785,
+        "max_seconds": 0.7861903599987272,
+        "p10_seconds": 0.7699970260000555,
+        "p90_seconds": 0.7855268310013344,
+        "mad_seconds": 0.002912627001933288
+      },
+      "tiled_projection_avx2": {
+        "n": 11,
+        "median_seconds": 0.7425561339987325,
+        "min_seconds": 0.7328315990016563,
+        "max_seconds": 0.7754598339997756,
+        "p10_seconds": 0.7374392310011899,
+        "p90_seconds": 0.770891127998766,
+        "mad_seconds": 0.0044101550010964274
+      }
+    },
+    "all_seconds": {
+      "dot16_avx2": [
+        0.7861903599987272,
+        0.7813708579997183,
+        0.7786043550004251,
+        0.7729096530019888,
+        0.7855268310013344,
+        0.7713347290009551,
+        0.7699970260000555,
+        0.7689942799988785,
+        0.7727249409981596,
+        0.7739800269991974,
+        0.772737726001651
+      ],
+      "tiled_projection_avx2": [
+        0.7410776340002485,
+        0.7425561339987325,
+        0.7441162360009912,
+        0.7374392310011899,
+        0.770891127998766,
+        0.7754598339997756,
+        0.746966288999829,
+        0.7408127800008515,
+        0.7490301399993768,
+        0.7328315990016563,
+        0.7414845050006988
+      ]
+    },
+    "speedup_existing_avx2_over_tiled_projection": 1.040877069912277,
+    "output_sha256": {
+      "dot16_avx2": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036",
+      "tiled_projection_avx2": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    }
+  },
+  "limitations": "Fixed tiny matrices and 93-byte training fixture; WSL scheduling/process overhead included; no AMX/AVX512 performance measured; not general LLM throughput.",
+  "source_sha256": {
+    "src/tile_probe.s": "ca1edf01d0c53a2c69bb67491bd5a0f9e2296125eafd413024f439de05af4df7",
+    "src/tile_kernels.s": "5ba864f438fa422496772dd63220eb7e927d982cfe625d38c1969bdd26303846",
+    "src/attention_lm.s": "6eaf674b45e893efcc94fffdab53146b1cd06d0eace4448db1e1128e7e8b8af4",
+    "tools/bench_native_tiles.py": "762948070005dc2eea277acb04a0600fc5b327c9d5d288ed52eba14c7dfe69c0"
+  },
+  "binary_sha256": {
+    "tile_probe": "1a848b2cc14254e539e49ff2e5eaa15e1318299c971ad39c8de5d568a48f9c91",
+    "dot16_avx2": "115cee178caf549343098cf32b0c0ac353e0708e5c6b25a4623c0e04242b0f51",
+    "tiled_projection_avx2": "fd4a3062935318183ee53e6b3cd1f2a54fc9eb32236e8c555489065e371fdd5b"
+  },
+  "all_process_exit_codes_observed": [
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "features"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "30e36224ce5a731d06f7877cf3bcc5eb79c3b0a58044eb1e583afed128e5e059"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "scalar",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/tile_probe",
+        "avx2",
+        "100000"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "904ce0e1307baec74fb51b4d1ab3e83e67a49d996406bb6e77fbec1f269e3eb1"
+    },
+    {
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wa,--defsym,AVX2_AUTO=1",
+        "-Wa,--defsym,EPOCHS=1200",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-o",
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2",
+        "src/attention_lm.s"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "cc",
+        "-nostdlib",
+        "-static",
+        "-no-pie",
+        "-Wa,--defsym,AVX2_AUTO=1",
+        "-Wa,--defsym,EPOCHS=1200",
+        "-Wa,--defsym,SAMPLE_LEN=0",
+        "-Wa,--defsym,TILED_PROJECTIONS=1",
+        "-o",
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2",
+        "src/attention_lm.s"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_dot16_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    },
+    {
+      "command": [
+        "/home/a/niyah-assembly-model/build/bench_tiled_projection_avx2"
+      ],
+      "exit_code": 0,
+      "stdout_sha256": "e3ca5f76cadae0d2612f795d536937360fee10e8d8ae798a63722f0a49d30036"
+    }
+  ],
+  "source_and_kernel_hashes_unchanged_during_measurement": true
+}
