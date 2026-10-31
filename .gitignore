@@ -13,5 +13,3 @@ __pycache__/
 *.pyc
 runs/
 artifacts/
-**/.icann.env
-**/.icann.token

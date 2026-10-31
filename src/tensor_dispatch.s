@@ -4,14 +4,10 @@
 .balign 64
 .global nx_cpu
 nx_cpu: .skip 64
-# Separate six-u32 snapshot; NXISA001 remains exactly 64 bytes.
-# max basic leaf, max palette, palette1 EAX/EBX/ECX, TMUL EBX.
-.global nx_amx_limits
-nx_amx_limits: .skip 24
 nx_supported_xcomp: .skip 8
 nx_permitted_xcomp: .skip 8
 .section .text
-.global nx_detect_int8,nx_amx_permission,nx_policy,nx_decode_caps,nx_decode_amx_limits
+.global nx_detect_int8,nx_amx_permission,nx_policy,nx_decode_caps
 # Pure policy: EDI usable ISA bits (1 AVX2,2 AVX512F,4 AMX-INT8),
 # ESI process AMX permission (exactly 1). No privileged/ISA-dependent instruction.
 # Return 0 scalar,1 AVX2,2 AVX512,3 AMX.
@@ -37,24 +33,21 @@ nx_detect_int8:
  push rbx
  lea rdi,[rip+nx_cpu]
  xor eax,eax
- mov ecx,11
+ mov ecx,8
  rep stosq
  movabs rax,0x313030415349584e
  mov [rip+nx_cpu],rax
  xor eax,eax
  cpuid
  mov r8d,eax
- mov [rip+nx_amx_limits],eax
  cmp eax,1
  jb .detect_done
  mov eax,1
  cpuid
  mov [rip+nx_cpu+24],ecx
  mov r9d,ecx
- mov eax,ecx
- and eax,0x0c000000
- cmp eax,0x0c000000
- jne .detect_leaf7
+ bt ecx,27
+ jnc .detect_leaf7
  xor ecx,ecx
  xgetbv
  shl rdx,32
@@ -68,29 +61,6 @@ nx_detect_int8:
  cpuid
  mov [rip+nx_cpu+32],ebx
  mov [rip+nx_cpu+40],edx
- # Palette/TMUL leaves are valid only for an advertised AMX candidate.
- mov eax,edx
- and eax,0x03000000
- cmp eax,0x03000000
- jne .detect_done
- cmp r8d,0x1e
- jb .detect_done
- mov eax,0x1d
- xor ecx,ecx
- cpuid
- mov [rip+nx_amx_limits+4],eax
- cmp eax,1
- jb .detect_done
- mov eax,0x1d
- mov ecx,1
- cpuid
- mov [rip+nx_amx_limits+8],eax
- mov [rip+nx_amx_limits+12],ebx
- mov [rip+nx_amx_limits+16],ecx
- mov eax,0x1e
- xor ecx,ecx
- cpuid
- mov [rip+nx_amx_limits+20],ebx
 .detect_done:
  call nx_decode_caps
  pop rbx
@@ -104,8 +74,8 @@ nx_decode_caps:
  mov ecx,[rip+nx_cpu+32]
  mov r10d,[rip+nx_cpu+40]
  mov eax,r9d
- and eax,0x1c000000
- cmp eax,0x1c000000
+ and eax,0x18000000
+ cmp eax,0x18000000
  jne .decode_amx
  mov rax,[rip+nx_cpu+16]
  and eax,6
@@ -123,10 +93,8 @@ nx_decode_caps:
  jne .decode_amx
  or qword ptr [rip+nx_cpu+8],2
 .decode_amx:
- mov eax,r9d
- and eax,0x0c000000
- cmp eax,0x0c000000
- jne .decode_done
+ bt r9d,27
+ jnc .decode_done
  and r10d,0x03000000
  cmp r10d,0x03000000
  jne .decode_done
@@ -134,54 +102,9 @@ nx_decode_caps:
  and eax,0x60000
  cmp eax,0x60000
  jne .decode_done
- lea rdi,[rip+nx_amx_limits]
- sub rsp,8
- call nx_decode_amx_limits
- add rsp,8
- test eax,eax
- jnz .decode_done
  or qword ptr [rip+nx_cpu+8],4
 .decode_done:
  mov eax,[rip+nx_cpu+8]
- ret
-# Pure palette/TMUL decoder. RDI points to the bounded six-u32 snapshot.
-# Return 0 if palette 1 supports eight 16x64-byte tiles and the INT8 TMUL;
-# otherwise 77. No CPUID, syscall, vector, or tile instruction executes here.
-# Fields follow Intel CPUID 1DH.01H and 1EH.00H, Table 1-3.
-nx_decode_amx_limits:
- cmp dword ptr [rdi],0x1e
- jb .limits_no
- cmp dword ptr [rdi+4],1
- jb .limits_no
- mov edx,[rdi+8]
- movzx eax,dx
- cmp eax,8192
- jb .limits_no
- shr edx,16
- cmp edx,1024
- jb .limits_no
- mov edx,[rdi+12]
- movzx eax,dx
- cmp eax,64
- jb .limits_no
- shr edx,16
- cmp edx,8
- jb .limits_no
- movzx eax,word ptr [rdi+16]
- cmp eax,16
- jb .limits_no
- mov edx,[rdi+20]
- movzx eax,dl
- cmp eax,16
- jb .limits_no
- shr edx,8
- and edx,0xffff
- cmp edx,64
- jb .limits_no
- xor eax,eax
- ret
-.limits_no:
- mov eax,77
  ret
 # Call in the final process (permission is cleared by exec).
 # No tile instruction is executed by this function.

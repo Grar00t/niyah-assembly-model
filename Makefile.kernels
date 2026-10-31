@@ -9,8 +9,6 @@ build/attention_lm_tiled: src/attention_lm.s data/corpus.txt data/heldout.txt
 	$(CC) -nostdlib -static -no-pie -Wl,-z,noexecstack -Wa,--defsym,AVX2_AUTO=1 -Wa,--defsym,TILED_PROJECTIONS=1 -o $@ $<
 test-kernels:
 	python3 tests/test_tile_kernels.py
-test-i8-gemm:
-	python3 tests/test_i8_gemm.py
 bench-kernels: native-kernels
 	python3 tools/bench_native_tiles.py
 

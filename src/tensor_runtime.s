@@ -140,7 +140,6 @@ selected:
  cmp rax,-4
  je .read_extra
  test rax,rax
- js read_error
  jnz input_error
  cmp qword ptr [rip+nx_cpu+48],3
  jne .run_vector
@@ -181,8 +180,7 @@ read_exact:
  cmp rax,-4
  je .read_loop
  test rax,rax
- js read_error
- jz input_error
+ jle input_error
  add rsi,rax
  sub rdx,rax
  jnz .read_loop
@@ -210,9 +208,6 @@ usage_error:
  jmp exit_code
 input_error:
  mov edi,65
- jmp exit_code
-read_error:
- mov edi,66
  jmp exit_code
 output_error:
  mov edi,74

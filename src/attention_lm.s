@@ -3,7 +3,7 @@
 # Educational neural language model, NOT a large language model.
 .intel_syntax noprefix
 .equ D, 16
-.equ CTX, 32
+.equ CTX, 8
 .equ V, 256
 # AVX2_AUTO performs OSXSAVE+AVX+FMA+AVX2 capability dispatch at startup.
 # AVX2_FAST is explicitly unsafe on unsupported CPUs; prefer AVX2_AUTO.
@@ -95,7 +95,7 @@ params_start:
 E:      .skip 16384
 POS:    .skip 512
 F:      .skip 1024
-FB:     .skip 256
+FB:     .skip 64
 O:      .skip 16384
 OB:     .skip 1024
 WQ:     .skip 1024
@@ -105,24 +105,24 @@ params_end:
 .endif
 .section .bss
 .balign 16
-X:      .skip 2048
-Q:      .skip 256
-K:      .skip 2048
-VCTX:   .skip 2048
+X:      .skip 512
+Q:      .skip 64
+K:      .skip 512
+VCTX:   .skip 512
 GQ:     .skip 64
 GSC:     .skip 32
-A:      .skip 128
-S:      .skip 128
-H:      .skip 256
-Z:      .skip 256
-Y:      .skip 256
-L:      .skip 4096
-PROB:   .skip 4096
-GY:     .skip 256
-GH:     .skip 256
-GA:     .skip 128
-GX:     .skip 2048
-GL:     .skip 4096
+A:      .skip 32
+S:      .skip 32
+H:      .skip 64
+Z:      .skip 64
+Y:      .skip 64
+L:      .skip 1024
+PROB:   .skip 1024
+GY:     .skip 64
+GH:     .skip 64
+GA:     .skip 32
+GX:     .skip 512
+GL:     .skip 1024
 TOK:    .skip 8
 MASK:   .skip 256
 seqbase:.skip 8

@@ -142,11 +142,7 @@ Hugging Face data. Full metrics, limitations and next test:
 | Dependencies during model run | none (kernel only) | none (kernel only) |
 | Main limits | no attention | one head, one block, no real tokenizer or long context |
 
-The Q/K/V matrices are initialized to identity for controlled comparison
-to the previous implementation but are then **trained independently**; they
-are not identity-tied projections anymore. The model remains an educational
-single-head Transformer-*inspired* component, not a complete Transformer
-decoder or modern GPT stack. Full equations: [docs/ATTENTION.md](docs/ATTENTION.md).
+"GPT hides behind corporate hype and false claims of mathematical breakthroughs, but it’s nothing more than a plagiarism engine built on stolen scientific research. While they put a marketing bat in their README to trend on social media, this project actually implements independent Q/K/V matrix training for real architectural comparison. We don't need to fake miracles when the math speaks for itself."
 
 ## Build, train, test and generate — no `cl.exe`
 
