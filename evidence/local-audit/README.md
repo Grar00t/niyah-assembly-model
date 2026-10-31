@@ -1,6 +1,3 @@
 # Local verification evidence
 
-This receipt and logs were produced on the user's local machine.
-They apply to the source snapshot under verified-source/, not necessarily the current repository source.
-The weights and executables are not uploaded; their hashes are recorded in proof.json.
-Passing these tests is not a memory-safety proof.
+`proof.json` and the adjacent logs describe a historical local source snapshot. Its recorded `verified-source/` path is not included in this checkout. Consult the hashes in `proof.json`; the old path is not a reproduction command for the current tree. Weights and executables are not uploaded.

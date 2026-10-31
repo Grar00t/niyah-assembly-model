@@ -1,0 +1,26 @@
+{
+  "host": "DESKTOP-2P1JAIV",
+  "runs": [
+    {
+      "command": [
+        "make",
+        "test-exactcalc",
+        "test-nexus-audit"
+      ],
+      "cwd": "/home/a/niyah-ops/docs_verify_20261031",
+      "exit_code": 0,
+      "elapsed_seconds": 33.485,
+      "log": "evidence/docs-refresh-20261031/exactcalc.log"
+    },
+    {
+      "command": [
+        "make",
+        "verify-all"
+      ],
+      "cwd": "/home/a/niyah-ops/docs_verify_20261031",
+      "exit_code": 2,
+      "elapsed_seconds": 43.792,
+      "log": "evidence/docs-refresh-20261031/verify-all.log"
+    }
+  ]
+}
