@@ -1,0 +1,25 @@
+{
+  "before": {
+    "description": "Pure x86-64 Assembly language-model experiments: trigram softmax training, corpus samples, and verification tests.",
+    "topics": [],
+    "default_branch": "main"
+  },
+  "after": {
+    "description": "Assembly kernels, byte language-model experiments, and a Python/C INT8 transformer validation runtime for Linux.",
+    "topics": [
+      "assembly",
+      "avx2",
+      "c",
+      "gemm",
+      "int8",
+      "language-model",
+      "linux",
+      "numerical-verification",
+      "python",
+      "quantization"
+    ],
+    "default_branch": "main"
+  },
+  "description_source": "README.md opening line",
+  "validation": "read back through GitHub API"
+}
