@@ -1,0 +1,105 @@
+{
+ "scope": "layer 0 fake-quant schemes vs transformers FP32",
+ "input_token_ids": [
+  11798,
+  125325,
+  129458,
+  124636,
+  55334,
+  68238,
+  136176,
+  142182,
+  63237,
+  50243,
+  124453,
+  55334,
+  33090,
+  130190,
+  123860,
+  139073
+ ],
+ "script_sha256": "02f5c063289cd511540c99a40a84b2e6c40e39c9a49520a61e50100dc93fb76c",
+ "results": {
+  "I_current__down_a_g128": {
+   "rows": [
+    {
+     "tokens": 1,
+     "rel_l2": 0.017126026285113456,
+     "max_abs": 0.037525057792663574,
+     "worst_token": 0,
+     "worst_channel": 2696
+    },
+    {
+     "tokens": 7,
+     "rel_l2": 0.019298496519386987,
+     "max_abs": 0.03752446174621582,
+     "worst_token": 0,
+     "worst_channel": 2696
+    },
+    {
+     "tokens": 16,
+     "rel_l2": 0.01973250840937639,
+     "max_abs": 0.09218096733093262,
+     "worst_token": 11,
+     "worst_channel": 1838
+    }
+   ],
+   "max_rel_l2": 0.01973250840937639,
+   "gate_0.02": "PASS"
+  },
+  "J_current__down_a_g64": {
+   "rows": [
+    {
+     "tokens": 1,
+     "rel_l2": 0.014772359471210287,
+     "max_abs": 0.04056549072265625,
+     "worst_token": 0,
+     "worst_channel": 1838
+    },
+    {
+     "tokens": 7,
+     "rel_l2": 0.017566910571838887,
+     "max_abs": 0.040564537048339844,
+     "worst_token": 0,
+     "worst_channel": 1838
+    },
+    {
+     "tokens": 16,
+     "rel_l2": 0.017941887902454812,
+     "max_abs": 0.06851434707641602,
+     "worst_token": 11,
+     "worst_channel": 1838
+    }
+   ],
+   "max_rel_l2": 0.017941887902454812,
+   "gate_0.02": "PASS"
+  },
+  "K_current__down_a_g32": {
+   "rows": [
+    {
+     "tokens": 1,
+     "rel_l2": 0.013264814524832049,
+     "max_abs": 0.03481864929199219,
+     "worst_token": 0,
+     "worst_channel": 1838
+    },
+    {
+     "tokens": 7,
+     "rel_l2": 0.016546561776230057,
+     "max_abs": 0.0402752161026001,
+     "worst_token": 4,
+     "worst_channel": 1838
+    },
+    {
+     "tokens": 16,
+     "rel_l2": 0.01690086390299118,
+     "max_abs": 0.05373573303222656,
+     "worst_token": 8,
+     "worst_channel": 1838
+    }
+   ],
+   "max_rel_l2": 0.01690086390299118,
+   "gate_0.02": "PASS"
+  }
+ }
+}
