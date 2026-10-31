@@ -1,0 +1,221 @@
+{
+  "kind": "source-credit register; licenses are scoped to the named work, not transferred to this repository",
+  "sources": [
+    {
+      "title": "Qwen3-8B-Base and Qwen3 Technical Report",
+      "author": "Qwen Team",
+      "url": "https://huggingface.co/Qwen/Qwen3-8B-Base",
+      "license": "Apache-2.0 for the model; paper distribution terms separate",
+      "license_url": "https://huggingface.co/Qwen/Qwen3-8B-Base",
+      "role": "External model and architecture; paper: https://arxiv.org/abs/2505.09388"
+    },
+    {
+      "title": "GGML",
+      "author": "The ggml authors",
+      "url": "https://github.com/ggml-org/ggml",
+      "license": "MIT",
+      "license_url": "https://github.com/ggml-org/ggml/blob/master/LICENSE",
+      "role": "Standard block-quantization reference; Q8_0 definition in src/ggml-common.h"
+    },
+    {
+      "title": "NN_S",
+      "author": "zenyyxz",
+      "url": "https://github.com/zenyyxz/NN_S",
+      "license": "MIT",
+      "license_url": "https://api.github.com/repos/zenyyxz/NN_S",
+      "role": "Retained Assembly implementation reference"
+    },
+    {
+      "title": "matmul_assembly_x86",
+      "author": "alint77",
+      "url": "https://github.com/alint77/matmul_assembly_x86",
+      "license": "No license declared in inspected repository metadata",
+      "license_url": "https://api.github.com/repos/alint77/matmul_assembly_x86",
+      "role": "Retained standard blocked-GEMM worklog reference; no source imported by this refresh"
+    },
+    {
+      "title": "niyah-lang",
+      "author": "Suliman Alshammari",
+      "url": "https://github.com/Grar00t/niyah-lang",
+      "license": "MIT",
+      "license_url": "src/morph_tokenizer/upstream/LICENSE",
+      "role": "Vendored morphology and external tensor compiler; source hashes in src/morph_tokenizer/upstream/PROVENANCE.json"
+    },
+    {
+      "title": "Online normalizer calculation for softmax",
+      "author": "Maxim Milakov; Natalia Gimelshein",
+      "url": "https://arxiv.org/abs/1805.02867",
+      "license": "arXiv non-exclusive distribution license",
+      "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html",
+      "role": "Standard online softmax technique"
+    },
+    {
+      "title": "Root Mean Square Layer Normalization",
+      "author": "Biao Zhang; Rico Sennrich",
+      "url": "https://arxiv.org/abs/1910.07467",
+      "license": "arXiv non-exclusive distribution license",
+      "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html",
+      "role": "Standard RMSNorm technique"
+    },
+    {
+      "title": "RoFormer: Enhanced Transformer with Rotary Position Embedding",
+      "author": "Jianlin Su; Yu Lu; Shengfeng Pan; Ahmed Murtadha; Bo Wen; Yunfeng Liu",
+      "url": "https://arxiv.org/abs/2104.09864",
+      "license": "CC BY-NC-ND 4.0 for the inspected paper version",
+      "license_url": "https://creativecommons.org/licenses/by-nc-nd/4.0/",
+      "role": "Standard RoPE technique; a paper citation, not copied source"
+    },
+    {
+      "title": "GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints",
+      "author": "Joshua Ainslie; James Lee-Thorp; Michiel de Jong; Yury Zemlyanskiy; Federico Lebron; Sumit Sanghai",
+      "url": "https://aclanthology.org/2023.emnlp-main.298/",
+      "license": "CC BY 4.0",
+      "license_url": "https://aclanthology.org/2023.emnlp-main.298/",
+      "role": "Standard grouped-query attention"
+    },
+    {
+      "title": "Generalizing and Hybridizing Count-based and Neural Language Models",
+      "author": "Graham Neubig; Chris Dyer",
+      "url": "https://aclanthology.org/D16-1124/",
+      "license": "CC BY 4.0",
+      "license_url": "https://aclanthology.org/D16-1124/",
+      "role": "Standard n-gram/neural interpolation"
+    },
+    {
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "author": "Edward J. Hu; Yelong Shen; Phillip Wallis; Zeyuan Allen-Zhu; Yuanzhi Li; Shean Wang; Lu Wang; Weizhu Chen",
+      "url": "https://arxiv.org/abs/2106.09685",
+      "license": "arXiv non-exclusive distribution license",
+      "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html",
+      "role": "Standard low-rank projection adaptation"
+    },
+    {
+      "title": "TinyStories dataset",
+      "author": "Ronen Eldan; Yuanzhi Li",
+      "url": "https://huggingface.co/datasets/roneneldan/TinyStories",
+      "license": "CDLA-Sharing-1.0",
+      "license_url": "evidence/tinystories-external-32epochs-local.json",
+      "role": "External evaluation data; original dataset text is not committed"
+    },
+    {
+      "title": "TinyStories: How Small Can Language Models Be and Still Speak Coherent English?",
+      "author": "Ronen Eldan; Yuanzhi Li",
+      "url": "https://arxiv.org/abs/2305.07759",
+      "license": "arXiv non-exclusive distribution license",
+      "license_url": "https://arxiv.org/licenses/nonexclusive-distrib/1.0/license.html",
+      "role": "Dataset paper; repository measurements use their own byte protocol"
+    },
+    {
+      "title": "Euclid's algorithm for computing GCD",
+      "author": "Cornell CS course staff; individual author not identified on the cited page",
+      "url": "https://www.cs.cornell.edu/courses/cs2800/2016sp/lectures/lec11-gcd.html",
+      "license": "No reuse license stated on the inspected page",
+      "license_url": "https://www.cs.cornell.edu/courses/cs2800/2016sp/lectures/lec11-gcd.html",
+      "role": "Standard Euclid GCD rational reduction"
+    },
+    {
+      "title": "The Art of Computer Programming, Seminumerical Algorithms",
+      "author": "Donald E. Knuth",
+      "url": "https://cs.stanford.edu/~knuth/taocp.html",
+      "license": "No reuse license established in this review",
+      "license_url": "https://cs.stanford.edu/~knuth/taocp.html",
+      "role": "Retained mathematical reference"
+    },
+    {
+      "title": "Python and fractions",
+      "author": "Python Software Foundation and Python contributors",
+      "url": "https://docs.python.org/3/library/fractions.html",
+      "license": "PSF-2.0; documentation code examples have additional terms",
+      "license_url": "https://docs.python.org/3/license.html",
+      "role": "Independent rational oracle; orchestration and tests"
+    },
+    {
+      "title": "Berkeley TestFloat",
+      "author": "John R. Hauser",
+      "url": "https://www.jhauser.us/arithmetic/TestFloat.html",
+      "license": "BSD-3-Clause terms in the cited documentation",
+      "license_url": "https://www.jhauser.us/arithmetic/TestFloat-3/doc/TestFloat-general.html",
+      "role": "Retained numerical-testing reference; not linked or executed here"
+    },
+    {
+      "title": "Intel Optimization Reference Manual",
+      "author": "Intel Corporation",
+      "url": "https://www.intel.com/content/www/us/en/content-details/671488/intel-64-and-ia-32-architectures-optimization-reference-manual-volume-1.html",
+      "license": "Publisher documentation terms; no software reuse license asserted",
+      "license_url": "https://www.intel.com/content/www/us/en/content-details/671488/intel-64-and-ia-32-architectures-optimization-reference-manual-volume-1.html",
+      "role": "Retained instruction and optimization reference"
+    },
+    {
+      "title": "Linux xstate documentation",
+      "author": "Linux kernel documentation contributors",
+      "url": "https://docs.kernel.org/arch/x86/xstate.html",
+      "license": "Documentation reuse terms not established in this review",
+      "license_url": "https://docs.kernel.org/arch/x86/xstate.html",
+      "role": "OS extended-state and tile permission interface"
+    },
+    {
+      "title": "Intel AMX intrinsics functions",
+      "author": "Intel Corporation",
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/code-sample/advanced-matrix-extensions-intrinsics-functions.html",
+      "license": "Publisher page/sample terms; no blanket reuse license asserted",
+      "license_url": "https://www.intel.com/content/www/us/en/developer/articles/code-sample/advanced-matrix-extensions-intrinsics-functions.html",
+      "role": "Retained tile configuration and instruction reference"
+    },
+    {
+      "title": "Intel processor AI tuning guide",
+      "author": "Intel Corporation",
+      "url": "https://www.intel.com/content/www/us/en/developer/articles/technical/tuning-guide-for-ai-on-the-4th-generation.html",
+      "license": "Publisher documentation terms; no software reuse license asserted",
+      "license_url": "https://www.intel.com/content/www/us/en/developer/articles/technical/tuning-guide-for-ai-on-the-4th-generation.html",
+      "role": "Retained tensor/dispatch architecture reference"
+    },
+    {
+      "title": "Secure Software Development Framework",
+      "author": "National Institute of Standards and Technology",
+      "url": "https://nvlpubs.nist.gov/nistpubs/specialpublications/nist.sp.800-218.pdf",
+      "license": "Publication terms apply; no software license asserted",
+      "license_url": "https://nvlpubs.nist.gov/nistpubs/specialpublications/nist.sp.800-218.pdf",
+      "role": "Retained review reference; no compliance claim"
+    },
+    {
+      "title": "Software Assurance and Software Safety Standard",
+      "author": "National Aeronautics and Space Administration",
+      "url": "https://standards.nasa.gov/standard/nasa/nasa-std-87398",
+      "license": "Publication terms apply; no software license asserted",
+      "license_url": "https://standards.nasa.gov/standard/nasa/nasa-std-87398",
+      "role": "Retained review reference; no certification claim"
+    },
+    {
+      "title": "transformers",
+      "author": "transformers contributors",
+      "url": "https://github.com/huggingface/transformers",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/huggingface/transformers/blob/main/LICENSE",
+      "role": "Configuration, tokenizer, rotary table and FP32 decoder reference"
+    },
+    {
+      "title": "safetensors",
+      "author": "safetensors contributors",
+      "url": "https://github.com/safetensors/safetensors",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/safetensors/safetensors/blob/main/LICENSE",
+      "role": "External weight reader"
+    },
+    {
+      "title": "NumPy",
+      "author": "NumPy Developers",
+      "url": "https://github.com/numpy/numpy",
+      "license": "BSD-3-Clause core terms; bundled components have their own notices",
+      "license_url": "https://github.com/numpy/numpy/blob/main/LICENSE.txt",
+      "role": "Array packing and numerical comparisons"
+    },
+    {
+      "title": "PyTorch",
+      "author": "PyTorch contributors, including Adam Paszke and Soumith Chintala",
+      "url": "https://github.com/pytorch/pytorch",
+      "license": "BSD-style terms plus component-specific notices in LICENSE",
+      "license_url": "https://github.com/pytorch/pytorch/blob/main/LICENSE",
+      "role": "External FP32 reference and tensor loading"
+    }
+  ]
+}

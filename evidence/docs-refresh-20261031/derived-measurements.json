@@ -1,0 +1,8 @@
+{
+  "kind": "derived measurements; not a new execution",
+  "hybrid_improvement_percent": {
+    "source": "evidence/hybrid-fresh-test-local.json",
+    "formula": "100 * (fresh_test_trigram_nll - fresh_test_hybrid_nll) / fresh_test_trigram_nll",
+    "value": 2.967537821997749
+  }
+}
