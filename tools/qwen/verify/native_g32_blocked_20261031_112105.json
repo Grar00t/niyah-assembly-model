@@ -1,0 +1,62 @@
+{
+  "scope": "Full decoder layer 0 only; no model generation",
+  "native": "Blocked AVX2 INT8 GEMM for six linears; down_proj runs niyah_i8_gemm per K=32 block (group-major weights) with C FP64 scaled accumulation; FP32 buffers",
+  "quantization": "Per output-row weight scale; per-token activations except down_proj g32",
+  "input_token_ids": [
+    11798,
+    125325,
+    129458,
+    124636,
+    55334,
+    68238,
+    136176,
+    142182,
+    63237,
+    50243,
+    124453,
+    55334,
+    33090,
+    130190,
+    123860,
+    139073
+  ],
+  "tests": [
+    {
+      "tokens": 1,
+      "relative_l2_vs_transformers_fp32": 0.01326582937802424,
+      "max_abs_vs_transformers_fp32": 0.034836769104003906,
+      "finite_and_output_guards": "PASS"
+    },
+    {
+      "tokens": 7,
+      "relative_l2_vs_transformers_fp32": 0.01652376147606821,
+      "max_abs_vs_transformers_fp32": 0.04027450084686279,
+      "finite_and_output_guards": "PASS"
+    },
+    {
+      "tokens": 16,
+      "relative_l2_vs_transformers_fp32": 0.016913524179367628,
+      "max_abs_vs_transformers_fp32": 0.05373573303222656,
+      "finite_and_output_guards": "PASS",
+      "future_token_isolation": "PASS",
+      "native_median_ms": 116.645301,
+      "torch_fp32_eager_cpu_median_ms": 144.336501,
+      "torch_over_native_ratio": 1.2373966183172693
+    }
+  ],
+  "quality_gate": "NOT_ESTABLISHED",
+  "native_source_sha256": "4f7940e085250e8e545408977874f29a6983b03ce0bf900f9d0399ee197e17fb",
+  "execution_status": "COMPLETED",
+  "weight_immutability": "PASS",
+  "limitations": [
+    "Not full 36-layer inference",
+    "No KV cache",
+    "No VNNI or FlashAttention",
+    "Quantized layer accuracy is measured, not certified",
+    "Native RMSNorm/RoPE use C, not earlier assembly functions",
+    "Activation quant and FP scale operations stay in C; down_proj g32 blocks are K=32 GEMM calls, not a fused kernel",
+    "INT8 dots accumulate INT32; floating reductions use FP64",
+    "Benchmarks exclude loading and weight quantization",
+    "Canaries cover tested output buffers, not proof of universal memory safety"
+  ]
+}
