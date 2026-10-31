@@ -1,0 +1,7 @@
+{
+  "c_object_compile": "PASS",
+  "dot128_actual_assembly_cases": 514,
+  "dot128_status": "PASS",
+  "gemm_runtime": "NOT_RUN",
+  "performance": "NOT_RUN"
+}
