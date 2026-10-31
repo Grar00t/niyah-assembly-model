@@ -1,0 +1,31 @@
+make all
+make[1]: Entering directory '/home/a/niyah-ops/ci_policy_verify_20261031'
+mkdir -p build
+cc -nostdlib -static -no-pie -o build/trigram src/trigram.s
+mkdir -p build
+cc -nostdlib -static -no-pie -o build/attention_lm src/attention_lm.s
+make[1]: Leaving directory '/home/a/niyah-ops/ci_policy_verify_20261031'
+make test test-attention test-simd test-qkv-gradients
+make[1]: Entering directory '/home/a/niyah-ops/ci_policy_verify_20261031'
+python3 tests/test_generation.py
+PASS: seed 1
+PASS: seed 42
+PASS: replay
+PASS: seed 2463534242
+PASS: seed 4294967295
+5/5
+python3 tests/test_attention.py
+Traceback (most recent call last):
+  File "/home/a/niyah-ops/ci_policy_verify_20261031/tests/test_attention.py", line 187, in <module>
+    main()
+    ~~~~^^
+  File "/home/a/niyah-ops/ci_policy_verify_20261031/tests/test_attention.py", line 113, in main
+    trained, elapsed = run(exe)
+                       ~~~^^^^^
+  File "/home/a/niyah-ops/ci_policy_verify_20261031/tests/test_attention.py", line 44, in run
+    assert p.returncode == 0 and not p.stderr, (
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: exit=3: b''
+make[1]: *** [Makefile:54: test-attention] Error 1
+make[1]: Leaving directory '/home/a/niyah-ops/ci_policy_verify_20261031'
+make: *** [Makefile:73: verify-all] Error 2
