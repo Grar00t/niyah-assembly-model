@@ -1,0 +1,97 @@
+{"layer": 0, "rel_l2": 0.01611314212758131, "rss_peak_mb": 1954.6, "elapsed_s": 9.9}
+{"layer": 1, "rel_l2": 0.06570194382015149, "rss_peak_mb": 2009.5, "elapsed_s": 22.3}
+{"layer": 2, "rel_l2": 0.10283702383963003, "rss_peak_mb": 2013.2, "elapsed_s": 33.8}
+{"layer": 3, "rel_l2": 0.10886921336614448, "rss_peak_mb": 2018.4, "elapsed_s": 45.3}
+{"layer": 4, "rel_l2": 0.10739771815653609, "rss_peak_mb": 2023.3, "elapsed_s": 56.5}
+{"layer": 5, "rel_l2": 0.10755702372528757, "rss_peak_mb": 2023.3, "elapsed_s": 67.0}
+{"layer": 6, "rel_l2": 0.22412034718203316, "rss_peak_mb": 2023.3, "elapsed_s": 78.3}
+{"layer": 7, "rel_l2": 0.2240932254368097, "rss_peak_mb": 2023.3, "elapsed_s": 89.7}
+{"layer": 8, "rel_l2": 0.22403711578493823, "rss_peak_mb": 2023.3, "elapsed_s": 109.1}
+{"layer": 9, "rel_l2": 0.22396043640696697, "rss_peak_mb": 2025.6, "elapsed_s": 124.6}
+{"layer": 10, "rel_l2": 0.223918400850212, "rss_peak_mb": 2026.0, "elapsed_s": 133.1}
+{"layer": 11, "rel_l2": 0.22387773530549487, "rss_peak_mb": 2026.0, "elapsed_s": 141.1}
+{"layer": 12, "rel_l2": 0.2237818832043746, "rss_peak_mb": 2026.0, "elapsed_s": 148.9}
+{"layer": 13, "rel_l2": 0.2236251379872347, "rss_peak_mb": 2026.0, "elapsed_s": 156.9}
+{"layer": 14, "rel_l2": 0.2235206795473578, "rss_peak_mb": 2026.0, "elapsed_s": 165.0}
+{"layer": 15, "rel_l2": 0.22340790727245763, "rss_peak_mb": 2026.0, "elapsed_s": 173.0}
+{"layer": 16, "rel_l2": 0.21583416208827275, "rss_peak_mb": 2026.0, "elapsed_s": 180.7}
+{"layer": 17, "rel_l2": 0.21588584401587538, "rss_peak_mb": 2026.0, "elapsed_s": 188.8}
+{"layer": 18, "rel_l2": 0.21574667239592557, "rss_peak_mb": 2026.0, "elapsed_s": 196.6}
+{"layer": 19, "rel_l2": 0.21559518429077643, "rss_peak_mb": 2026.0, "elapsed_s": 204.6}
+{"layer": 20, "rel_l2": 0.21555975285153428, "rss_peak_mb": 2026.0, "elapsed_s": 212.6}
+{"layer": 21, "rel_l2": 0.21544099271102787, "rss_peak_mb": 2026.0, "elapsed_s": 220.1}
+{"layer": 22, "rel_l2": 0.2150962017897773, "rss_peak_mb": 2026.0, "elapsed_s": 227.9}
+{"layer": 23, "rel_l2": 0.21443607942475404, "rss_peak_mb": 2026.0, "elapsed_s": 235.6}
+{"layer": 24, "rel_l2": 0.21314436723289093, "rss_peak_mb": 2026.0, "elapsed_s": 243.3}
+{"layer": 25, "rel_l2": 0.2120940388677926, "rss_peak_mb": 2026.0, "elapsed_s": 251.1}
+{"layer": 26, "rel_l2": 0.21067149364922302, "rss_peak_mb": 2026.0, "elapsed_s": 259.0}
+{"layer": 27, "rel_l2": 0.20881963819073984, "rss_peak_mb": 2026.0, "elapsed_s": 266.4}
+{"layer": 28, "rel_l2": 0.20651768571802862, "rss_peak_mb": 2026.0, "elapsed_s": 274.7}
+{"layer": 29, "rel_l2": 0.20313175323984173, "rss_peak_mb": 2026.0, "elapsed_s": 282.5}
+{"layer": 30, "rel_l2": 0.19736220205332136, "rss_peak_mb": 2026.0, "elapsed_s": 290.4}
+{"layer": 31, "rel_l2": 0.1919154054946739, "rss_peak_mb": 2026.0, "elapsed_s": 298.0}
+{"layer": 32, "rel_l2": 0.18531130850436173, "rss_peak_mb": 2026.0, "elapsed_s": 305.5}
+{"layer": 33, "rel_l2": 0.17936263583478793, "rss_peak_mb": 2026.0, "elapsed_s": 313.1}
+{"layer": 34, "rel_l2": 0.1435402240317591, "rss_peak_mb": 2026.0, "elapsed_s": 321.0}
+{"layer": 35, "rel_l2": 0.6540980221409198, "rss_peak_mb": 2026.0, "elapsed_s": 328.7}
+{
+ "top1_agreement": 0.853125,
+ "mean_kl_nats": 0.6338464501131247,
+ "max_kl_nats": 24.50922438454962,
+ "top5_overlap_mean": 0.8756250000000001,
+ "final_norm_rel_l2": 0.15008548389909826,
+ "per_prompt": [
+  {
+   "kind": "ar_msa",
+   "top1": 0.9375,
+   "mean_kl": 0.6902716016321266
+  },
+  {
+   "kind": "ar_msa",
+   "top1": 0.90625,
+   "mean_kl": 0.7064749775012198
+  },
+  {
+   "kind": "ar_najdi",
+   "top1": 0.75,
+   "mean_kl": 0.69491322858923
+  },
+  {
+   "kind": "ar_najdi",
+   "top1": 0.59375,
+   "mean_kl": 0.8424674547550485
+  },
+  {
+   "kind": "ar_msa",
+   "top1": 0.90625,
+   "mean_kl": 0.7729494079566664
+  },
+  {
+   "kind": "en",
+   "top1": 0.875,
+   "mean_kl": 0.6338849125651959
+  },
+  {
+   "kind": "en",
+   "top1": 0.90625,
+   "mean_kl": 0.3685933474765811
+  },
+  {
+   "kind": "en",
+   "top1": 0.78125,
+   "mean_kl": 0.5794781655316186
+  },
+  {
+   "kind": "en",
+   "top1": 0.90625,
+   "mean_kl": 0.6328119009567822
+  },
+  {
+   "kind": "en",
+   "top1": 0.96875,
+   "mean_kl": 0.4166195041667774
+  }
+ ],
+ "gate": "FAIL"
+}
+{"peak_rss_mb": 3871.9, "seconds": {"load_and_quantize": 223.8, "native_layers_1thread": 90.5, "reference_layers": 14.4, "native_lm_head_all_threads": 3.7, "lm_head_total": 15.6}}
