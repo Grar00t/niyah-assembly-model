@@ -1,0 +1,392 @@
+{
+  "status": "PARTIAL",
+  "reason": "Read-only recursive scan interrupted after slow DrvFS enumeration of D:/Niyah.Engine corpus; rows already written are preserved, not a complete inventory",
+  "table": "/home/a/qwen-layer0-quant-verify-v1/inventory_v1.tsv",
+  "last_recorded_path": "/mnt/d/Niyah.Engine/corpus/arabic-wikipedia-2021-30395df9f01b42f687567402f3228f94/extracted-e890d9b1f1c048ba8649e0b49d854b68/ar_corpus/article_117383.txt",
+  "counts": {
+    "files": 185411,
+    "directories": 27931,
+    "symlinks": 114,
+    "rows": 213456,
+    "archive_candidate_rows": 12356
+  },
+  "home_matching_roots_finished": 41,
+  "home_root_summaries": [
+    {
+      "path": "/home/a/models/Qwen3-8B-Base",
+      "size_bytes": "16393046709",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Qwen3-8B-Base model config, tokenizer and original pretrained weights",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-assembly-model",
+      "size_bytes": "456771780",
+      "git_branch": "main",
+      "repo_dirty": "DIRTY",
+      "last_repo_commit_date": "2026-10-27T22:58:12+03:00",
+      "purpose": "Assembly neural experiments and native tensor/GEMM kernels; active",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-ast-core-20261027T081438Z",
+      "size_bytes": "12192615",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-audit-20261027T024941Z",
+      "size_bytes": "12888791",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: historical audit/work folder; evidence may be unique, do not move before inspection"
+    },
+    {
+      "path": "/home/a/niyah-core-tensor-verify-20261028",
+      "size_bytes": "37567363",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-core-v2-20261028-l7fuubb5",
+      "size_bytes": "13282502",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-edit-tools-BRUhLYmI",
+      "size_bytes": "8520862331",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-gguf-bridge-20261028-p7jlnrea",
+      "size_bytes": "1270058",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-i8-audit-w6C9eyYc",
+      "size_bytes": "25729",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: historical audit/work folder; evidence may be unique, do not move before inspection"
+    },
+    {
+      "path": "/home/a/niyah-identity-repair-20261028-zvhjpxtg",
+      "size_bytes": "132547",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-inspect-20261026-215744",
+      "size_bytes": "2282485",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: historical audit/work folder; evidence may be unique, do not move before inspection"
+    },
+    {
+      "path": "/home/a/niyah-lang-canonical-20261027",
+      "size_bytes": "2483598",
+      "git_branch": "integration/unicode-whitespace-20261027",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-27T02:06:24+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-lang-integrated-20261027",
+      "size_bytes": "10121595",
+      "git_branch": "perf/literal-rhs-20261027",
+      "repo_dirty": "DIRTY",
+      "last_repo_commit_date": "2026-10-27T05:33:06+03:00",
+      "purpose": "Arabic compiler with experimental tensor IR/backend; active dirty checkout",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-lang-lexer-recovery-20261025",
+      "size_bytes": "1027771",
+      "git_branch": "repair/lexer-recovery-20261025",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-25T13:27:50+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-lang-output-20261027",
+      "size_bytes": "3005696",
+      "git_branch": "fix/niyahrun-output-20261027",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-27T04:08:00+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated compiler release/output copy; verify git HEAD and hashes before any decision"
+    },
+    {
+      "path": "/home/a/niyah-lang-output-release-20261027",
+      "size_bytes": "3005596",
+      "git_branch": "DETACHED",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-27T04:08:32+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated compiler release/output copy; verify git HEAD and hashes before any decision"
+    },
+    {
+      "path": "/home/a/niyah-lang-publish-verify-20261025",
+      "size_bytes": "203159",
+      "git_branch": "work/arabic-tokenizer-20261025",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-25T12:33:30+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated compiler release/output copy; verify git HEAD and hashes before any decision"
+    },
+    {
+      "path": "/home/a/niyah-lang-release-20261025",
+      "size_bytes": "679766",
+      "git_branch": "DETACHED",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-25T13:03:05+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated compiler release/output copy; verify git HEAD and hashes before any decision"
+    },
+    {
+      "path": "/home/a/niyah-lang-release-lexer-recovery-20261025",
+      "size_bytes": "989754",
+      "git_branch": "DETACHED",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-25T14:45:58+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated compiler release/output copy; verify git HEAD and hashes before any decision"
+    },
+    {
+      "path": "/home/a/niyah-lang-release-m1-20261025",
+      "size_bytes": "1545542",
+      "git_branch": "DETACHED",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-25T15:26:28+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated compiler release/output copy; verify git HEAD and hashes before any decision"
+    },
+    {
+      "path": "/home/a/niyah-lang-release-m1-roundtrip-20261027",
+      "size_bytes": "1816322",
+      "git_branch": "DETACHED",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-27T00:24:58+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated compiler release/output copy; verify git HEAD and hashes before any decision"
+    },
+    {
+      "path": "/home/a/niyah-lang-release-m2-check-20261027",
+      "size_bytes": "3035858",
+      "git_branch": "DETACHED",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-27T04:10:53+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated compiler release/output copy; verify git HEAD and hashes before any decision"
+    },
+    {
+      "path": "/home/a/niyah-lang-review-20261025",
+      "size_bytes": "1765742",
+      "git_branch": "work/arabic-tokenizer-20261025",
+      "repo_dirty": "CLEAN",
+      "last_repo_commit_date": "2026-10-25T12:53:13+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-lang-verification-20261027-0444",
+      "size_bytes": "6886",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: historical audit/work folder; evidence may be unique, do not move before inspection"
+    },
+    {
+      "path": "/home/a/niyah-literal-audit.QU4aqz",
+      "size_bytes": "29603128",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: historical audit/work folder; evidence may be unique, do not move before inspection"
+    },
+    {
+      "path": "/home/a/niyah-math-quant-20261028-42fcab79",
+      "size_bytes": "2550068250",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-memory-20261028-o8by36el",
+      "size_bytes": "1475879425",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-memory-check-zzJ2xoBd",
+      "size_bytes": "1875",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-memory-fixed-3sonkpdu",
+      "size_bytes": "162193",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-memory-inspect-0c4drwsa",
+      "size_bytes": "393022",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: historical audit/work folder; evidence may be unique, do not move before inspection"
+    },
+    {
+      "path": "/home/a/niyah-model-lab-20261029-sites",
+      "size_bytes": "46077",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-nexus-lang-20261027T054300Z",
+      "size_bytes": "10386349",
+      "git_branch": "DETACHED",
+      "repo_dirty": "DIRTY",
+      "last_repo_commit_date": "2026-10-27T05:33:06+03:00",
+      "purpose": "Arabic language/compiler worktree, snapshot or test",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah-workload-check-gqOuk8XL",
+      "size_bytes": "110",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/niyah_stories_fullweights",
+      "size_bytes": "4945666288",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Niyah experiment/test/work folder; classify contents before archiving",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/qwen-layer0-check-2m4RMOTs",
+      "size_bytes": "5550",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Qwen model test or evidence work folder",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated diagnostic output; preserve receipts and compare before any decision"
+    },
+    {
+      "path": "/home/a/qwen-layer0-check-edhiCvaW",
+      "size_bytes": "5553",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Qwen model test or evidence work folder",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated diagnostic output; preserve receipts and compare before any decision"
+    },
+    {
+      "path": "/home/a/qwen-layer0-quant-verify-v1",
+      "size_bytes": "30931160",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Current independent Qwen layer-0 verification evidence",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/qwen-metadata-recovery-9cws6vks",
+      "size_bytes": "10105649",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Qwen model test or evidence work folder",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/qwen-working-ols_3__4",
+      "size_bytes": "10104329",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Qwen model test or evidence work folder",
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: dated diagnostic output; preserve receipts and compare before any decision"
+    },
+    {
+      "path": "/home/a/qwen3-8b-smoke-dh2g35fd",
+      "size_bytes": "1814",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Qwen model test or evidence work folder",
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "/home/a/qwen3-layer-ablation-bov78ijj",
+      "size_bytes": "1694",
+      "git_branch": "-",
+      "repo_dirty": "N/A",
+      "last_repo_commit_date": "",
+      "purpose": "Qwen model test or evidence work folder",
+      "archive_candidate_reason": ""
+    }
+  ],
+  "windows_engine_repo": {
+    "path": "D:/Niyah.Engine",
+    "git_branch": "feature/oracle-engine-three-lobe-20261002",
+    "last_repo_commit": "2a0ec79, 2026-10-12T02:16:31+03:00",
+    "status": "DIRTY (observed 2026-10-30)",
+    "folder_size_bytes": "UNKNOWN: full scan incomplete"
+  }
+}

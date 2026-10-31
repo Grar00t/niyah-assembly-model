@@ -1,0 +1,175 @@
+{
+  "status": "COMPLETE",
+  "scope": "D:/Niyah.Engine",
+  "table": "//wsl.localhost/kali-linux/home/a/qwen-layer0-quant-verify-v1\\inventory_engine_windows_v1.tsv.gz",
+  "counts": {
+    "file": 743276,
+    "directory": 7999,
+    "symlink": 0,
+    "errors": 0
+  },
+  "total_file_bytes": 12646732460,
+  "git_branch": "feature/oracle-engine-three-lobe-20261002",
+  "git_dirty": "DIRTY",
+  "git_HEAD_snapshot": "2a0ec79faf28",
+  "last_commit_date": "2026-10-12T02:16:31+03:00",
+  "top_level_directories": [
+    {
+      "path": "D:/Niyah.Engine/.git",
+      "size_bytes": 410928893,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/.github",
+      "size_bytes": 19295,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/.hadeed-build",
+      "size_bytes": 3692369,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/.release",
+      "size_bytes": 8,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/artifacts",
+      "size_bytes": 41435,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/build",
+      "size_bytes": 429781765,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/build-avx2",
+      "size_bytes": 4101537,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-cuda-rel",
+      "size_bytes": 6217746,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-loss-parallel",
+      "size_bytes": 26836684,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-msvc-oracle",
+      "size_bytes": 1497639,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-native",
+      "size_bytes": 9374098,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-ps76-audit",
+      "size_bytes": 49905,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-ps76-cuda-audit",
+      "size_bytes": 162592221,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-ps76-mingw-audit",
+      "size_bytes": 8570496,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-win-zero",
+      "size_bytes": 6714497,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build-zero-avx2",
+      "size_bytes": 4188362,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/build_repair",
+      "size_bytes": 153968746,
+      "archive_candidate_reason": "ARCHIVE-CANDIDATE: additional generated build tree; confirm outputs/consumers before any move"
+    },
+    {
+      "path": "D:/Niyah.Engine/corpus",
+      "size_bytes": 5117829823,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/datasets",
+      "size_bytes": 28516017,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/docs",
+      "size_bytes": 224434,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/eval",
+      "size_bytes": 9081,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/include",
+      "size_bytes": 55145,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/reports",
+      "size_bytes": 263489,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/runs",
+      "size_bytes": 6269596001,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/scripts",
+      "size_bytes": 7249,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/src",
+      "size_bytes": 650495,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/tests",
+      "size_bytes": 612800,
+      "archive_candidate_reason": ""
+    },
+    {
+      "path": "D:/Niyah.Engine/tools",
+      "size_bytes": 305528,
+      "archive_candidate_reason": ""
+    }
+  ],
+  "archive_candidates": [
+    "D:/Niyah.Engine/.hadeed-build",
+    "D:/Niyah.Engine/build-avx2",
+    "D:/Niyah.Engine/build-cuda-rel",
+    "D:/Niyah.Engine/build-loss-parallel",
+    "D:/Niyah.Engine/build-msvc-oracle",
+    "D:/Niyah.Engine/build-native",
+    "D:/Niyah.Engine/build-ps76-audit",
+    "D:/Niyah.Engine/build-ps76-cuda-audit",
+    "D:/Niyah.Engine/build-ps76-mingw-audit",
+    "D:/Niyah.Engine/build-win-zero",
+    "D:/Niyah.Engine/build-zero-avx2",
+    "D:/Niyah.Engine/build_repair"
+  ],
+  "errors": [],
+  "elapsed_seconds": 11.7,
+  "created_utc": "2026-10-30T19:25:53.814580+00:00"
+}

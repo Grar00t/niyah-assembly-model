@@ -1,0 +1,37 @@
+{
+  "status": "FAILED",
+  "implementation_gate": "FAIL",
+  "quantization_quality_gate": "NOT_ESTABLISHED",
+  "scope": "Qwen3-8B-Base decoder layer 0 only",
+  "tolerances_predeclared": {
+    "float_atol": 3e-05,
+    "float_rtol": 2e-05,
+    "relative_l2_limit": 1e-05,
+    "rationale": "FP32 storage/casts plus FP64 reductions and libm rounding; exact integer products have zero tolerance. No FP32 quantization-quality PASS threshold is assumed."
+  },
+  "inputs": {
+    "original_script": "/home/a/qwen_native_layer0_fixed_v2.py",
+    "original_script_sha256": "c476dccee769d5ed06d902256355d26f436aa6d5ebd0149de9bf14b115aa985e",
+    "kernel": "/home/a/niyah-assembly-model/src/niyah_i8_gemm.s",
+    "kernel_sha256": "e913336ff022cb80fde10ca8f825f3ede33e23a66a79400ba812c1cc8c2fac9e",
+    "model": "/home/a/models/Qwen3-8B-Base",
+    "mode": "reuse same x, weights, positions and RoPE for native, NumPy and Transformers",
+    "variants": "original 16-token embedding; deterministic altered embedding"
+  },
+  "comparisons": [],
+  "limitations": [
+    "Only one decoder layer, no full 36-layer runtime",
+    "No KV cache",
+    "No text generation",
+    "Runtime includes copied C for normalization/attention and Assembly for INT8 products",
+    "Transformer FP32 is the reference for quality measurement, not a quantization-matched correctness oracle"
+  ],
+  "error": "CalledProcessError: Command '['gcc', '-std=c11', '-O2', '-Wall', '-Wextra', '-Werror', '-fPIC', '-shared', '-fno-fast-math', '-ffp-contract=off', '-Wl,-z,defs,-z,noexecstack', '-o', '/home/a/qwen-layer0-quant-verify-v1/native-build-sfa53day/layer.so', '/home/a/qwen-layer0-quant-verify-v1/native-build-sfa53day/layer.c', '/home/a/qwen-layer0-quant-verify-v1/native-build-sfa53day/kernels.s', '-lm']' returned non-zero exit status 1.",
+  "traceback": "Traceback (most recent call last):\n  File \"/home/a/qwen-layer0-quant-verify-v1/verify.py\", line 394, in main\n    work, lib = compile_native(original)\n                ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/a/qwen-layer0-quant-verify-v1/verify.py\", line 314, in compile_native\n    subprocess.run([\n  File \"/home/a/.pyenv/versions/3.12.11/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['gcc', '-std=c11', '-O2', '-Wall', '-Wextra', '-Werror', '-fPIC', '-shared', '-fno-fast-math', '-ffp-contract=off', '-Wl,-z,defs,-z,noexecstack', '-o', '/home/a/qwen-layer0-quant-verify-v1/native-build-sfa53day/layer.so', '/home/a/qwen-layer0-quant-verify-v1/native-build-sfa53day/layer.c', '/home/a/qwen-layer0-quant-verify-v1/native-build-sfa53day/kernels.s', '-lm']' returned non-zero exit status 1.\n",
+  "artifact_hashes": {
+    "new_script_sha256": "6d1004ff0272f011b8cb59a4ff14249b21c1046e0f8916eee1d58e980a7a5535",
+    "original_script_sha256_after": "c476dccee769d5ed06d902256355d26f436aa6d5ebd0149de9bf14b115aa985e",
+    "kernel_sha256_after": "e913336ff022cb80fde10ca8f825f3ede33e23a66a79400ba812c1cc8c2fac9e"
+  },
+  "preservation_ok": true
+}
