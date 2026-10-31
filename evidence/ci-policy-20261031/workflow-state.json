@@ -1,0 +1,138 @@
+{
+  "observed_at": "2026-10-31T12:47:48.858065+00:00",
+  "base_commit": "05fa7150205797c4cb54e10b5a3885dd38cde593",
+  "branch": "docs/refresh-20261031",
+  "original_workflow": {
+    "path": "evidence/ci-policy-20261031/workflow-original.yml",
+    "source_commit": "97a7ff9e9749efeb28465afa9205d1d74028a98b",
+    "source_path": ".github/workflows/ci.yml",
+    "sha256": "0d20dd94d20608afafdd51a3beeb8ec6c7e9153caeac9efb0918c4618abdc91e"
+  },
+  "before": {
+    "workflow": {
+      "id": 385778762,
+      "node_id": "W_kwDOVLMFGM4W_oRK",
+      "name": "assembly-model",
+      "path": ".github/workflows/ci.yml",
+      "state": "active",
+      "created_at": "2026-10-15T19:48:04.000+03:00",
+      "updated_at": "2026-10-15T19:48:04.000+03:00",
+      "url": "https://api.github.com/repos/Grar00t/niyah-assembly-model/actions/workflows/385778762",
+      "html_url": "https://github.com/Grar00t/niyah-assembly-model/blob/main/.github/workflows/ci.yml",
+      "badge_url": "https://github.com/Grar00t/niyah-assembly-model/workflows/assembly-model/badge.svg"
+    },
+    "permissions": {
+      "enabled": false,
+      "sha_pinning_required": false
+    }
+  },
+  "after": {
+    "workflow": {
+      "id": 385778762,
+      "node_id": "W_kwDOVLMFGM4W_oRK",
+      "name": "assembly-model",
+      "path": ".github/workflows/ci.yml",
+      "state": "disabled_manually",
+      "created_at": "2026-10-15T19:48:04.000+03:00",
+      "updated_at": "2026-10-31T15:47:46.000+03:00",
+      "url": "https://api.github.com/repos/Grar00t/niyah-assembly-model/actions/workflows/385778762",
+      "html_url": "https://github.com/Grar00t/niyah-assembly-model/blob/main/.github/workflows/ci.yml",
+      "badge_url": "https://github.com/Grar00t/niyah-assembly-model/workflows/assembly-model/badge.svg"
+    },
+    "permissions": {
+      "enabled": false,
+      "sha_pinning_required": false
+    }
+  },
+  "workflow_sha256": "a550470130e053432f69784bfada84336c32653cc37398e4e68b46cb8e6e9067",
+  "automatic_events": [],
+  "historical_jobs": {
+    "41180125122": {
+      "total_count": 1,
+      "jobs": [
+        {
+          "id": 124475643562,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "failure",
+          "steps": []
+        }
+      ]
+    },
+    "41180157697": {
+      "total_count": 1,
+      "jobs": [
+        {
+          "id": 124475738757,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "failure",
+          "steps": []
+        }
+      ]
+    },
+    "41180362378": {
+      "total_count": 1,
+      "jobs": [
+        {
+          "id": 124476325280,
+          "name": "verify",
+          "status": "completed",
+          "conclusion": "failure",
+          "steps": []
+        }
+      ]
+    }
+  },
+  "historical_failure_annotations": {
+    "124475643562": [
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/Grar00t/niyah-assembly-model/blob/e99a89ad430fc28d585fc2056e9e8641955573c3/.github",
+        "start_line": 1,
+        "start_column": null,
+        "end_line": 1,
+        "end_column": null,
+        "annotation_level": "failure",
+        "title": "",
+        "message": "The job was not started because your account is locked due to a billing issue.",
+        "raw_details": ""
+      }
+    ],
+    "124475738757": [
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/Grar00t/niyah-assembly-model/blob/cc9d67e4dc1b1f36e5cc81d9bfe2302625177b6e/.github",
+        "start_line": 1,
+        "start_column": null,
+        "end_line": 1,
+        "end_column": null,
+        "annotation_level": "failure",
+        "title": "",
+        "message": "The job was not started because your account is locked due to a billing issue.",
+        "raw_details": ""
+      }
+    ],
+    "124476325280": [
+      {
+        "path": ".github",
+        "blob_href": "https://github.com/Grar00t/niyah-assembly-model/blob/3e755aac0d8645c1eb1185fb61bbb3df1681dc1d/.github",
+        "start_line": 1,
+        "start_column": null,
+        "end_line": 1,
+        "end_column": null,
+        "annotation_level": "failure",
+        "title": "",
+        "message": "The job was not started because your account is locked due to a billing issue.",
+        "raw_details": ""
+      }
+    ]
+  },
+  "workflow_dispatch_requested": false,
+  "old_files_changed": [
+    ".github/workflows/ci.yml"
+  ],
+  "source_model_qwen_and_prior_evidence_hashes_unchanged": true,
+  "prior_snapshot_path": "/home/a/niyah-ops/ci_policy_audit_20261031.json",
+  "prior_snapshot_sha256": "5dc562abbd5dc7a2fe6ae481867b78f541d3e0b0caff18ee78682a899f1ea1dc"
+}

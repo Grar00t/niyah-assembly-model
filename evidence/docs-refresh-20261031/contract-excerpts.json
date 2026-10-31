@@ -1,0 +1,2004 @@
+{
+  "kind": "static source inspection; not a test result",
+  "files": {
+    "src/attention_lm.s": {
+      "sha256": "0a549ac783a44fd0cbed43e04b17ef5962cd008fbfb97ce3962caf27d85f4e05",
+      "excerpts": [
+        {
+          "line": 5,
+          "text": ".equ D, 16"
+        },
+        {
+          "line": 6,
+          "text": ".equ CTX, 32"
+        },
+        {
+          "line": 7,
+          "text": ".equ V, 256"
+        },
+        {
+          "line": 8,
+          "text": "# AVX2_AUTO performs OSXSAVE+AVX+FMA+AVX2 capability dispatch at startup."
+        },
+        {
+          "line": 11,
+          "text": ".equ COMPILE_SIMD,1"
+        },
+        {
+          "line": 14,
+          "text": ".equ COMPILE_SIMD,1"
+        },
+        {
+          "line": 16,
+          "text": ".equ COMPILE_SIMD,0"
+        },
+        {
+          "line": 20,
+          "text": ".equ EPOCHS, 240"
+        },
+        {
+          "line": 23,
+          "text": ".equ SAMPLE_LEN, 120"
+        },
+        {
+          "line": 26,
+          "text": ".equ SEED, 2463534242"
+        },
+        {
+          "line": 49,
+          "text": "scale:   .float 0.06"
+        },
+        {
+          "line": 83,
+          "text": ".equ POS, params_start+16384"
+        },
+        {
+          "line": 84,
+          "text": ".equ F, params_start+16896"
+        },
+        {
+          "line": 85,
+          "text": ".equ FB, params_start+17920"
+        },
+        {
+          "line": 86,
+          "text": ".equ O, params_start+17984"
+        },
+        {
+          "line": 87,
+          "text": ".equ OB, params_start+34368"
+        },
+        {
+          "line": 88,
+          "text": ".equ WQ, params_start+35392"
+        },
+        {
+          "line": 89,
+          "text": ".equ WK, params_start+36416"
+        },
+        {
+          "line": 90,
+          "text": ".equ WV, params_start+37440"
+        },
+        {
+          "line": 95,
+          "text": "E:      .skip 16384"
+        },
+        {
+          "line": 96,
+          "text": "POS:    .skip 512"
+        },
+        {
+          "line": 97,
+          "text": "F:      .skip 1024"
+        },
+        {
+          "line": 98,
+          "text": "FB:     .skip 256"
+        },
+        {
+          "line": 99,
+          "text": "O:      .skip 16384"
+        },
+        {
+          "line": 100,
+          "text": "OB:     .skip 1024"
+        },
+        {
+          "line": 101,
+          "text": "WQ:     .skip 1024"
+        },
+        {
+          "line": 102,
+          "text": "WK:     .skip 1024"
+        },
+        {
+          "line": 103,
+          "text": "WV:     .skip 1024"
+        },
+        {
+          "line": 108,
+          "text": "X:      .skip 2048"
+        },
+        {
+          "line": 109,
+          "text": "Q:      .skip 256"
+        },
+        {
+          "line": 110,
+          "text": "K:      .skip 2048"
+        },
+        {
+          "line": 111,
+          "text": "VCTX:   .skip 2048"
+        },
+        {
+          "line": 112,
+          "text": "GQ:     .skip 64"
+        },
+        {
+          "line": 113,
+          "text": "GSC:     .skip 32"
+        },
+        {
+          "line": 114,
+          "text": "A:      .skip 128"
+        },
+        {
+          "line": 115,
+          "text": "S:      .skip 128"
+        },
+        {
+          "line": 116,
+          "text": "H:      .skip 256"
+        },
+        {
+          "line": 117,
+          "text": "Z:      .skip 256"
+        },
+        {
+          "line": 118,
+          "text": "Y:      .skip 256"
+        },
+        {
+          "line": 119,
+          "text": "L:      .skip 4096"
+        },
+        {
+          "line": 120,
+          "text": "PROB:   .skip 4096"
+        },
+        {
+          "line": 121,
+          "text": "GY:     .skip 256"
+        },
+        {
+          "line": 122,
+          "text": "GH:     .skip 256"
+        },
+        {
+          "line": 123,
+          "text": "GA:     .skip 128"
+        },
+        {
+          "line": 124,
+          "text": "GX:     .skip 2048"
+        },
+        {
+          "line": 125,
+          "text": "GL:     .skip 4096"
+        },
+        {
+          "line": 126,
+          "text": "TOK:    .skip 8"
+        },
+        {
+          "line": 127,
+          "text": "MASK:   .skip 256"
+        },
+        {
+          "line": 128,
+          "text": "seqbase:.skip 8"
+        },
+        {
+          "line": 129,
+          "text": "seqlen: .skip 4"
+        },
+        {
+          "line": 130,
+          "text": "target: .skip 4"
+        },
+        {
+          "line": 131,
+          "text": "simd_capable: .skip 4"
+        },
+        {
+          "line": 132,
+          "text": "number: .skip 32"
+        },
+        {
+          "line": 133,
+          "text": "ftmp:   .skip 16"
+        },
+        {
+          "line": 134,
+          "text": "genbuf: .skip SAMPLE_LEN+CTX+1"
+        },
+        {
+          "line": 367,
+          "text": "# Forward: r13 = position >= CTX, seqbase = ptr, predicts token at r13."
+        },
+        {
+          "line": 399,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 424,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 467,
+          "text": "    lea r10,[rip+VCTX]"
+        },
+        {
+          "line": 473,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 488,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 509,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 531,
+          "text": "    lea r10,[rip+VCTX]"
+        },
+        {
+          "line": 537,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 788,
+          "text": "    lea r10,[rip+VCTX]"
+        },
+        {
+          "line": 795,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 839,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 884,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 1012,
+          "text": "    cmp r8d,CTX"
+        },
+        {
+          "line": 1016,
+          "text": "# Result xmm10 = average negative log likelihood scaled x1000."
+        },
+        {
+          "line": 1018,
+          "text": "    mov r13d,CTX"
+        },
+        {
+          "line": 1070,
+          "text": "    mulss xmm0,[rip+scale]"
+        },
+        {
+          "line": 1118,
+          "text": "    mov r13d,CTX"
+        },
+        {
+          "line": 1181,
+          "text": "    mov r13d,CTX"
+        },
+        {
+          "line": 1218,
+          "text": "    mov r13d,CTX"
+        }
+      ]
+    },
+    "src/trigram.s": {
+      "sha256": "390234b720148ccad50190626debb1bda178e63476e0d1dce803fea2b8b3f477",
+      "excerpts": [
+        {
+          "line": 3,
+          "text": ".equ EPOCHS, 201"
+        },
+        {
+          "line": 6,
+          "text": ".equ SEED, 2463534242"
+        },
+        {
+          "line": 9,
+          "text": ".equ SAMPLE_LEN, 90"
+        },
+        {
+          "line": 51,
+          "text": "W: .skip 67108864"
+        },
+        {
+          "line": 53,
+          "text": "P: .skip 1024"
+        },
+        {
+          "line": 54,
+          "text": "allowed: .skip 256"
+        },
+        {
+          "line": 55,
+          "text": "tmp: .skip 16"
+        },
+        {
+          "line": 56,
+          "text": "nbuf: .skip 32"
+        }
+      ]
+    },
+    "src/continual_lora.s": {
+      "sha256": "cca24f736a4c18a3b759df4d17d561caf12439b596abbfc608a429adb1de1150",
+      "excerpts": [
+        {
+          "line": 5,
+          "text": ".equ BASE_BYTES,38464"
+        },
+        {
+          "line": 6,
+          "text": ".equ WQ_OFFSET,35392"
+        },
+        {
+          "line": 7,
+          "text": ".equ PARAM_OFFSET,64+BASE_BYTES"
+        },
+        {
+          "line": 8,
+          "text": ".equ CHECKSUM_OFFSET,PARAM_OFFSET+256"
+        },
+        {
+          "line": 9,
+          "text": ".equ CHECKPOINT_BYTES,CHECKSUM_OFFSET+8"
+        },
+        {
+          "line": 10,
+          "text": ".equ MAX_RECORDS,16"
+        },
+        {
+          "line": 33,
+          "text": "base: .skip BASE_BYTES+1"
+        },
+        {
+          "line": 34,
+          "text": "checkpoint: .skip CHECKPOINT_BYTES+1"
+        },
+        {
+          "line": 35,
+          "text": "params: .skip 256"
+        },
+        {
+          "line": 36,
+          "text": "backup: .skip 256"
+        },
+        {
+          "line": 37,
+          "text": "grads: .skip 256"
+        },
+        {
+          "line": 38,
+          "text": "prediction: .skip 64"
+        },
+        {
+          "line": 39,
+          "text": "hidden: .skip 8"
+        },
+        {
+          "line": 40,
+          "text": "error: .skip 64"
+        },
+        {
+          "line": 41,
+          "text": "hidden_error: .skip 8"
+        },
+        {
+          "line": 42,
+          "text": "input: .skip 129"
+        },
+        {
+          "line": 43,
+          "text": "new_data: .skip MAX_RECORDS*128+1"
+        },
+        {
+          "line": 44,
+          "text": "replay_data: .skip MAX_RECORDS*128+1"
+        },
+        {
+          "line": 45,
+          "text": "stats: .skip 16"
+        },
+        {
+          "line": 46,
+          "text": "args: .skip 8"
+        },
+        {
+          "line": 47,
+          "text": "mode: .skip 4"
+        },
+        {
+          "line": 48,
+          "text": "new_count: .skip 4"
+        },
+        {
+          "line": 49,
+          "text": "replay_count: .skip 4"
+        },
+        {
+          "line": 50,
+          "text": "epochs: .skip 4"
+        },
+        {
+          "line": 51,
+          "text": "updates: .skip 8"
+        },
+        {
+          "line": 52,
+          "text": "sgd_steps: .skip 8"
+        },
+        {
+          "line": 53,
+          "text": "output_path: .skip 8"
+        },
+        {
+          "line": 54,
+          "text": "output_fd: .skip 8"
+        },
+        {
+          "line": 178,
+          "text": "    mov edx,BASE_BYTES+1"
+        },
+        {
+          "line": 183,
+          "text": "    mov ecx,BASE_BYTES/4"
+        },
+        {
+          "line": 192,
+          "text": "    mov edx,CHECKPOINT_BYTES+1"
+        },
+        {
+          "line": 206,
+          "text": "    cmp dword ptr [rsi+20],BASE_BYTES"
+        },
+        {
+          "line": 251,
+          "text": "    mov dword ptr [rdi+20],BASE_BYTES"
+        },
+        {
+          "line": 259,
+          "text": "    mov ecx,BASE_BYTES/8"
+        },
+        {
+          "line": 323,
+          "text": "    lea r10,[rip+base+WQ_OFFSET]"
+        },
+        {
+          "line": 482,
+          "text": "    cmp eax,MAX_RECORDS*128"
+        },
+        {
+          "line": 602,
+          "text": "    mov edx,MAX_RECORDS*128+1"
+        },
+        {
+          "line": 610,
+          "text": "    mov edx,MAX_RECORDS*128+1"
+        }
+      ]
+    },
+    "src/tile_allocator.s": {
+      "sha256": "35593e3d336495dc5d5d2987c18bdfc6a931db645fe69a118f514d4fbd282baf",
+      "excerpts": [
+        {
+          "line": 17,
+          "text": "header: .skip 16"
+        },
+        {
+          "line": 18,
+          "text": "intervals: .skip 512"
+        },
+        {
+          "line": 19,
+          "text": "extra: .skip 1"
+        },
+        {
+          "line": 21,
+          "text": "live_end: .skip 32"
+        },
+        {
+          "line": 22,
+          "text": "output: .skip 72"
+        }
+      ]
+    },
+    "src/tile_probe.s": {
+      "sha256": "ca1edf01d0c53a2c69bb67491bd5a0f9e2296125eafd413024f439de05af4df7",
+      "excerpts": [
+        {
+          "line": 12,
+          "text": "input: .skip 2048"
+        },
+        {
+          "line": 13,
+          "text": "output: .skip 1024"
+        },
+        {
+          "line": 14,
+          "text": "extra: .skip 1"
+        }
+      ]
+    },
+    "src/tile_kernels.s": {
+      "sha256": "5ba864f438fa422496772dd63220eb7e927d982cfe625d38c1969bdd26303846",
+      "excerpts": [
+        {
+          "line": 7,
+          "text": "nx_cpu_record: .skip 64"
+        },
+        {
+          "line": 8,
+          "text": "nx_amx_packed: .skip 1024"
+        },
+        {
+          "line": 9,
+          "text": "nx_xcomp: .skip 8"
+        }
+      ]
+    },
+    "src/tensor_runtime.s": {
+      "sha256": "c24fc30ce88b3e4ae0ddee5bf7b07b071d7ea5c86fda9b8302364c413f900060",
+      "excerpts": [
+        {
+          "line": 26,
+          "text": "extra: .skip 1"
+        },
+        {
+          "line": 27,
+          "text": "requested: .skip 4"
+        },
+        {
+          "line": 28,
+          "text": "features_only: .skip 4"
+        }
+      ]
+    },
+    "src/tensor_dispatch.s": {
+      "sha256": "a7a2cd86aaf6e0ec89e2d622957c0c2db443d68a1a8882e7906d9fa79efd4d1a",
+      "excerpts": [
+        {
+          "line": 6,
+          "text": "nx_cpu: .skip 64"
+        },
+        {
+          "line": 10,
+          "text": "nx_amx_limits: .skip 24"
+        },
+        {
+          "line": 11,
+          "text": "nx_supported_xcomp: .skip 8"
+        },
+        {
+          "line": 12,
+          "text": "nx_permitted_xcomp: .skip 8"
+        }
+      ]
+    },
+    "src/morph_tokenizer/tokenizer.c": {
+      "sha256": "3335f2d67ba2d617089ffbff699a51ae2969cdef5a46e251d2fa8911a99c3c5b",
+      "excerpts": [
+        {
+          "line": 7,
+          "text": "#define MAX_BYTES 1048576u"
+        },
+        {
+          "line": 8,
+          "text": "#define HEADER_BYTES 64u"
+        },
+        {
+          "line": 9,
+          "text": "#define MAX_ENCODED (HEADER_BYTES + 2u * MAX_BYTES)"
+        },
+        {
+          "line": 10,
+          "text": "static u8 input[MAX_ENCODED + 1u];"
+        },
+        {
+          "line": 11,
+          "text": "static u8 output[MAX_ENCODED];"
+        },
+        {
+          "line": 13,
+          "text": "static const u8 magic[8] = {'N','Y','M','O','R','P','H',0};"
+        },
+        {
+          "line": 15,
+          "text": "void *memcpy(void *dst, const void *src, u64 n) {"
+        },
+        {
+          "line": 16,
+          "text": "    u8 *d = dst; const u8 *s = src; while (n--) *d++ = *s++; return dst;"
+        },
+        {
+          "line": 19,
+          "text": "    u8 *d = dst; while (n--) *d++ = (u8)value; return dst;"
+        },
+        {
+          "line": 26,
+          "text": "static int equal(const u8 *a, const u8 *b, u64 n) {"
+        },
+        {
+          "line": 27,
+          "text": "    u64 i; for (i=0; i<n; i++) if (a[i] != b[i]) return 0; return 1;"
+        },
+        {
+          "line": 32,
+          "text": "static int write_all(long fd, const u8 *p, u64 n) {"
+        },
+        {
+          "line": 36,
+          "text": "        if (rc <= 0) return 3;"
+        },
+        {
+          "line": 39,
+          "text": "    return 0;"
+        },
+        {
+          "line": 43,
+          "text": "static u32 get32(const u8 *p) { u32 i,x=0; for (i=0;i<4;i++) x|=(u32)p[i]<<(8*i); return x; }"
+        },
+        {
+          "line": 44,
+          "text": "static u64 get64(const u8 *p) { u32 i; u64 x=0; for (i=0;i<8;i++) x|=(u64)p[i]<<(8*i); return x; }"
+        },
+        {
+          "line": 46,
+          "text": "static u32 scalar(const u8 *p, u32 n, u32 *cp) {"
+        },
+        {
+          "line": 48,
+          "text": "    if (!n) return 0;"
+        },
+        {
+          "line": 50,
+          "text": "    if (c<128) { *cp=c; return 1; }"
+        },
+        {
+          "line": 54,
+          "text": "    else return 0;"
+        },
+        {
+          "line": 55,
+          "text": "    if (k>n) return 0;"
+        },
+        {
+          "line": 56,
+          "text": "    for (i=1;i<k;i++) { if ((p[i]&192)!=128) return 0; v=(v<<6)|(p[i]&63); }"
+        },
+        {
+          "line": 57,
+          "text": "    if ((k==3 && v<0x800) || (k==4 && v<0x10000) || v>0x10ffff || (v>=0xd800 && v<=0xdfff)) return 0;"
+        },
+        {
+          "line": 61,
+          "text": "    if (c<=0x20 || (c>=0x7f && c<=0xa0)) return 1;"
+        },
+        {
+          "line": 62,
+          "text": "    if (c<128) return !((c>='A'&&c<='Z')||(c>='a'&&c<='z')||(c>='0'&&c<='9'));"
+        },
+        {
+          "line": 63,
+          "text": "    return c==0x1680 || (c>=0x2000 && c<=0x206f) || c==0x3000 ||"
+        },
+        {
+          "line": 66,
+          "text": "static u32 piece_id(const u8 *p, u32 n) {"
+        },
+        {
+          "line": 69,
+          "text": "        if (n==piece_lengths[i] && equal(p,(const u8 *)pieces[i],n)) return 256+i;"
+        },
+        {
+          "line": 70,
+          "text": "    return 0xffffffffu;"
+        },
+        {
+          "line": 72,
+          "text": "static u32 cost(const u8 *p, u32 n) { return piece_id(p,n)==0xffffffffu ? n : 1; }"
+        },
+        {
+          "line": 74,
+          "text": "    u32 pos=HEADER_BYTES+2*(*count); output[pos]=(u8)id; output[pos+1]=(u8)(id>>8); ++*count;"
+        },
+        {
+          "line": 76,
+          "text": "static void surface(const u8 *p, u32 n, u32 *count) {"
+        },
+        {
+          "line": 81,
+          "text": "static void word(const u8 *p, u32 n, u32 *count) {"
+        },
+        {
+          "line": 86,
+          "text": "        const MorphAnalysis *a=&analyses.analyses[i]; cursor=0; total=0;"
+        },
+        {
+          "line": 111,
+          "text": "    memcpy(output,magic,8); put32(output+8,1); put32(output+12,SURFACE_VOCAB_VERSION);"
+        },
+        {
+          "line": 113,
+          "text": "    return write_all(1,output,HEADER_BYTES+2u*count);"
+        },
+        {
+          "line": 116,
+          "text": "    u64 count,original,total=0,i; u32 id,j,part_len; const u8 *part;"
+        },
+        {
+          "line": 117,
+          "text": "    if (n<HEADER_BYTES || !equal(input,magic,8) || get32(input+8)!=1 ||"
+        },
+        {
+          "line": 118,
+          "text": "        get32(input+12)!=SURFACE_VOCAB_VERSION || !equal(input+32,vocab_hash,32)) return 2;"
+        },
+        {
+          "line": 120,
+          "text": "    if (count>MAX_BYTES || original>MAX_BYTES || HEADER_BYTES+2*count!=n) return 2;"
+        },
+        {
+          "line": 123,
+          "text": "        id=input[HEADER_BYTES+2*i]|((u32)input[HEADER_BYTES+2*i+1]<<8);"
+        },
+        {
+          "line": 124,
+          "text": "        if (id>=SURFACE_VOCAB_SIZE) return 2;"
+        },
+        {
+          "line": 126,
+          "text": "        if (part_len>original-total) return 2;"
+        },
+        {
+          "line": 129,
+          "text": "    if (total!=original) return 2;"
+        },
+        {
+          "line": 132,
+          "text": "        id=input[HEADER_BYTES+2*i]|((u32)input[HEADER_BYTES+2*i+1]<<8);"
+        },
+        {
+          "line": 134,
+          "text": "        part=(const u8 *)pieces[id-256]; part_len=piece_lengths[id-256];"
+        },
+        {
+          "line": 137,
+          "text": "    return write_all(1,output,total);"
+        },
+        {
+          "line": 139,
+          "text": "int tokenizer_main(u64 argc, const char **argv) {"
+        },
+        {
+          "line": 141,
+          "text": "    if (argc!=2) return 64;"
+        },
+        {
+          "line": 142,
+          "text": "    if (arg(argv[1],\"vocab\")) return write_all(1,(const u8 *)vocab_json,sizeof vocab_json-1);"
+        },
+        {
+          "line": 143,
+          "text": "    if (arg(argv[1],\"encode\")) { mode=1; limit=MAX_BYTES; }"
+        },
+        {
+          "line": 144,
+          "text": "    else if (arg(argv[1],\"decode\")) { mode=0; limit=MAX_ENCODED; }"
+        },
+        {
+          "line": 145,
+          "text": "    else return 64;"
+        },
+        {
+          "line": 149,
+          "text": "        if (rc<0) return 3;"
+        },
+        {
+          "line": 153,
+          "text": "    return 4;"
+        }
+      ]
+    },
+    "src/morph_tokenizer/vocab.h": {
+      "sha256": "6bdd68ad768d280eecc92704d639c8a3c4cab7a7f64e205d2f6db77cfc6fc20b",
+      "excerpts": [
+        {
+          "line": 3,
+          "text": "#define SURFACE_VOCAB_VERSION 1u"
+        },
+        {
+          "line": 4,
+          "text": "#define SURFACE_PIECE_COUNT 38u"
+        },
+        {
+          "line": 5,
+          "text": "#define SURFACE_VOCAB_SIZE 294u"
+        },
+        {
+          "line": 6,
+          "text": "static const unsigned char vocab_hash[32] = {0x19,0x39,0xa4,0x81,0x74,0x24,0x7d,0x00,0x12,0xe9,0x34,0x20,0x6e,0x31,0xe0,0x2f,0x2d,0x6d,0x79,0x5e,0xe6,0x22,0x64,0x7f,0xaf,0x07,0xc1,0x20,0x9e,0x01,0x0d,0x43};"
+        },
+        {
+          "line": 7,
+          "text": "static const char vocab_json[] = \"\\x7b\\x22\\x62\\x79\\x74\\x65\\x5f\\x69\\x64\\x73\\x22\\x3a\\x5b\\x30\\x2c\\x32\\x35\\x35\\x5d\\x2c\\x22\\x6d\\x6f\\x72\\x70\\x68\\x5f\\x73\\x63\\x68\\x65\\x6d\\x61\\x22\\x3a\\x31\\x2c\\x22\\x70\\x69\\x65\\x63\\x65\\x5f\\x69\\x64\\x5f\\x73\\x74\\x61\\x72\\x74\\x22\\x3a\\x32\\x35\\x36\\x2c\\x22\\x70\\x69\\x65\\x63\\x65\\x73\\x22\\x3a\\x5b\\x22\\xd9\\x88\\x22\\x2c\\x22\\xd9\\x81\\x22\\x2c\\x22\\xd8\\xa8\\x22\\x2c\\x22\\xd9\\x83\\x22\\x2c\\x22\\xd9\\x84\\x22\\x2c\\x22\\xd8\\xa7\\xd9\\x84\\x22\\x2c\\x22\\xd8\\xb3\\x22\\x2c\\x22\\xd8\\xb3\\xd9\\x88\\xd9\\x81\\x22\\x2c\\x22\\xd8\\xaa\\x22\\x2c\\x22\\xd9\\x86\\x22\\x2c\\x22\\xd9\\x8a\\x22\\x2c\\x22\\xd8\\xa3\\x22\\x2c\\x22\\xd8\\xa7\\x22\\x2c\\x22\\xd9\\x87\\x22\\x2c\\x22\\xd9\\x87\\xd8\\xa7\\x22\\x2c\\x22\\xd9\\x83\\xd9\\x85\\x22\\x2c\\x22\\xd9\\x86\\xd8\\xa7\\x22\\x2c\\x22\\xd9\\x83\\xd8\\xaa\\xd8\\xa7\\xd8\\xa8\\x22\\x2c\\x22\\xd9\\x83\\xd8\\xaa\\xd8\\xa8\\x22\\x2c\\x22\\xd8\\xaf\\xd8\\xb1\\xd8\\xb3\\x22\\x2c\\x22\\xd8\\xb9\\xd9\\x85\\xd9\\x84\\x22\\x2c\\x22\\xd9\\x81\\xd9\\x87\\xd9\\x85\\x22\\x2c\\x22\\xd8\\xaf\\xd8\\xae\\xd9\\x84\\x22\\x2c\\x22\\xd8\\xae\\xd8\\xb1\\xd8\\xac\\x22\\x2c\\x22\\xd9\\x84\\xd8\\xb9\\xd8\\xa8\\x22\\x2c\\x22\\xd8\\xad\\xd9\\x85\\xd9\\x84\\x22\\x2c\\x22\\xd8\\xb3\\xd9\\x85\\xd8\\xb9\\x22\\x2c\\x22\\xd8\\xb4\\xd8\\xb1\\xd8\\xa8\\x22\\x2c\\x22\\xd8\\xb7\\xd8\\xa7\\xd9\\x84\\xd8\\xa8\\x22\\x2c\\x22\\xd9\\x85\\xd8\\xaf\\xd8\\xb1\\xd8\\xb3\\xd8\\xa9\\x22\\x2c\\x22\\xd8\\xb3\\xd9\\x84\\xd8\\xa7\\xd9\\x85\\x22\\x2c\\x22\\xd9\\x85\\xd8\\xb1\\xd8\\xad\\xd8\\xa8\\xd8\\xa7\\x22\\x2c\\x22\\xd9\\x86\\xd9\\x8a\\xd8\\xa9\\x22\\x2c\\x22\\xd9\\x84\\xd8\\xba\\xd8\\xa9\\x22\\x2c\\x22\\xd8\\xa8\\xd8\\xb1\\xd9\\x85\\xd8\\xac\\xd8\\xa9\\x22\\x2c\\x22\\xd8\\xad\\xd8\\xb3\\xd8\\xa7\\xd8\\xa8\\x22\\x2c\\x22\\xd9\\x85\\xd9\\x83\\xd8\\xaa\\xd8\\xa8\\xd8\\xa9\\x22\\x2c\\x22\\xd8\\xb9\\xd9\\x84\\xd9\\x85\\x22\\x5d\\x2c\\x22\\x73\\x63\\x68\\x65\\x6d\\x61\\x22\\x3a\\x22\\x6e\\x69\\x79\\x61\\x68\\x2d\\x6d\\x6f\\x72\\x70\\x68\\x2d\\x73\\x75\\x72\\x66\\x61\\x63\\x65\\x2d\\x76\\x6f\\x63\\x61\\x62\\x75\\x6c\\x61\\x72\\x79\\x22\\x2c\\x22\\x73\\x65\\x6c\\x65\\x63\\x74\\x69\\x6f\\x6e\\x22\\x3a\\x22\\x6d\\x69\\x6e\\x69\\x6d\\x75\\x6d\\x5f\\x74\\x6f\\x6b\\x65\\x6e\\x73\\x5f\\x66\\x69\\x72\\x73\\x74\\x5f\\x61\\x6e\\x61\\x6c\\x79\\x73\\x69\\x73\\x5f\\x74\\x69\\x65\\x62\\x72\\x65\\x61\\x6b\\x22\\x2c\\x22\\x76\\x65\\x72\\x73\\x69\\x6f\\x6e\\x22\\x3a\\x31\\x7d\\x0a\";"
+        },
+        {
+          "line": 48,
+          "text": "static const unsigned int piece_lengths[SURFACE_PIECE_COUNT] = {2,2,2,2,2,4,2,6,2,2,2,2,2,2,4,4,4,8,6,6,6,6,6,6,6,6,6,6,8,10,8,10,6,6,10,8,10,6};"
+        }
+      ]
+    },
+    "tools/checkpoint_attention.py": {
+      "sha256": "c2b5ef66951eb037e516b51bc90cc33f06964916f1134be05fb82c352a6d8530",
+      "excerpts": [
+        {
+          "line": 15,
+          "text": "ROOT = Path(__file__).resolve().parents[1]"
+        },
+        {
+          "line": 23,
+          "text": "WEIGHT_BYTES = 38464"
+        },
+        {
+          "line": 26,
+          "text": "    return hashlib.sha256(path.read_bytes()).hexdigest()"
+        },
+        {
+          "line": 41,
+          "text": "    if info.get(\"format\")!=\"niyah-attention-f32-v2-learned-qkv\" or info.get(\"weights_len\")!=WEIGHT_BYTES:"
+        },
+        {
+          "line": 73,
+          "text": "    return hashlib.sha256(data).hexdigest()"
+        },
+        {
+          "line": 81,
+          "text": "        if b\"heldout_loss_x1000 \" not in output[:-WEIGHT_BYTES]:"
+        },
+        {
+          "line": 85,
+          "text": "    evidence=output[:-WEIGHT_BYTES:].decode(\"utf-8\",errors=\"strict\")"
+        },
+        {
+          "line": 88,
+          "text": "         \"architecture\":\"D=16, CTX=8, trainable WQ/WK/WV, one-head attention, residual ReLU FFN\","
+        },
+        {
+          "line": 132,
+          "text": "    if info.get(\"format\")!=\"niyah-attention-f32-v2-learned-qkv\" or info.get(\"weights_len\")!=WEIGHT_BYTES:"
+        }
+      ]
+    },
+    "tools/morph_attention.py": {
+      "sha256": "a54bd5f979caddc2188ebc606165a2fd73ecb5d965a5e5c11f09e9fb8552b60a",
+      "excerpts": [
+        {
+          "line": 16,
+          "text": "V=294; D=16; CTX=8; EPOCHS=240; SAMPLE=64"
+        },
+        {
+          "line": 17,
+          "text": "WEIGHT_BYTES=V*132+4672"
+        },
+        {
+          "line": 22,
+          "text": "def sha(data): return hashlib.sha256(data).hexdigest()"
+        },
+        {
+          "line": 34,
+          "text": "    version,vid,count,nbytes=struct.unpack_from('<IIQQ',encoded,8)"
+        },
+        {
+          "line": 35,
+          "text": "    if (version,vid,nbytes)!=(1,1,len(raw)) or encoded[32:64].hex()!=VOCAB_SHA or len(encoded)!=64+2*count:"
+        },
+        {
+          "line": 37,
+          "text": "    ids=struct.unpack_from('<'+'H'*count,encoded,64)"
+        },
+        {
+          "line": 39,
+          "text": "    return encoded[64:],ids"
+        },
+        {
+          "line": 49,
+          "text": "      ('.equ V, 256','.equ V, 294',1),"
+        },
+        {
+          "line": 51,
+          "text": "      ('.equ N, . - train_bytes','.equ N, (. - train_bytes)/2',1),"
+        },
+        {
+          "line": 53,
+          "text": "      ('.equ NV, . - valid_bytes','.equ NV, (. - valid_bytes)/2',1),"
+        },
+        {
+          "line": 56,
+          "text": "      ('.equ POS, params_start+16384','.equ POS, params_start+V*64',1),"
+        },
+        {
+          "line": 57,
+          "text": "      ('.equ F, params_start+16896','.equ F, params_start+V*64+512',1),"
+        },
+        {
+          "line": 58,
+          "text": "      ('.equ FB, params_start+17920','.equ FB, params_start+V*64+1536',1),"
+        },
+        {
+          "line": 59,
+          "text": "      ('.equ O, params_start+17984','.equ O, params_start+V*64+1600',1),"
+        },
+        {
+          "line": 60,
+          "text": "      ('.equ OB, params_start+34368','.equ OB, params_start+V*128+1600',1),"
+        },
+        {
+          "line": 61,
+          "text": "      ('.equ WQ, params_start+35392','.equ WQ, params_start+V*132+1600',1),"
+        },
+        {
+          "line": 62,
+          "text": "      ('.equ WK, params_start+36416','.equ WK, params_start+V*132+2624',1),"
+        },
+        {
+          "line": 63,
+          "text": "      ('.equ WV, params_start+37440','.equ WV, params_start+V*132+3648',1),"
+        },
+        {
+          "line": 64,
+          "text": "      ('E:      .skip 16384','E:      .skip V*64',1),"
+        },
+        {
+          "line": 65,
+          "text": "      ('O:      .skip 16384','O:      .skip V*64',1),"
+        },
+        {
+          "line": 66,
+          "text": "      ('OB:     .skip 1024','OB:     .skip V*4',1),"
+        },
+        {
+          "line": 67,
+          "text": "      ('L:      .skip 1024','L:      .skip V*4',1),"
+        },
+        {
+          "line": 68,
+          "text": "      ('PROB:   .skip 1024','PROB:   .skip V*4',1),"
+        },
+        {
+          "line": 69,
+          "text": "      ('GL:     .skip 1024','GL:     .skip V*4',1),"
+        },
+        {
+          "line": 70,
+          "text": "      ('TOK:    .skip 8','TOK:    .skip CTX*2',1),"
+        },
+        {
+          "line": 71,
+          "text": "      ('MASK:   .skip 256','MASK:   .skip V',1),"
+        },
+        {
+          "line": 72,
+          "text": "      ('genbuf: .skip SAMPLE_LEN+CTX+1','genbuf: .skip (SAMPLE_LEN+CTX)*2',1),"
+        },
+        {
+          "line": 96,
+          "text": "    cmp r12d,CTX"
+        },
+        {
+          "line": 112,
+          "text": "    source='.file \\\"niyah_morph_attention_v1.s\\\"\\n# GENERATED VERSIONED U16 SURFACE-TOKEN VARIANT; base SHA256 '+BASE_SHA+'\\n'+source"
+        },
+        {
+          "line": 113,
+          "text": "    source+='\\n.section .rodata\\nmorph_identity: .ascii \"tokenizer_vocab_sha256 '+VOCAB_SHA+'\\\\n\"\\n.equ morph_identity_len,.-morph_identity\\n'"
+        },
+        {
+          "line": 120,
+          "text": "morph_gen_bytes: .skip (SAMPLE_LEN+CTX)*16"
+        },
+        {
+          "line": 121,
+          "text": "morph_gen_len: .skip 8"
+        },
+        {
+          "line": 123,
+          "text": "morph_utf8_test_buffer: .skip 513"
+        },
+        {
+          "line": 315,
+          "text": "    if info.get('format')!=FORMAT or info.get('vocab_sha256')!=VOCAB_SHA or info.get('vocab_size')!=V or info.get('weights_bytes')!=WEIGHT_BYTES or info.get('context_tokens')!=CTX:"
+        },
+        {
+          "line": 336,
+          "text": "    return int(m.group(1))"
+        },
+        {
+          "line": 340,
+          "text": "    return data.split(marker,1)[1][:-1]"
+        },
+        {
+          "line": 349,
+          "text": "    if not exported[:-WEIGHT_BYTES].endswith(b'\\n') or metric(exported[:-WEIGHT_BYTES],'final_train_loss_x1000')!=metric(trained,'final_train_loss_x1000'):"
+        },
+        {
+          "line": 352,
+          "text": "    manifest={'format':FORMAT,'vocab_sha256':VOCAB_SHA,'vocab_size':V,'context_tokens':CTX,"
+        },
+        {
+          "line": 353,
+          "text": "      'hidden_width':D,'epochs':EPOCHS,'weights_bytes':WEIGHT_BYTES,'base_assembly_sha256':BASE_SHA,"
+        },
+        {
+          "line": 366,
+          "text": "      'vocab_size':V,'vocab_sha256':VOCAB_SHA,'weight_bytes':WEIGHT_BYTES,"
+        }
+      ]
+    },
+    "tests/test_attention.py": {
+      "sha256": "8511296248fb23b0dbf174887cd224263619c4d83f64665b5fac001f7e8c8267",
+      "excerpts": [
+        {
+          "line": 15,
+          "text": "ROOT = Path(__file__).resolve().parents[1]"
+        },
+        {
+          "line": 19,
+          "text": "D = 16"
+        },
+        {
+          "line": 20,
+          "text": "T = 8"
+        },
+        {
+          "line": 22,
+          "text": "NFLOATS = 4096 + 128 + 256 + 16 + 4096 + 256 + 256*3"
+        },
+        {
+          "line": 23,
+          "text": "WEIGHT_BYTES = NFLOATS * 4"
+        },
+        {
+          "line": 38,
+          "text": "    return hashlib.sha256(exe.read_bytes()).hexdigest()"
+        },
+        {
+          "line": 44,
+          "text": "    assert p.returncode == 0 and not p.stderr, ("
+        },
+        {
+          "line": 51,
+          "text": "    return int(m.group(1))"
+        },
+        {
+          "line": 55,
+          "text": "    assert output.count(marker) == 1, \"missing or duplicate sample marker\""
+        },
+        {
+          "line": 58,
+          "text": "    return sample[:-1]"
+        },
+        {
+          "line": 122,
+          "text": "        assert 0 < final < initial, \"model did not learn its training corpus\""
+        },
+        {
+          "line": 123,
+          "text": "        assert valid > 0 and valid < 100000"
+        },
+        {
+          "line": 128,
+          "text": "        assert metric(other,\"final_train_loss_x1000\") == final"
+        },
+        {
+          "line": 139,
+          "text": "        assert hashlib.sha256(weights).digest() != b\"\\x00\"*32"
+        },
+        {
+          "line": 140,
+          "text": "        assert len(exported)-WEIGHT_BYTES < 1500"
+        },
+        {
+          "line": 144,
+          "text": "            assert max(abs(x - (1.0 if k//D==k%D else 0.0))"
+        },
+        {
+          "line": 148,
+          "text": "        assert abs(oracle_train-final) < 3.0, (oracle_train,final)"
+        },
+        {
+          "line": 149,
+          "text": "        assert abs(oracle_valid-valid) < 3.0, (oracle_valid,valid)"
+        },
+        {
+          "line": 156,
+          "text": "        assert difference > 1.0e-4, \"context not affecting model probabilities\""
+        }
+      ]
+    },
+    "tests/test_exactcalc.py": {
+      "sha256": "051483a0616aebb4ca3ae88893cab23f37a801add422d24199d36538d12b573b",
+      "excerpts": [
+        {
+          "line": 16,
+          "text": "MIN=-(1<<31)"
+        },
+        {
+          "line": 17,
+          "text": "MAX=(1<<31)-1"
+        },
+        {
+          "line": 37,
+          "text": "    assert got.stdout==answer, (op,n1,d1,n2,d2,got.stdout,answer)"
+        },
+        {
+          "line": 39,
+          "text": "    assert -(1<<63) < expected.numerator < (1<<63)"
+        },
+        {
+          "line": 40,
+          "text": "    assert 0<expected.denominator<(1<<63)"
+        },
+        {
+          "line": 52,
+          "text": "    assert len(stack)==1,stack"
+        },
+        {
+          "line": 53,
+          "text": "    assert b\" RWE \" not in stack[0],stack[0]"
+        },
+        {
+          "line": 54,
+          "text": "    assert b\" RW \" in stack[0],stack[0]"
+        },
+        {
+          "line": 64,
+          "text": "    assert run([\"--help\"]).returncode==0"
+        },
+        {
+          "line": 65,
+          "text": "    assert b\"signed 32-bit\" in run([\"--help\"]).stdout"
+        },
+        {
+          "line": 66,
+          "text": "    boundary=[MIN,MIN+1,-MAX,-101,-7,-3,-1,0,1,2,3,7,101,MAX-1,MAX]"
+        },
+        {
+          "line": 67,
+          "text": "    dens=[1,2,3,7,97,65535,MAX-1,MAX]"
+        },
+        {
+          "line": 83,
+          "text": "                return rng.choice(boundary) if rng.random()<0.55 else rng.randint(MIN,MAX)"
+        },
+        {
+          "line": 85,
+          "text": "                return rng.choice(dens) if rng.random()<0.55 else rng.randint(1,MAX)"
+        },
+        {
+          "line": 121,
+          "text": "        expect_success(op,0,1,1,MAX)"
+        },
+        {
+          "line": 123,
+          "text": "        expect_success(op,MAX,1,MIN,1)"
+        },
+        {
+          "line": 125,
+          "text": "    assert run([\"add\",1,10,2,10]).stdout==b\"3/10\\n\""
+        }
+      ]
+    },
+    "tests/test_tile_allocator.py": {
+      "sha256": "3768ef4599b4fb6684c06aa29271d7db18032e9100e5181741ec4e7cfaa07020",
+      "excerpts": [
+        {
+          "line": 31,
+          "text": "    return hashlib.sha256(data).hexdigest()"
+        },
+        {
+          "line": 45,
+          "text": "    return (b'NTILE001' + bytes([len(ranges), mask]) + b'\\0'*6"
+        },
+        {
+          "line": 71,
+          "text": "    assert result[:8] == b'TMM1' + bytes([len(ranges)]) + b'\\0'*3"
+        },
+        {
+          "line": 72,
+          "text": "    assert len(result) == len(ranges) + 8"
+        },
+        {
+          "line": 75,
+          "text": "    assert all(c < 8 and not mask & (1 << c) for c in colors)"
+        },
+        {
+          "line": 84,
+          "text": "    assert raw[:6] == b'\\x7fELF\\x02\\x01'"
+        },
+        {
+          "line": 85,
+          "text": "    hdr = struct.unpack_from('<16sHHIQQQIHHHHHH', raw)"
+        },
+        {
+          "line": 86,
+          "text": "    assert hdr[1] == 2 and hdr[2] == 62"
+        },
+        {
+          "line": 88,
+          "text": "    assert shsize == 64 and phsize == 56"
+        },
+        {
+          "line": 91,
+          "text": "        assert ph[0] not in (2, 3), 'PT_DYNAMIC/PT_INTERP not allowed'"
+        },
+        {
+          "line": 92,
+          "text": "        assert (ph[1] & 3) != 3, 'writable executable mapping'"
+        },
+        {
+          "line": 94,
+          "text": "            assert not ph[1] & 1, 'executable stack'"
+        },
+        {
+          "line": 105,
+          "text": "        assert section[9] == 24"
+        },
+        {
+          "line": 110,
+          "text": "            assert idx != 0, 'undefined symbol'"
+        },
+        {
+          "line": 113,
+          "text": "    assert text[3] <= start < end <= text[3]+text[5]"
+        },
+        {
+          "line": 116,
+          "text": "    return {'text_sha256': sha(code), 'text_bytes': len(code),"
+        },
+        {
+          "line": 142,
+          "text": "            assert check(exe, f'deterministic_{i}', wire([(0, 9)]*3), 0) == expected"
+        },
+        {
+          "line": 180,
+          "text": "            assert p.returncode == 74 and not p.stderr, (name, p.returncode)"
+        },
+        {
+          "line": 185,
+          "text": "        assert p.returncode == 65 and not p.stdout"
+        },
+        {
+          "line": 195,
+          "text": "            assert p.wait(timeout=5) == 0 and p.stdout.read() == expected and not p.stderr.read()"
+        },
+        {
+          "line": 206,
+          "text": "            assert exe2.read_bytes() == exe.read_bytes(), 'non-reproducible build'"
+        }
+      ]
+    },
+    "tests/test_ir_bridge.py": {
+      "sha256": "0ec28322b13f071a2cf60b1fac3e2f997646f4622c33ed7f244b5d2772d82482",
+      "excerpts": [
+        {
+          "line": 6,
+          "text": "def run(args,inp=None,expected=0,group='commands',cwd=None):"
+        },
+        {
+          "line": 18,
+          "text": " return {'bytes':path.stat().st_size,'sha256':sha(path.read_bytes()),'static_no_interp_needed_undefined':True}"
+        },
+        {
+          "line": 21,
+          "text": " assert b[:8]==b'NIRG0001';nv,no,ni,ne,mask,sl=struct.unpack_from('<6I',b,8)"
+        },
+        {
+          "line": 24,
+          "text": "  at=32+1024*i;kind,start,end,n,line,col,na,nr=struct.unpack_from('<8I',b,at)"
+        },
+        {
+          "line": 25,
+          "text": "  name=b[at+32:at+32+n].decode('utf8');roots=[struct.unpack_from('<3I',b,at+160+12*j) for j in range(nr)]"
+        },
+        {
+          "line": 27,
+          "text": " ops=[struct.unpack_from('<4I',b,32+1024*nv+16*i) for i in range(no)]"
+        },
+        {
+          "line": 28,
+          "text": " source=b[32+1024*nv+16*no:];assert len(source)==sl"
+        },
+        {
+          "line": 29,
+          "text": " assert len(b)==32+1024*nv+16*no+sl"
+        },
+        {
+          "line": 34,
+          "text": "   assert d==len(definitions) and values[d]['type']==op;definitions[d]=i;ends[d]=i+1"
+        },
+        {
+          "line": 37,
+          "text": "   assert a<d and bb<d and values[a]['type']==1 and values[bb]['type']==2"
+        },
+        {
+          "line": 40,
+          "text": "   assert d in ends and values[d]['type']==3;ends[d]=i+1;outputs+=1"
+        },
+        {
+          "line": 47,
+          "text": " assert sha(a.allocator.read_bytes())=='59447d2ededb37fb66985be7cbb2bb3c4e7b8326443141b61880ece2158e0866'"
+        },
+        {
+          "line": 57,
+          "text": "   assert len(iv)==16+8*len(plan['values']) and iv[:8]==b'NTILE001'"
+        },
+        {
+          "line": 58,
+          "text": "   assert struct.unpack_from('<'+str(2*len(plan['values']))+'I',iv,16)==tuple(x for v in plan['values'] for x in (v['start'],v['end']))"
+        },
+        {
+          "line": 60,
+          "text": "   if peak>8-plan['mask'].bit_count():run([a.allocator],iv,77,'pressure');return None"
+        },
+        {
+          "line": 61,
+          "text": "   colors=run([a.allocator],iv,group='allocation');assert len(colors)==8+len(plan['values']);alloc.write_bytes(colors)"
+        },
+        {
+          "line": 63,
+          "text": "   run(['as','--64','-o',obj,asm]);run(['ld','-static','--build-id=none','-z','noexecstack','-o',exe,obj,a.runtime,a.dispatch]);return data,plan,colors,emitted"
+        },
+        {
+          "line": 66,
+          "text": "  assert colors[8:]==bytes([1,2,3]);assert [(v['start'],v['end']) for v in plan['values']]==[(0,3),(1,3),(2,4)]"
+        },
+        {
+          "line": 67,
+          "text": "  assert b'tdpbssd tmm3,tmm1,tmm2' in emitted"
+        },
+        {
+          "line": 69,
+          "text": "  feature=run([exe,'features'],group='features');fields=struct.unpack('<8Q',feature);assert feature[:8]==b'NXISA001';caps=fields[1]"
+        },
+        {
+          "line": 77,
+          "text": "    assert int(re.search(r'candidates=(\\d+)',out).group(1))==v['morph_candidate_count']"
+        },
+        {
+          "line": 83,
+          "text": "   payload=struct.pack('<2048b',*(A+B));expected=struct.pack('<256i',*[sum(A[i*64+k]*B[k*16+j] for k in range(64)) for i in range(16) for j in range(16)])"
+        },
+        {
+          "line": 85,
+          "text": "    got=run([exe,mode],payload,group='gemm_oracle');assert got==expected,(mode,sha(got),sha(expected));outputs_checked+=256"
+        },
+        {
+          "line": 95,
+          "text": "   assert q.returncode==74;records.append({'argv':[str(prog),'closed_pipe'],'exit':q.returncode,'expected_exit':74});counts['io']=counts.get('io',0)+1"
+        },
+        {
+          "line": 97,
+          "text": "   assert q.returncode==74;counts['io']+=1;records.append({'argv':[str(prog),'/dev/full'],'exit':q.returncode,'expected_exit':74})"
+        },
+        {
+          "line": 103,
+          "text": "   ir.write_bytes(b);run([a.compiler,'--intervals',ir],expected=65,group='corrupt_ir');run([a.compiler,'--asm',ir,alloc],expected=65,group='corrupt_ir')"
+        },
+        {
+          "line": 106,
+          "text": "  for b in badalloc:alloc.write_bytes(b);run([a.compiler,'--asm',ir,alloc],expected=65,group='corrupt_allocation')"
+        },
+        {
+          "line": 109,
+          "text": "  alloc.write_bytes(saved_colors[:8]+bytes([7,6,5]));other=run([a.compiler,'--asm',ir,alloc],group='alternate_color');assert b'tdpbssd tmm5,tmm7,tmm6' in other"
+        },
+        {
+          "line": 114,
+          "text": "   src.write_text(text);run([a.compiler,'--ir',src],expected=65,group='invalid_source')"
+        },
+        {
+          "line": 116,
+          "text": "   src.write_bytes(b);run([a.compiler,'--ir',src],expected=65,group='invalid_source')"
+        },
+        {
+          "line": 117,
+          "text": "  run([a.compiler,'--ir',t/'missing'],expected=66,group='file_errors')"
+        },
+        {
+          "line": 118,
+          "text": "  run([a.compiler],expected=64,group='cli');run([a.compiler,'--bad',src],expected=64,group='cli')"
+        },
+        {
+          "line": 119,
+          "text": "  link=t/'source-link';link.symlink_to(src);run([a.compiler,'--ir',link],expected=66,group='file_errors')"
+        },
+        {
+          "line": 126,
+          "text": "    alloc.write_bytes(col);em=run([a.compiler,'--asm',ir,alloc],group='mask_codegen');assert len(col)==11"
+        },
+        {
+          "line": 127,
+          "text": "    assert all(not(mask>>i&1) for i in col[8:])"
+        },
+        {
+          "line": 130,
+          "text": "  compiled=compile_source(multi,3);assert compiled is not None"
+        },
+        {
+          "line": 131,
+          "text": "  b,pl,col,em=compiled;assert len(pl['values'])==6"
+        },
+        {
+          "line": 133,
+          "text": "  def mm(x,y):return struct.pack('<256i',*[sum(x[i*64+k]*y[k*16+j] for k in range(64)) for i in range(16) for j in range(16)])"
+        },
+        {
+          "line": 134,
+          "text": "  expected=mm(A,C)+mm(B,C)+mm(A,C);payload=struct.pack('<3072b',*(A+B+C))"
+        },
+        {
+          "line": 140,
+          "text": "  src.write_text(over);run([a.compiler,'--ir',src],expected=65,group='bounds')"
+        },
+        {
+          "line": 142,
+          "text": "  assert compile_source(many,0) is not None"
+        },
+        {
+          "line": 143,
+          "text": "  src.write_text(many+'emit c;');run([a.compiler,'--ir',src],expected=65,group='bounds')"
+        },
+        {
+          "line": 145,
+          "text": "  policy=t/'policy.s';policy.write_text('.intel_syntax noprefix\\n.bss\\nbuf:.skip 8\\n.text\\n.global _start\\n_start:\\n xor eax,eax\\n xor edi,edi\\n lea rsi,[rip+buf]\\n mov edx,8\\n syscall\\n cmp eax,8\\n jne fail\\n mov edi,[rip+buf]\\n mov esi,[rip+buf+4]\\n call nx_policy\\n mov [rip+buf],eax\\n mov eax,1\\n mov edi,1\\n lea rsi,[rip+buf]\\n mov edx,4\\n syscall\\n xor edi,edi\\n jmp done\\nfail: mov edi,65\\ndone: mov eax,60\\n syscall\\n.section .note.GNU-stack,\"\",@progbits\\n')"
+        },
+        {
+          "line": 150,
+          "text": "    got=run([t/'policy'],struct.pack('<2I',caps2,perm),group='dispatch_policy');assert got==struct.pack('<I',expected)"
+        },
+        {
+          "line": 152,
+          "text": "  compile_source(demo,1);before=exe.read_bytes();run(['as','--64','-o',t/'other.o',asm]);run(['ld','-static','--build-id=none','-z','noexecstack','-o',t/'other',t/'other.o',a.runtime,a.dispatch]);assert (t/'other').read_bytes()==before"
+        }
+      ]
+    },
+    "tests/test_continual_lora.py": {
+      "sha256": "c08a400730b0d8f2d348691d4790f773b1bdfd68a934afcb323be6a52591c76b",
+      "excerpts": [
+        {
+          "line": 15,
+          "text": "ROOT = Path(__file__).resolve().parents[1]"
+        },
+        {
+          "line": 16,
+          "text": "BASE_BYTES = 38464"
+        },
+        {
+          "line": 17,
+          "text": "WQ_OFFSET = 35392"
+        },
+        {
+          "line": 18,
+          "text": "PARAM_OFFSET = 64 + BASE_BYTES"
+        },
+        {
+          "line": 19,
+          "text": "CHECKSUM_OFFSET = PARAM_OFFSET + 256"
+        },
+        {
+          "line": 20,
+          "text": "CKPT_BYTES = CHECKSUM_OFFSET + 8"
+        },
+        {
+          "line": 26,
+          "text": "    return hashlib.sha256(data).hexdigest()"
+        },
+        {
+          "line": 40,
+          "text": "    return struct.unpack(\"<f\", struct.pack(\"<f\", x))[0]"
+        },
+        {
+          "line": 44,
+          "text": "    return list(struct.unpack(\"<\" + \"f\" * (len(data)//4), data))"
+        },
+        {
+          "line": 66,
+          "text": "    return [sum(w[j*16+k]*x[k] for k in range(16)) +"
+        },
+        {
+          "line": 74,
+          "text": "    return [dh[r]*x[k] for r in range(2) for k in range(16)] + ["
+        },
+        {
+          "line": 79,
+          "text": "    return sum(sum((a-b)**2 for a, b in zip(ref_forward(w, p, x), target))/2"
+        },
+        {
+          "line": 116,
+          "text": "        cls.w = floats(cls.base_bytes[WQ_OFFSET:WQ_OFFSET+1024])"
+        },
+        {
+          "line": 127,
+          "text": "                        \"checkpoint_bytes\": CKPT_BYTES, \"trainable_parameters\": 64,"
+        },
+        {
+          "line": 144,
+          "text": "        return self.work / (\"case-%04d-%s\" % (self.serial, suffix))"
+        },
+        {
+          "line": 178,
+          "text": "        self.assertEqual(self.initial_bytes[64:PARAM_OFFSET], self.base_bytes)"
+        },
+        {
+          "line": 252,
+          "text": "        p1par = floats(a1.read_bytes()[PARAM_OFFSET:CHECKSUM_OFFSET])"
+        },
+        {
+          "line": 253,
+          "text": "        p2par = floats(a2.read_bytes()[PARAM_OFFSET:CHECKSUM_OFFSET])"
+        },
+        {
+          "line": 265,
+          "text": "        self.assertEqual(struct.unpack_from(\"<QQ\",a2.read_bytes(),32),(2,1024))"
+        },
+        {
+          "line": 291,
+          "text": "        bad[PARAM_OFFSET+19] ^= 1"
+        },
+        {
+          "line": 293,
+          "text": "        for offset,value in [(8,2),(12,17),(16,3),(20,BASE_BYTES-4),(24,65),(28,1),(48,1)]:"
+        },
+        {
+          "line": 307,
+          "text": "        struct.pack_into(\"<f\",altered,0,0.123)"
+        },
+        {
+          "line": 308,
+          "text": "        self.assertEqual(altered[WQ_OFFSET:WQ_OFFSET+1024],self.base_bytes[WQ_OFFSET:WQ_OFFSET+1024])"
+        }
+      ]
+    },
+    "tools/qwen/qwen_native_layer0_g32_tany.py": {
+      "sha256": "9738e6ecfd88aa481cddcc1745810af0ec350761df3bba9c443d42c028a3b9e9",
+      "excerpts": [
+        {
+          "line": 17,
+          "text": "typedef struct {const int8_t *w;const double *s;int rows,cols;} Matrix;"
+        },
+        {
+          "line": 18,
+          "text": "extern int32_t niyah_i8_dot(const int8_t *,const int8_t *,int);"
+        },
+        {
+          "line": 19,
+          "text": "extern double niyah_dot128(const float *,const float *);"
+        },
+        {
+          "line": 20,
+          "text": "extern int niyah_i8_gemm(const int8_t *,const int8_t *,int32_t *,int,int,int);"
+        },
+        {
+          "line": 22,
+          "text": "int available(void){__builtin_cpu_init();return !!__builtin_cpu_supports(\"avx2\");}"
+        },
+        {
+          "line": 24,
+          "text": "static int quant(const float *x,int8_t *q,int n,double *s){"
+        },
+        {
+          "line": 26,
+          "text": " for(int i=0;i<n;++i){if(!isfinite(x[i]))return 65;double a=fabs((double)x[i]);if(a>m)m=a;}"
+        },
+        {
+          "line": 28,
+          "text": " if(!(*s>0)||!isfinite(*s))return 65;"
+        },
+        {
+          "line": 30,
+          "text": " return 0;"
+        },
+        {
+          "line": 33,
+          "text": "static int linear(const float *x,float *y,const Matrix *m,int t,int8_t *aq,int32_t *acc){"
+        },
+        {
+          "line": 34,
+          "text": " double *scale=malloc((size_t)t*sizeof(double));if(!scale)return 70;"
+        },
+        {
+          "line": 35,
+          "text": " for(int i=0;i<t;++i){int rc=quant(x+(int64_t)i*m->cols,aq+(int64_t)i*m->cols,m->cols,&scale[i]);if(rc){free(scale);return rc;}}"
+        },
+        {
+          "line": 36,
+          "text": " if(niyah_i8_gemm(aq,m->w,acc,t,m->rows,m->cols)){free(scale);return 64;}"
+        },
+        {
+          "line": 37,
+          "text": " for(int i=0;i<t;++i)for(int j=0;j<m->rows;++j){float f=(float)((double)acc[(int64_t)i*m->rows+j]*(double)scale[i]*(double)m->s[j]);if(!isfinite(f)){free(scale);return 65;}y[(int64_t)i*m->rows+j]=f;}"
+        },
+        {
+          "line": 38,
+          "text": " free(scale);return 0;"
+        },
+        {
+          "line": 41,
+          "text": "/* down_proj g32, blocked: weights are group-major [g][rows][32]; activations packed [g][t][32]."
+        },
+        {
+          "line": 42,
+          "text": "   Same per-(i,j) accumulation order as linear_g32 (g ascending, double), so results are bit-identical. */"
+        },
+        {
+          "line": 43,
+          "text": "static int linear_g32_blocked(const float *x,float *y,const Matrix *m,int t,int8_t *aq,int32_t *acc){"
+        },
+        {
+          "line": 44,
+          "text": " const int group=32;"
+        },
+        {
+          "line": 45,
+          "text": " if(!x||!y||!m||!aq||!acc||!m->w||!m->s||t<1||t>4096||m->rows!=4096||m->cols!=12288)return 64;"
+        },
+        {
+          "line": 47,
+          "text": " double *scales=malloc((size_t)t*384*sizeof(double));if(!scales)return 70;"
+        },
+        {
+          "line": 49,
+          "text": "  int rc=quant(x+(int64_t)i*m->cols+(int64_t)g*group,aq+((int64_t)g*t+i)*group,group,&scales[(int64_t)i*384+g]);"
+        },
+        {
+          "line": 52,
+          "text": " if(!tot){free(scales);return 70;}"
+        },
+        {
+          "line": 54,
+          "text": "  if(niyah_i8_gemm(aq+(int64_t)g*t*group,m->w+(int64_t)g*rows*group,acc,t,rows,group)){free(tot);free(scales);return 64;}"
+        },
+        {
+          "line": 55,
+          "text": "  for(int i=0;i<t;++i){const double sc=scales[(int64_t)i*384+g];double *o=tot+(int64_t)i*rows;const int32_t *a=acc+(int64_t)i*rows;"
+        },
+        {
+          "line": 58,
+          "text": "  if(!isfinite(v)){free(tot);free(scales);return 65;}y[(int64_t)i*rows+j]=v;}"
+        },
+        {
+          "line": 59,
+          "text": " free(tot);free(scales);return 0;"
+        },
+        {
+          "line": 63,
+          "text": " for(int r=0;r<rows;++r){const float *p=x+(int64_t)r*cols;float *d=y+(int64_t)r*cols;double sum=0;"
+        },
+        {
+          "line": 64,
+          "text": "  for(int j=0;j<cols;++j){if(!isfinite(p[j]))return 65;sum+=(double)p[j]*(double)p[j];}"
+        },
+        {
+          "line": 65,
+          "text": "  double inv=1.0/sqrt(sum/cols+(double)eps);"
+        },
+        {
+          "line": 67,
+          "text": " return 0;"
+        },
+        {
+          "line": 77,
+          "text": " const double scale=1.0/sqrt(128.0);"
+        },
+        {
+          "line": 79,
+          "text": "  const float *query=q+((int64_t)i*32+h)*128;"
+        },
+        {
+          "line": 80,
+          "text": "  for(int j=0;j<=i;++j){const float *key=k+((int64_t)j*8+h/4)*128;const float *value=v+((int64_t)j*8+h/4)*128;"
+        },
+        {
+          "line": 81,
+          "text": "   double score=niyah_dot128(query,key)*scale,next=fmax(maximum,score),a=exp(maximum-next),b=exp(score-next);"
+        },
+        {
+          "line": 83,
+          "text": "  if(!(total>0)||!isfinite(total))return 65;"
+        },
+        {
+          "line": 85,
+          "text": " return 0;"
+        },
+        {
+          "line": 89,
+          "text": "int niyah_layer0(const float *x,float *y,const Matrix *m,"
+        },
+        {
+          "line": 92,
+          "text": " if(!available())return 77;"
+        },
+        {
+          "line": 93,
+          "text": " if(!x||!y||!m||!inorm||!pnorm||!qn||!kn||!cosine||!sine||t<1||t>4096||!(eps>0)||!isfinite(eps))return 64;"
+        },
+        {
+          "line": 94,
+          "text": " if(fegetround()!=FE_TONEAREST)return 65;"
+        },
+        {
+          "line": 95,
+          "text": " const int rows[7]={4096,1024,1024,4096,12288,12288,4096};"
+        },
+        {
+          "line": 96,
+          "text": " const int cols[7]={4096,4096,4096,4096,4096,4096,12288};"
+        },
+        {
+          "line": 97,
+          "text": " for(int i=0;i<7;++i){if(m[i].rows!=rows[i]||m[i].cols!=cols[i]||!m[i].w||!m[i].s)return 64;"
+        },
+        {
+          "line": 98,
+          "text": "  for(int j=0;j<rows[i];++j)if(!(m[i].s[j]>0)||!isfinite(m[i].s[j]))return 65;}"
+        },
+        {
+          "line": 101,
+          "text": " if(!memory||!aq||!acc){free(memory);free(aq);free(acc);return 70;}"
+        },
+        {
+          "line": 104,
+          "text": " #define CHECK(expr) do{rc=(expr);if(rc)goto cleanup;}while(0)"
+        },
+        {
+          "line": 105,
+          "text": " CHECK(norm(x,inorm,h,t,4096,eps));"
+        },
+        {
+          "line": 107,
+          "text": " CHECK(norm(q,qn,q,t*32,128,eps));CHECK(norm(k,kn,k,t*8,128,eps));"
+        },
+        {
+          "line": 111,
+          "text": " CHECK(norm(res,pnorm,h,t,4096,eps));"
+        },
+        {
+          "line": 114,
+          "text": " CHECK(linear_g32_blocked(z,p,m+6,t,aq,acc));"
+        },
+        {
+          "line": 122,
+          "text": "    return hashlib.sha256(memoryview(np.ascontiguousarray(a)).cast('B')).hexdigest()"
+        },
+        {
+          "line": 215,
+          "text": "            print('QUANTIZED:',name,shapes[-1],'group-major g32' if name=='mlp.down_proj.weight' else '',flush=True)"
+        },
+        {
+          "line": 229,
+          "text": "                'native':'Blocked AVX2 INT8 GEMM for six linears; down_proj runs niyah_i8_gemm per K=32 block (group-major weights) with C FP64 scaled accumulation; FP32 buffers',"
+        },
+        {
+          "line": 230,
+          "text": "                'quantization':'Per output-row weight scale; per-token activations except down_proj g32',"
+        },
+        {
+          "line": 250,
+          "text": "            guard=np.full(x.size+32,np.nan,np.float32);out=guard[16:-16].reshape(x.shape)"
+        },
+        {
+          "line": 260,
+          "text": "                return value[0].contiguous().numpy()"
+        },
+        {
+          "line": 289,
+          "text": "            'Quantized layer accuracy is measured, not certified','Native RMSNorm/RoPE use C, not earlier assembly functions','Activation quant and FP scale operations stay in C; down_proj g32 blocks are K=32 GEMM calls, not a fused kernel',"
+        }
+      ]
+    },
+    "tools/qwen/qwen_native_full_gate.py": {
+      "sha256": "763504e5204c7488db1245d0effc5931f7208ce3a67f14c5d1344b889de7120f",
+      "excerpts": [
+        {
+          "line": 5,
+          "text": "# Native C/asm comes unmodified from qwen_native_layer0_g32_tany.py; extra functions are appended below."
+        },
+        {
+          "line": 19,
+          "text": "SPEC = importlib.util.spec_from_file_location('tany', HERE/'qwen_native_layer0_g32_tany.py')"
+        },
+        {
+          "line": 22,
+          "text": "T = 32"
+        },
+        {
+          "line": 23,
+          "text": "TOP1_MIN, KL_MAX = 0.95, 0.03"
+        },
+        {
+          "line": 34,
+          "text": " ('en', 'def binary_search(items, target):\\n    low, high = 0, len(items) - 1\\n    while low <= high:\\n        mid = (low + high) // 2\\n        if items[mid] == target:\\n            return mid\\n'),"
+        },
+        {
+          "line": 39,
+          "text": "static int linear_g32_any(const float *x,float *y,const Matrix *m,int t,int8_t *aq,int32_t *acc){"
+        },
+        {
+          "line": 40,
+          "text": " const int group=32;"
+        },
+        {
+          "line": 41,
+          "text": " if(!x||!y||!m||!aq||!acc||!m->w||!m->s||t<1||t>4096||m->cols%group)return 64;"
+        },
+        {
+          "line": 43,
+          "text": " double *scales=malloc((size_t)t*groups*sizeof(double));if(!scales)return 70;"
+        },
+        {
+          "line": 45,
+          "text": "  int rc=quant(x+(int64_t)i*m->cols+(int64_t)g*group,aq+((int64_t)g*t+i)*group,group,&scales[(int64_t)i*groups+g]);"
+        },
+        {
+          "line": 48,
+          "text": " if(!tot){free(scales);return 70;}"
+        },
+        {
+          "line": 50,
+          "text": "  if(niyah_i8_gemm(aq+(int64_t)g*t*group,m->w+(int64_t)g*rows*group,acc,t,rows,group)){free(tot);free(scales);return 64;}"
+        },
+        {
+          "line": 51,
+          "text": "  for(int i=0;i<t;++i){const double sc=scales[(int64_t)i*groups+g];double *o=tot+(int64_t)i*rows;const int32_t *a=acc+(int64_t)i*rows;"
+        },
+        {
+          "line": 54,
+          "text": "  if(!isfinite(v)){free(tot);free(scales);return 65;}y[(int64_t)i*rows+j]=v;}"
+        },
+        {
+          "line": 55,
+          "text": " free(tot);free(scales);return 0;"
+        },
+        {
+          "line": 58,
+          "text": " if(!x||!w||!y||rows<1||cols<1||!(eps>0))return 64;"
+        },
+        {
+          "line": 60,
+          "text": "__attribute__((target(\"avx2,fma\"))) static float dot_f32(const float *a,const float *b,int n){"
+        },
+        {
+          "line": 68,
+          "text": " float lane[8];_mm256_storeu_ps(lane,s0);double r=0;for(int i=0;i<8;++i)r+=lane[i];return (float)r;"
+        },
+        {
+          "line": 71,
+          "text": "int niyah_f32_matmul(const float *x,const float *w,float *y,int t,int rows,int cols,int ystride){"
+        },
+        {
+          "line": 72,
+          "text": " if(!available())return 77;"
+        },
+        {
+          "line": 73,
+          "text": " if(!x||!w||!y||t<1||rows<1||cols<32||cols%32||ystride<rows)return 64;"
+        },
+        {
+          "line": 75,
+          "text": " for(int j=0;j<rows;++j){const float *wr=w+(int64_t)j*cols;"
+        },
+        {
+          "line": 77,
+          "text": " return 0;"
+        },
+        {
+          "line": 81,
+          "text": "def g32all_layer_source(c):"
+        },
+        {
+          "line": 83,
+          "text": "    if body.count('CHECK(linear(') != 6 or body.count('CHECK(linear_g32_blocked(') != 1:"
+        },
+        {
+          "line": 85,
+          "text": "    body = body.replace('int niyah_layer0(', 'int niyah_layer_g32all(', 1)"
+        },
+        {
+          "line": 86,
+          "text": "    body = body.replace('CHECK(linear(', 'CHECK(linear_g32_any(').replace('CHECK(linear_g32_blocked(', 'CHECK(linear_g32_any(')"
+        },
+        {
+          "line": 87,
+          "text": "    return body.replace('#define CHECK', '#undef CHECK\\n #define CHECK', 1)"
+        },
+        {
+          "line": 102,
+          "text": "    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss/1024.0"
+        },
+        {
+          "line": 105,
+          "text": "    g32all = os.environ.get('NIYAH_G32_ALL') == '1'"
+        },
+        {
+          "line": 127,
+          "text": "            'mode':'g32 all seven linears' if g32all else 'per-token activations; down_proj g32',"
+        },
+        {
+          "line": 128,
+          "text": "            'gate':{'top1_min':TOP1_MIN,'mean_kl_max_nats':KL_MAX,'info_only':['top5_overlap','per_layer_rel_l2']},"
+        },
+        {
+          "line": 133,
+          "text": "            'tany_sha256':hashlib.sha256((HERE/'qwen_native_layer0_g32_tany.py').read_bytes()).hexdigest(),"
+        },
+        {
+          "line": 134,
+          "text": "            'torch_version':torch.__version__,'threads_native_layers':1,'threads_lm_head':os.cpu_count()}"
+        },
+        {
+          "line": 139,
+          "text": "        csrc=TANY.C_SOURCE+EXTRA_C+'\\n'+g32all_layer_source(TANY.C_SOURCE)"
+        },
+        {
+          "line": 147,
+          "text": "        layer_fn=lib.niyah_layer_g32all if g32all else lib.niyah_layer0"
+        },
+        {
+          "line": 149,
+          "text": "        lib.niyah_rmsnorm.argtypes=[ctypes.c_void_p]*3+[ctypes.c_int,ctypes.c_int,ctypes.c_float]; lib.niyah_rmsnorm.restype=ctypes.c_int"
+        },
+        {
+          "line": 170,
+          "text": "                if g32all or name=='mlp.down_proj.weight':"
+        },
+        {
+          "line": 191,
+          "text": "            print(json.dumps({'layer':l,'rel_l2':curve[-1],'rss_peak_mb':round(rss_mb(),1),'elapsed_s':round(t_load+t_native+t_ref,1)}),flush=True)"
+        },
+        {
+          "line": 195,
+          "text": "        if lib.niyah_rmsnorm(hs.ctypes.data,fw.ctypes.data,hn.ctypes.data,P*T,4096,cfg.rms_norm_eps): raise RuntimeError('native norm')"
+        },
+        {
+          "line": 197,
+          "text": "            rv=ref.reshape(P*T,4096); rn=(rv*torch.rsqrt(rv.pow(2).mean(-1,keepdim=True)+cfg.rms_norm_eps))*torch.from_numpy(fw)"
+        },
+        {
+          "line": 217,
+          "text": "        res['gate']='PASS' if res['top1_agreement']>=TOP1_MIN and res['mean_kl_nats']<=KL_MAX else 'FAIL'"
+        },
+        {
+          "line": 218,
+          "text": "        report.update({'result':res,'per_layer_rel_l2':curve,'peak_rss_mb':round(rss_mb(),1),"
+        },
+        {
+          "line": 222,
+          "text": "                           'Weights per output row INT8; activations INT8 (per token, g32 where stated); lm_head FP32',"
+        }
+      ]
+    }
+  }
+}

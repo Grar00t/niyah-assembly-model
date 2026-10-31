@@ -1,5 +1,7 @@
 name: assembly-model
-on: [push, pull_request, workflow_dispatch]
+# Local verification: make verify-all
+# Original workflow: evidence/ci-policy-20261031/workflow-original.yml
+on: [workflow_dispatch]
 permissions:
   contents: read
 jobs:

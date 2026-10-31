@@ -1,0 +1,12 @@
+{
+  "source_ref": "e99a89a^:src/exactcalc.s",
+  "sha256": "e8e57055d0ae1771c981e3f9e9695180eaddacb2ad498bfceff45a97acefefdf",
+  "restored_bytes": 7788,
+  "restored_targets": [
+    "exactcalc",
+    "test-exactcalc",
+    "run-attention-auto",
+    "generate-attention-auto"
+  ],
+  "ci": "manual dispatch; validation runs locally"
+}

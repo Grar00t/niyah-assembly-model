@@ -1,59 +1,15 @@
-# Native arithmetic candidate auditor
+# Arithmetic candidate auditor
 
-`nexus_audit` connects a candidate string, including a neural model's
-candidate, to the repository's bounded exact rational calculator. It is a
-static x86-64 Linux executable written in GNU Assembly. Runtime uses raw
-syscalls, with no libc, shell, Python, model service, CUDA or network.
-It requires the repository's `exactcalc` executable beside it.
+`src/nexus_audit.s` runs the sibling `exactcalc` executable using fork, pipes and exec, then compares its canonical rational output with a supplied candidate. It resolves the sibling through `/proc/self/exe`; it does not search PATH or invoke a shell.
 
 ```sh
 make nexus-audit test-nexus-audit
-./build/nexus_audit add 1 10 2 10 3/10
-# VERIFIED 3/10  (exit 0)
-./build/nexus_audit add 1 10 2 10 4/10
-# MISMATCH       (exit 1)
 ```
 
-Arguments are operation, numerator1, denominator1, numerator2,
-denominator2, and candidate. Candidates must exactly match the calculator's
-canonical reduced `N/D` output without its final newline. Thus `0.3`,
-`6/20`, and prose containing `3/10` are not accepted as `3/10`. The caller
-must explicitly extract a candidate and supply the intended arithmetic
-expression. The auditor does not infer that expression from a conversation.
+The calculator and auditor checks completed with process exit 0. The auditor reports 7 tests passed. [`evidence/docs-refresh-20261031/exactcalc.log`](../evidence/docs-refresh-20261031/exactcalc.log)
 
-The calculator supports `add`, `sub`, `mul`, `div`, signed32 numerators and
-positive denominators <=2147483647. See `EXACT_MATH.md` for the full domain
-and checked-intermediate contract.
+Arguments are the calculator operation, its operands, then the candidate. The caller must supply the arithmetic expression. A decimal string, an unreduced fraction or prose does not equal the canonical fraction. [Calculator domain](EXACT_MATH.md).
 
-The auditor obtains its actual location through `/proc/self/exe`, constructs
-the sibling `exactcalc` path, and uses `pipe`, `fork`, `dup2`, `execve` and
-`wait4`. It does not search PATH or run a shell. It requires a successful
-child exit and bounded canonical output framing before comparing bytes.
-Pipe reads and writes handle partial transfers and EINTR. SIGPIPE is
-ignored so broken stdout is an observable I/O error rather than a signal.
-The child inherits this handling. Both binaries and their directory are
-assumed trusted; choosing a fixed path does not cryptographically
-authenticate a replaced executable. Release receipts hash both binaries.
+The auditor requires successful child exit and bounded output framing. It handles partial I/O, interruptions and broken stdout. Both executables and their directory must be trusted; a fixed executable path is not an authenticity check. It does not infer expressions from conversation or change model weights.
 
-| Exit | Meaning |
-|---:|---|
-| 0 | Canonical candidate equals the successful calculator result |
-| 1 | Candidate mismatch or noncanonical representation |
-| 2 | Incorrect auditor argument count |
-| 3 | Calculator/exec failure, rejected calculator input, or pipe/protocol error |
-| 4 | Output write failure, including full filesystem or broken pipe |
-
-This proves only a bounded rational arithmetic equality. It makes no claim
-about general factual accuracy, language quality, intention, neural memory,
-or protection against catastrophic forgetting. It does not automatically
-alter a neural model's weights or replace a rejected candidate.
-
-`tests/test_nexus_audit.py` independently computes reference answers with
-Python's standard-library `Fraction`. Tests include extreme input bounds,
-wrong and neural-style prose candidates, division by zero and invalid
-inputs, an empty PATH, a directory containing spaces, a missing sibling,
-malformed disposable child executables, `/dev/full`, broken pipes, and
-ELF inspection for absent dynamic-interpreter/shared-library dependencies.
-Set `NIYAH_AUDITOR_RECEIPT` to save commands, native exit codes and SHA-256
-evidence as JSON. These Python tests are build/verification tools; the
-delivered calculator and auditor execute natively without them.
+`tests/test_nexus_audit.py` covers an independent Fraction oracle, malformed candidates and child output, missing sibling, empty PATH, paths with spaces, output failures and static ELF checks. The executed log is [`evidence/docs-refresh-20261031/exactcalc.log`](../evidence/docs-refresh-20261031/exactcalc.log).

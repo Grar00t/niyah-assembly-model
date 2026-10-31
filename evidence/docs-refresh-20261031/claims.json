@@ -1,0 +1,125 @@
+{
+  "scope": "Distinct stale or unsupported assertions; repeated occurrences counted once",
+  "count": 17,
+  "claims": [
+    {
+      "path": "README.md",
+      "claim": "implemented entirely in GNU x86-64 Assembly",
+      "finding": "Repository scope excludes the Python/C Qwen implementation.",
+      "source": "tools/qwen/qwen_native_full_gate.py",
+      "action": "scope corrected"
+    },
+    {
+      "path": "README.md",
+      "claim": "Python is *only* a test/packaging/benchmark harness.",
+      "finding": "Python loads weights and orchestrates the Qwen runtime.",
+      "source": "tools/qwen/qwen_native_full_gate.py",
+      "action": "removed"
+    },
+    {
+      "path": "README.md",
+      "claim": "No external model",
+      "finding": "Qwen scripts read external pretrained safetensors.",
+      "source": "tools/qwen/qwen_native_full_gate.py",
+      "action": "scope corrected"
+    },
+    {
+      "path": "README.md",
+      "claim": "The current text fixture has 93 training bytes and 68 related",
+      "finding": "Current tracked corpus differs from the historical fixture.",
+      "source": "data/corpus.txt; data/heldout.txt",
+      "action": "current claim removed"
+    },
+    {
+      "path": "docs/ATTENTION.md",
+      "claim": "Context length `CTX=8` bytes",
+      "finding": "Current assembly defines CTX differently; old packaging and oracle constants remain.",
+      "source": "src/attention_lm.s; tools/checkpoint_attention.py; tests/test_attention.py",
+      "action": "current claim removed"
+    },
+    {
+      "path": "README.md",
+      "claim": "preserving the original path's trained weights exactly in the 240-epoch regression",
+      "finding": "Historical receipt does not establish the current corpus/layout regression.",
+      "source": "evidence/nexus-kernels.json",
+      "action": "historical scope added"
+    },
+    {
+      "path": "README.md",
+      "claim": "build legacy, neural attention and exact rational binaries",
+      "finding": "Default build omits calculator, and calculator source is missing.",
+      "source": "Makefile",
+      "action": "build repaired"
+    },
+    {
+      "path": "docs/EXACT_MATH.md",
+      "claim": "make exactcalc",
+      "finding": "Phony target has no recipe or prerequisite.",
+      "source": "Makefile",
+      "action": "build repaired"
+    },
+    {
+      "path": "docs/SECURITY_AUDIT.md",
+      "claim": "make verify-all` passed",
+      "finding": "No current regression receipt exists at the inspected head.",
+      "source": "Makefile",
+      "action": "current claim removed"
+    },
+    {
+      "path": "README.md",
+      "claim": "No stacked decoder blocks, LayerNorm/RMSNorm",
+      "finding": "The Qwen component implements these operations.",
+      "source": "tools/qwen/qwen_native_full_gate.py",
+      "action": "scope corrected"
+    },
+    {
+      "path": "README.md",
+      "claim": "it has **not** been used for the measurements above",
+      "finding": "TinyStories receipts are present.",
+      "source": "evidence/tinystories-external-32epochs-local.json",
+      "action": "removed"
+    },
+    {
+      "path": "docs/TILE_ALLOCATOR.md",
+      "claim": "It is not connected to niyah-lang IR",
+      "finding": "Makefile.ir invokes tile_allocator in the compiler bridge.",
+      "source": "Makefile.ir",
+      "action": "removed"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/README.md",
+      "claim": "Full GEMM suite and performance measurements are NOT executed",
+      "finding": "Completed local results exist beside this document.",
+      "source": "evidence/kernel-suite-20261031-112031-843492/results-o2-full/metadata.json",
+      "action": "removed"
+    },
+    {
+      "path": "docs/TILE_ALLOCATOR.md",
+      "claim": "The test harness checks 1,915 cases",
+      "finding": "No finished allocator receipt found in the allowed evidence directories.",
+      "source": "tests/test_tile_allocator.py",
+      "action": "unsupported measurement omitted"
+    },
+    {
+      "path": "docs/SIMD.md",
+      "claim": "Max scalar vs AVX2 trained weight absolute difference | 0.0678094774",
+      "finding": "No matching stored numerical output found in the allowed evidence directories.",
+      "source": "tests/test_simd.py",
+      "action": "unsupported measurement omitted"
+    },
+    {
+      "path": "docs/EXACT_MATH.md",
+      "claim": "5,897",
+      "finding": "Historical success count has no dated receipt; replace with the new executed calculator log.",
+      "source": "tests/test_exactcalc.py",
+      "action": "fresh result required"
+    },
+    {
+      "path": "README.md",
+      "claim": "No source copied",
+      "finding": "Unqualified provenance claim exceeds the stored origin evidence; vendored morphology files exist.",
+      "source": "src/morph_tokenizer/upstream/PROVENANCE.json",
+      "action": "replaced with path attribution"
+    }
+  ]
+}

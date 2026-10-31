@@ -1,0 +1,31 @@
+{
+  "observed_at": "2026-10-31T12:48:54.759497+00:00",
+  "base_commit": "05fa7150205797c4cb54e10b5a3885dd38cde593",
+  "cwd": "/home/a/niyah-ops/ci_policy_verify_20261031",
+  "workflow_parser": "PyYAML BaseLoader and exact original-to-current comparison",
+  "workflow_check": "PASS",
+  "runs": [
+    {
+      "command": [
+        "make",
+        "test-exactcalc",
+        "test-nexus-audit",
+        "test"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 30.865,
+      "log": "evidence/ci-policy-20261031/targeted.log"
+    },
+    {
+      "command": [
+        "make",
+        "verify-all"
+      ],
+      "exit_code": 2,
+      "elapsed_seconds": 33.542,
+      "log": "evidence/ci-policy-20261031/verify-all.log"
+    }
+  ],
+  "old_tracked_files_unchanged_except_workflow": true,
+  "no_source_qwen_or_prior_result_changes": true
+}
