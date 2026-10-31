@@ -1,0 +1,1688 @@
+{
+  "base_ref": "feat/qwen-tany",
+  "base_commit": "bd40a6d80d7a1dd67713751f9b5904214f10b273",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 65,
+      "sha256": "5cc3269a36da747962d5872a5f92843376940e86fe2acfc7d31c523231a413eb"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 1788,
+      "sha256": "0d20dd94d20608afafdd51a3beeb8ec6c7e9153caeac9efb0918c4618abdc91e"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 174,
+      "sha256": "38ca82f077422b03fc8cf738363851753c1d05df3a5b79b0ee211d31dd2f8d27"
+    },
+    {
+      "path": "Makefile",
+      "bytes": 3015,
+      "sha256": "43b3c69bf2b827e9bb46335f465ffcff11b378e602ba7fc38e7e2c038b891a7d"
+    },
+    {
+      "path": "Makefile.auditor",
+      "bytes": 341,
+      "sha256": "ab2303bb973842bda593ed30701004dc1459987d0c29e3527436390142b3d96e"
+    },
+    {
+      "path": "Makefile.ir",
+      "bytes": 1685,
+      "sha256": "edd0e6c9980d3ac13a1b555b99492acade0ddf35754e567e3da07a468e473cf8"
+    },
+    {
+      "path": "Makefile.kernels",
+      "bytes": 1189,
+      "sha256": "8f10a25a98100bb081aa7f60cccc9f0b664bc1c00cece7abd79109b0e038f856"
+    },
+    {
+      "path": "Makefile.lora",
+      "bytes": 362,
+      "sha256": "64f7ec3f6f762ec25b8c3a2ad0fbc38f305585efc6bf2c1150b682e2f638e802"
+    },
+    {
+      "path": "Makefile.morph",
+      "bytes": 1054,
+      "sha256": "f83b04eb1c34f75a44285adabc42f4958fe3f401fd9398c32bd52c2d6d3121d9"
+    },
+    {
+      "path": "README.md",
+      "bytes": 13596,
+      "sha256": "b3ebf56600354fa62ae57518c75fc35e7b6e9cdb5d7e7ad143bb0aaba379288a"
+    },
+    {
+      "path": "attention_verification.json",
+      "bytes": 1125,
+      "sha256": "ef886aaaa04d57a09c1830745c42eb8688d3326fb19f168e5ec310978e265867"
+    },
+    {
+      "path": "data/corpus.txt",
+      "bytes": 6652,
+      "sha256": "93df4a9000cf54c443711aa0b3b7787bd9f2df82a0ecfc06ba6fb6091dbcabc5"
+    },
+    {
+      "path": "data/heldout.txt",
+      "bytes": 740,
+      "sha256": "a7ca70952cd8c1288b1953a125d3bf36b60e33f9650f6ddc8544989f2571e18c"
+    },
+    {
+      "path": "docs/ATTENTION.md",
+      "bytes": 5512,
+      "sha256": "fed957af983398a59a9f630723aeae2998331197a7c143a20ce8584fe4073249"
+    },
+    {
+      "path": "docs/CONTINUAL_LORA.md",
+      "bytes": 6759,
+      "sha256": "ff933b1e814cabbe5deea600e064e2594a0ad59badfaa49549553d9e9781b3b8"
+    },
+    {
+      "path": "docs/EXACT_MATH.md",
+      "bytes": 5735,
+      "sha256": "88b27909120c9650bb835e707530ee34f27194507818ce806f71d36f28292139"
+    },
+    {
+      "path": "docs/HYBRID_EVAL.md",
+      "bytes": 4508,
+      "sha256": "bccf1e46f94f13997e8e6b6d9b59bd771645998706d083a6e9d189bd59dd3b7a"
+    },
+    {
+      "path": "docs/MORPH_ATTENTION.md",
+      "bytes": 3120,
+      "sha256": "da6edab35e671ce80a5adff274a481bdc19c94a6e2586229f90cba79770877e1"
+    },
+    {
+      "path": "docs/MORPH_TOKENIZER.md",
+      "bytes": 2630,
+      "sha256": "ccce3706491329eed32d32dd46c97a623719a18437b2cf81b3f26029622fba2e"
+    },
+    {
+      "path": "docs/NATIVE_AUDITOR.md",
+      "bytes": 3129,
+      "sha256": "ada9b9375a5f4e53365d852481287bee8053f0de75283779d57c90f22cb78a4c"
+    },
+    {
+      "path": "docs/NATIVE_TILES.md",
+      "bytes": 3065,
+      "sha256": "a95aeb4f2a5b9f249c38119f80ee366115fc8e00c72c3b4841532ae745283d5c"
+    },
+    {
+      "path": "docs/SECURITY_AUDIT.md",
+      "bytes": 4367,
+      "sha256": "aa66fb9c06ccb841f471ca8b98c5a2b03a63c8415e44f2c0c641c7cef236ca02"
+    },
+    {
+      "path": "docs/SIMD.md",
+      "bytes": 4441,
+      "sha256": "d12a3f60f25e3ea697ce109ffab8b26a36be295d008fb825a793dbcfceff0418"
+    },
+    {
+      "path": "docs/TENSOR_IR.md",
+      "bytes": 5880,
+      "sha256": "4516e2e92f36e2b879fc8f7fe4933b6c637080c93aa9db2de6bce98392204293"
+    },
+    {
+      "path": "docs/TILE_ALLOCATOR.md",
+      "bytes": 5173,
+      "sha256": "ea9d6d7fd192b4bd9277aba7b347d0e5c9ccfe718f4c16ecfdeee0fe85f9c2fd"
+    },
+    {
+      "path": "docs/TINYSTORIES_EVAL.md",
+      "bytes": 4271,
+      "sha256": "04981cb595b5b565c3100d1b4c5527d8568aa5d7001990eae587a4246a658800"
+    },
+    {
+      "path": "evidence/attention-learned-qkv-local-20261015.json",
+      "bytes": 1123,
+      "sha256": "119c91e64f5888d327e864f7ca87b63ee5b8cfc8d2fe0a4f48e877f70296c49e"
+    },
+    {
+      "path": "evidence/attention-local-20261015.json",
+      "bytes": 1113,
+      "sha256": "24dcf02609faec214cd594c1fe1752bfd59fcac294b1cf25b9e68695bb47eb27"
+    },
+    {
+      "path": "evidence/hybrid-fresh-test-local.json",
+      "bytes": 3082,
+      "sha256": "4e299fe7ece87be8ae82ddaa7cc6c9f50d5501b7fbd9a3414fc9c3647bafcbc7"
+    },
+    {
+      "path": "evidence/hybrid-oov-preflight-local.json",
+      "bytes": 543,
+      "sha256": "f775922cd50ba3e5d6d6562a5f4a07d5e00fc12934e47184abf64c277c2c52d6"
+    },
+    {
+      "path": "evidence/i8-gemm-blocked.json",
+      "bytes": 2007,
+      "sha256": "d81275bfa3335c93105a02a28865fe92cc31039bc2a56b9dd09c2ae362508bb7"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/README.md",
+      "bytes": 3131,
+      "sha256": "032eb74c0b98d19b771f6537562b0b347368768fe798b55ba63416745b08a89d"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/SHA256SUMS",
+      "bytes": 1080,
+      "sha256": "1f3c93fbc1858059f7b14120290dd7c8c9a48e0875cf9eb65d153f1d0ed3689b"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/niyah_kernel_suite.c",
+      "bytes": 6725,
+      "sha256": "6b8af28856826beb8c8e4e6259ab58b01f0205a3a7e20eb33973a9892b900b9d"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/results-o2-full/benchmark.csv",
+      "bytes": 547,
+      "sha256": "c29481abac177649f764972a1d2a03644fc0364bda9dad4278bd298a5d6bbb08"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/results-o2-full/metadata.json",
+      "bytes": 1255,
+      "sha256": "ed49490af646af5a772e21444a89ec3fa89db3e7ede535d03d5ebc464961c798"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/results-o2-full/verification.log",
+      "bytes": 60,
+      "sha256": "a6404aacf75af481c70ec8f9b2b53a789b53f0aa52832b95fad9b5e0af81a13a"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/results-o2-full/wrapper_dots.s",
+      "bytes": 851,
+      "sha256": "dece35c1d5d39d7aed3ae8e6daf3d8d76de74f2636307f5f6dfa3ab6adc63799"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/results-o2/benchmark.csv",
+      "bytes": 310,
+      "sha256": "7695bdf4c3ca70b0344fe22f0ccee7254179f10b7589707596c33da14e431cf5"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/results-o2/metadata.json",
+      "bytes": 1245,
+      "sha256": "97ef96f4e11c39e4876071579c6d92da2fb8467a8b28c0f984581537776cbf18"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/results-o2/verification.log",
+      "bytes": 59,
+      "sha256": "e76cb926a5965efeeef4b86de0aabb2db1c7eef1d079c0cb8791a98c85b5d618"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/results-o2/wrapper_dots.s",
+      "bytes": 851,
+      "sha256": "dece35c1d5d39d7aed3ae8e6daf3d8d76de74f2636307f5f6dfa3ab6adc63799"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/run_suite.py",
+      "bytes": 2591,
+      "sha256": "997ff4694a6c37ea6111ce31352c39dc597dba53bd75fe753d092361097222bb"
+    },
+    {
+      "path": "evidence/kernel-suite-20261031-112031-843492/validation.json",
+      "bytes": 155,
+      "sha256": "75c2e2d336aa20610b95450b4d1275bbba0dd156e11279c61b1b38f31994d999"
+    },
+    {
+      "path": "evidence/local-audit/README.md",
+      "bytes": 338,
+      "sha256": "e5d26bddfab120a3ebb163522f068070ed65e12afd7d0925a121b2f8486ed90e"
+    },
+    {
+      "path": "evidence/local-audit/compile-inference.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/local-audit/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/local-audit/compile.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "evidence/local-audit/extended-tests.stdout",
+      "bytes": 801,
+      "sha256": "65cf497c86dd0f6f60fe80bed518780b1b76c4dd534bbde9cbbbb8cdad4a3b02"
+    },
+    {
+      "path": "evidence/local-audit/inference.stdout",
+      "bytes": 106,
+      "sha256": "aeca71a4d81ef1448c0c570d3fb8cfc6953034054af06d3a05e9234f72a41226"
+    },
+    {
+      "path": "evidence/local-audit/package-tests.stdout",
+      "bytes": 88,
+      "sha256": "0cd7b8b15244f6b597dc6cd653eeb08040d2366c061d6437e4b04086424aaf40"
+    },
+    {
+      "path": "evidence/local-audit/proof.json",
+      "bytes": 5842,
+      "sha256": "f7a3ba87160e25fe412bcb509dfb253ffe49602bf2974f5c527f888c753b43e1"
+    },
+    {
+      "path": "evidence/local-audit/training.stdout",
+      "bytes": 365,
+      "sha256": "48675f968a5163474365ab5e3b5340d752ebc6c5c74848f1f54ccbc3d2df43bc"
+    },
+    {
+      "path": "evidence/nexus-kernels.json",
+      "bytes": 26067,
+      "sha256": "450bc2093ebf183b2047dc47715fb0bffd3ca94c35905fc87ccd9754d1450932"
+    },
+    {
+      "path": "evidence/nexus-morph-attention.json",
+      "bytes": 30033,
+      "sha256": "5b5dc457d3bc6ed1db2059979626a963839d2f3311a0f5b1282fa85560e9c41b"
+    },
+    {
+      "path": "evidence/nexus-morph-tokenizer.json",
+      "bytes": 10967,
+      "sha256": "c0e727f1fe9cdcdd3d65189ab1d438d1c6703cdb22110dea7b54048917ac4cad"
+    },
+    {
+      "path": "evidence/nexus-native-benchmark.json",
+      "bytes": 17717,
+      "sha256": "f1a05ff8c2fb1245667b2068039683805c69213944f376c28f37b364868d227d"
+    },
+    {
+      "path": "evidence/qkv-gradients-local-20261015.txt",
+      "bytes": 669,
+      "sha256": "2670072f5903e32439c36c21411b8457851b1ed37ddbfb711dbcfc2b450c2ab1"
+    },
+    {
+      "path": "evidence/simd-benchmark-local.json",
+      "bytes": 1198,
+      "sha256": "36f31e3078360685e652494955770fa248fe6a75266ef8ef0f027339b6f78c4e"
+    },
+    {
+      "path": "evidence/tinystories-external-32epochs-local.json",
+      "bytes": 3178,
+      "sha256": "46ac82f93f6318a4fbacec16833d2dbeee2e9a9ac9f073d4a27a24475c162e9e"
+    },
+    {
+      "path": "evidence/tinystories-external-8epochs-local.json",
+      "bytes": 3177,
+      "sha256": "8d656537d9b727aeceec8dd448ef5cc2f865179282c0e9655f0bfbbecd691a44"
+    },
+    {
+      "path": "examples/tensor_arabic.niyah",
+      "bytes": 119,
+      "sha256": "03b0e43614272ed86f2030af468cba0a96721a320b3d3c05a15037ac0709dbbe"
+    },
+    {
+      "path": "gemm_probe.cu",
+      "bytes": 1497,
+      "sha256": "3f3a20cf200fef233f9e089030b79d41b2639e6a027d516906d832f7e3c09f43"
+    },
+    {
+      "path": "models/attention_manifest.json",
+      "bytes": 1092,
+      "sha256": "97ecded440148e3016d3a9a958a56d09d2a0f36b55103540ed64c5979b5b18b1"
+    },
+    {
+      "path": "models/checkpoint.json",
+      "bytes": 380,
+      "sha256": "ddc9514f2f24264a798ad15cc0ca44d8f4b14c700b31debeebd7dd182e8903f4"
+    },
+    {
+      "path": "src/attention_lm.s",
+      "bytes": 26673,
+      "sha256": "0a549ac783a44fd0cbed43e04b17ef5962cd008fbfb97ce3962caf27d85f4e05"
+    },
+    {
+      "path": "src/continual_lora.s",
+      "bytes": 16166,
+      "sha256": "cca24f736a4c18a3b759df4d17d561caf12439b596abbfc608a429adb1de1150"
+    },
+    {
+      "path": "src/morph_tokenizer/start.s",
+      "bytes": 334,
+      "sha256": "5b5bbe4172f4d3975579e53cfc0251e5feba8a0118ac5464deff1f20106b0985"
+    },
+    {
+      "path": "src/morph_tokenizer/tokenizer.c",
+      "bytes": 6549,
+      "sha256": "3335f2d67ba2d617089ffbff699a51ae2969cdef5a46e251d2fa8911a99c3c5b"
+    },
+    {
+      "path": "src/morph_tokenizer/upstream/LICENSE",
+      "bytes": 1075,
+      "sha256": "7528c4d642d894f8e2e67e48da0f8bbd609842e78c4341a6d40b646ac4de1666"
+    },
+    {
+      "path": "src/morph_tokenizer/upstream/PROVENANCE.json",
+      "bytes": 1193,
+      "sha256": "7d6dd37b333be859f2b08fe8ee2fe7be60eec09f31cf852be5a133ad612d023e"
+    },
+    {
+      "path": "src/morph_tokenizer/upstream/attention_byte_v2.s",
+      "bytes": 24504,
+      "sha256": "f7e66d703c388fe8a110e95569481ea869ca4cd43a7029c69e5f040ff92a0450"
+    },
+    {
+      "path": "src/morph_tokenizer/upstream/lexer.h",
+      "bytes": 1128,
+      "sha256": "ceda4418cb1f9ba1f9ffb63c2cc55483cb52d9a465c6bc61abfe124ad5d7cc6b"
+    },
+    {
+      "path": "src/morph_tokenizer/upstream/morph.c",
+      "bytes": 12350,
+      "sha256": "0c62989c1a532e01a4591074add544bd6a9945f45201d5ef87bf01306861189e"
+    },
+    {
+      "path": "src/morph_tokenizer/upstream/morph.h",
+      "bytes": 2133,
+      "sha256": "fccc0c7f23d327af86439ee6bfcbef793a5ae006bca535e4f7f2cf8d529f9b4d"
+    },
+    {
+      "path": "src/morph_tokenizer/vocab.h",
+      "bytes": 3497,
+      "sha256": "6bdd68ad768d280eecc92704d639c8a3c4cab7a7f64e205d2f6db77cfc6fc20b"
+    },
+    {
+      "path": "src/morph_tokenizer/vocab.json",
+      "bytes": 487,
+      "sha256": "1939a48174247d0012e934206e31e02f2d6d795ee622647faf07c1209e010d43"
+    },
+    {
+      "path": "src/nexus_audit.s",
+      "bytes": 5745,
+      "sha256": "b5e23ddf5789799c3919462c95c3266be9d36b62bd8a14ba16d7e1122f40752d"
+    },
+    {
+      "path": "src/niyah_i8_gemm.s",
+      "bytes": 6584,
+      "sha256": "e913336ff022cb80fde10ca8f825f3ede33e23a66a79400ba812c1cc8c2fac9e"
+    },
+    {
+      "path": "src/tensor_dispatch.s",
+      "bytes": 4619,
+      "sha256": "a7a2cd86aaf6e0ec89e2d622957c0c2db443d68a1a8882e7906d9fa79efd4d1a"
+    },
+    {
+      "path": "src/tensor_runtime.s",
+      "bytes": 5713,
+      "sha256": "c24fc30ce88b3e4ae0ddee5bf7b07b071d7ea5c86fda9b8302364c413f900060"
+    },
+    {
+      "path": "src/tile_allocator.s",
+      "bytes": 3204,
+      "sha256": "35593e3d336495dc5d5d2987c18bdfc6a931db645fe69a118f514d4fbd282baf"
+    },
+    {
+      "path": "src/tile_kernels.s",
+      "bytes": 5005,
+      "sha256": "5ba864f438fa422496772dd63220eb7e927d982cfe625d38c1969bdd26303846"
+    },
+    {
+      "path": "src/tile_probe.s",
+      "bytes": 3502,
+      "sha256": "ca1edf01d0c53a2c69bb67491bd5a0f9e2296125eafd413024f439de05af4df7"
+    },
+    {
+      "path": "src/trigram.s",
+      "bytes": 6175,
+      "sha256": "390234b720148ccad50190626debb1bda178e63476e0d1dce803fea2b8b3f477"
+    },
+    {
+      "path": "tests/i8_gemm_harness.c",
+      "bytes": 9343,
+      "sha256": "c41f29e080105bc9224283c00d844f52845ec378bbb14543eed68044a9d6d259"
+    },
+    {
+      "path": "tests/test_attention.py",
+      "bytes": 7833,
+      "sha256": "8511296248fb23b0dbf174887cd224263619c4d83f64665b5fac001f7e8c8267"
+    },
+    {
+      "path": "tests/test_checkpoint_negative.py",
+      "bytes": 1941,
+      "sha256": "b6c4cbaa5b84c7f63f079954c01a5156f334b00105a86efd9814db9d4dd7af20"
+    },
+    {
+      "path": "tests/test_checkpoint_snapshot.py",
+      "bytes": 2993,
+      "sha256": "b929e80e5ca71873bfd05947ccaad6e6bb7638586d69657560f0ed0e55ee05bf"
+    },
+    {
+      "path": "tests/test_continual_lora.py",
+      "bytes": 17779,
+      "sha256": "c08a400730b0d8f2d348691d4790f773b1bdfd68a934afcb323be6a52591c76b"
+    },
+    {
+      "path": "tests/test_dispatch_contract.py",
+      "bytes": 5624,
+      "sha256": "4f29bc48b4178dc1a8d2fdb72c28becf3b7b4b8b513dd93721f13e50e19b1165"
+    },
+    {
+      "path": "tests/test_exactcalc.py",
+      "bytes": 5421,
+      "sha256": "051483a0616aebb4ca3ae88893cab23f37a801add422d24199d36538d12b573b"
+    },
+    {
+      "path": "tests/test_generation.py",
+      "bytes": 1600,
+      "sha256": "b0765bad9a87e9b44833bdebedf542f6769843f5857a51a8713c7733701a349a"
+    },
+    {
+      "path": "tests/test_hybrid_eval.py",
+      "bytes": 2267,
+      "sha256": "f31c361600596dba51eceb2d978674b8d93420d316df1deec4bde8de7c315905"
+    },
+    {
+      "path": "tests/test_i8_gemm.py",
+      "bytes": 5121,
+      "sha256": "ac1a43281848a3ff5fc41ef8190e45b8d383df4f2c207a5cbf32347b74486086"
+    },
+    {
+      "path": "tests/test_ir_bridge.py",
+      "bytes": 14572,
+      "sha256": "0ec28322b13f071a2cf60b1fac3e2f997646f4622c33ed7f244b5d2772d82482"
+    },
+    {
+      "path": "tests/test_morph_attention.py",
+      "bytes": 5726,
+      "sha256": "e370e27ea6a842be0eedfc3db2911aed1821b3f949a422f7c95be8e0c5bd23b7"
+    },
+    {
+      "path": "tests/test_morph_tokenizer.py",
+      "bytes": 4767,
+      "sha256": "281a82c9f04a147e00564707b7ac1c8a07cb7af43b76be3284f28af11f91974d"
+    },
+    {
+      "path": "tests/test_nexus_audit.py",
+      "bytes": 7604,
+      "sha256": "ce73b4ae717d816fe2bc58dd9c80971b53b5d1e22b428027679d331129f01fde"
+    },
+    {
+      "path": "tests/test_qkv_gradients.py",
+      "bytes": 2904,
+      "sha256": "cf3072077e01abf43f8e36e7dda30c333a9c1e9b30cea6ece959cd56a10b594f"
+    },
+    {
+      "path": "tests/test_simd.py",
+      "bytes": 5352,
+      "sha256": "0271d39a2eb60a1d0c6de63633ad4fe578652b093e0935b7a4606bb05a7c927b"
+    },
+    {
+      "path": "tests/test_tile_allocator.py",
+      "bytes": 11550,
+      "sha256": "3768ef4599b4fb6684c06aa29271d7db18032e9100e5181741ec4e7cfaa07020"
+    },
+    {
+      "path": "tests/test_tile_kernels.py",
+      "bytes": 6647,
+      "sha256": "3deccf22119d4b9c52383e04d9b52e1c2c3b93482406af4e928dbe6f498a92b1"
+    },
+    {
+      "path": "tests/test_tinystories_eval.py",
+      "bytes": 2152,
+      "sha256": "470eb3838f441466a9a4c72fb1ab02483c87bce4f51fbede949133f7fe812a3e"
+    },
+    {
+      "path": "tools/bench_avx2.py",
+      "bytes": 3231,
+      "sha256": "9b85c0645135e63ac13ffa5828d68ba702745d297ac9f04201fa2646ce7b1adf"
+    },
+    {
+      "path": "tools/bench_native_tiles.py",
+      "bytes": 4872,
+      "sha256": "762948070005dc2eea277acb04a0600fc5b327c9d5d288ed52eba14c7dfe69c0"
+    },
+    {
+      "path": "tools/checkpoint.py",
+      "bytes": 4578,
+      "sha256": "6a650c71b72b6b48636faaffbb7d5cfb8da7643a385a9428385392d782d68ad9"
+    },
+    {
+      "path": "tools/checkpoint_attention.py",
+      "bytes": 8151,
+      "sha256": "c2b5ef66951eb037e516b51bc90cc33f06964916f1134be05fb82c352a6d8530"
+    },
+    {
+      "path": "tools/evaluate_tinystories.py",
+      "bytes": 6780,
+      "sha256": "3c432736552df52a0360962eb4393c7fb2d9128f3a688a88c7a7c7fb06912e2d"
+    },
+    {
+      "path": "tools/hybrid_eval.py",
+      "bytes": 9104,
+      "sha256": "2e96084a958ce6d0b5eee287191c83b212ed3a5522504c7e7e4c0cfd41a15fb8"
+    },
+    {
+      "path": "tools/morph_attention.py",
+      "bytes": 16858,
+      "sha256": "a54bd5f979caddc2188ebc606165a2fd73ecb5d965a5e5c11f09e9fb8552b60a"
+    },
+    {
+      "path": "tools/qwen/SHA256SUMS",
+      "bytes": 732,
+      "sha256": "f5f519674d57cb671fad3e27fe65a67ab1d5efa9327526fab0145657cb671604"
+    },
+    {
+      "path": "tools/qwen/make_g32_blocked.py",
+      "bytes": 3376,
+      "sha256": "ebc0fc0ed9f4d8eb043648bb8ff3a721d280f5e06908eca4690f8a27e8bc05c6"
+    },
+    {
+      "path": "tools/qwen/make_g32_tany.py",
+      "bytes": 2701,
+      "sha256": "a0f853f512cbb1ad5f9de4b76409b74c6a9b384a8acdb87e625ec8c97f06bff4"
+    },
+    {
+      "path": "tools/qwen/qwen_layer0_quant_schemes.py",
+      "bytes": 6564,
+      "sha256": "02f5c063289cd511540c99a40a84b2e6c40e39c9a49520a61e50100dc93fb76c"
+    },
+    {
+      "path": "tools/qwen/qwen_native_full_gate.py",
+      "bytes": 17166,
+      "sha256": "763504e5204c7488db1245d0effc5931f7208ce3a67f14c5d1344b889de7120f"
+    },
+    {
+      "path": "tools/qwen/qwen_native_layer0.py",
+      "bytes": 17364,
+      "sha256": "9b68e9135e211a15b02652190e5d0f401a528dddb36379bed308fd9be0c97aec"
+    },
+    {
+      "path": "tools/qwen/qwen_native_layer0_g32.py",
+      "bytes": 18257,
+      "sha256": "1074ba7c69c7a6581069de369f061f41f9fc8c758faf1acfee6dd614b62bf5c8"
+    },
+    {
+      "path": "tools/qwen/qwen_native_layer0_g32_blocked.py",
+      "bytes": 19181,
+      "sha256": "db5a7049682cfa82e866036d5855c29736c4c7540621c7253f28806a527e1ba7"
+    },
+    {
+      "path": "tools/qwen/qwen_native_layer0_g32_tany.py",
+      "bytes": 19468,
+      "sha256": "9738e6ecfd88aa481cddcc1745810af0ec350761df3bba9c443d42c028a3b9e9"
+    },
+    {
+      "path": "tools/qwen/verify/SHA256SUMS",
+      "bytes": 4635,
+      "sha256": "d404eb47909390d5d390d641e47ee782d1af7b6ad2c1bc1c1c792c31b412c646"
+    },
+    {
+      "path": "tools/qwen/verify/create_torch_hook_v2.py",
+      "bytes": 1619,
+      "sha256": "a52a417284b818f24b22e2b5530b9b8a0bfa8fa517505b8cd0e3c14644db97b8"
+    },
+    {
+      "path": "tools/qwen/verify/create_torch_hook_v3.py",
+      "bytes": 3090,
+      "sha256": "0666afdcb4ce977b34b59de290b3e99902f183db603a44547ca1b9f14d0c5fb9"
+    },
+    {
+      "path": "tools/qwen/verify/full_gate_g32all_20261031_133521.json",
+      "bytes": 13773,
+      "sha256": "5b154061ce49220db7d3201978fe1095f43eb7c0a8e260e4db83e5a4a3010e06"
+    },
+    {
+      "path": "tools/qwen/verify/full_gate_g32all_20261031_133521.log",
+      "bytes": 4399,
+      "sha256": "022955a5615a09333a8ded4db5d8ba470566ac38467ef161edfefac3abe6bb6b"
+    },
+    {
+      "path": "tools/qwen/verify/full_gate_pertoken_20261031_132909.json",
+      "bytes": 13738,
+      "sha256": "c498773d28af82dd12f55b11e0b47989e2759110799068c3dc9e1255100192d7"
+    },
+    {
+      "path": "tools/qwen/verify/full_gate_pertoken_20261031_132909.log",
+      "bytes": 4350,
+      "sha256": "a03cc9cc50246a57132e14de6c7630a78d508e9c291bc0e0eb741d10f0e0c960"
+    },
+    {
+      "path": "tools/qwen/verify/inventory_complete_summary_v1.json",
+      "bytes": 20076,
+      "sha256": "ae62382088191d79d26934908656b2900e3ce42b3a3d28db7ab0806d18360146"
+    },
+    {
+      "path": "tools/qwen/verify/inventory_engine_windows_summary_v1.json",
+      "bytes": 5829,
+      "sha256": "9288e205738120a464d04a21c701216faff703cd181232a3e3be2304f0a6ab66"
+    },
+    {
+      "path": "tools/qwen/verify/inventory_engine_windows_v1.py",
+      "bytes": 5176,
+      "sha256": "dff28537c5864f02bdb51eae6f23c834126e1aadab657e78bc8342f0672cc868"
+    },
+    {
+      "path": "tools/qwen/verify/inventory_engine_windows_v2.py",
+      "bytes": 5256,
+      "sha256": "66c128af19361a225037db88e4b12da063e8e9162e6ef0103e8222f2ac6a9a51"
+    },
+    {
+      "path": "tools/qwen/verify/inventory_merge_v1.py",
+      "bytes": 2382,
+      "sha256": "2921e6e899030f6982dffd148dc41aa99c78e99f00613488b3f4ca4d1f2669a9"
+    },
+    {
+      "path": "tools/qwen/verify/inventory_partial_summary_v1.json",
+      "bytes": 15674,
+      "sha256": "b0768d3918f6e0f9b8498b732cb243fb29a1db9555f4a3676cd54700b0921a42"
+    },
+    {
+      "path": "tools/qwen/verify/inventory_v1.py",
+      "bytes": 8896,
+      "sha256": "49f70de9baaffeb34e3be352a804eca2cbe0fb1e8261b5598e5721d34ec55dda"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_base_20261031_130232_289422794.json",
+      "bytes": 2336,
+      "sha256": "ff76cfd84c588eecebbb7e2d0a14c5db885d3feff1b4148d15f3b513393bbe1a"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_base_20261031_130232_289422794.log",
+      "bytes": 3815,
+      "sha256": "e9eaac08436845daa64352aeb2157aee8bf83fccb2e2a20905bcc32ac2958391"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_blocked_20261031_112105.json",
+      "bytes": 2080,
+      "sha256": "08f6d51b587070d8c4779fc995da0863b28f408af4109a293b71a1f30070c1eb"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_double_20261031_111451.json",
+      "bytes": 2046,
+      "sha256": "a9e6b706c6e80e8f1170f46f555fa5679d51e9eb1c63b764acbb081210977e50"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_instruct_20261031_122212.json",
+      "bytes": 2078,
+      "sha256": "f1f6ce9c8caea94c951879a6ef700c2b44b19086cb564c307e254f21a611f827"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_instruct_20261031_130416_512536327.json",
+      "bytes": 2331,
+      "sha256": "b52546b37e084e57dc0a50e98e2acb32ba4eb9cc241f980aa14d83fb42ac968d"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_instruct_20261031_130416_512536327.log",
+      "bytes": 3810,
+      "sha256": "2531867cdc645146572eb217f42a852d1fd5cde6262c5c9aa99331767efcb8c2"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_tany_base_20261031_132024.json",
+      "bytes": 2897,
+      "sha256": "1017a99dbcae941478c747bbd146ec2bda7d887584584d4ec14cb6a02b9b1c33"
+    },
+    {
+      "path": "tools/qwen/verify/native_g32_tany_base_20261031_132024.log",
+      "bytes": 4537,
+      "sha256": "514ab7d814b1768f48cdca30437ccd5c518966bb86cbe0f82f2838ca8ec3a4c7"
+    },
+    {
+      "path": "tools/qwen/verify/quant_schemes_report.json",
+      "bytes": 4939,
+      "sha256": "8e91f24c0f68a4754d866c312a8298cf8a715fdfacf7522fc3cde6dc6284e15e"
+    },
+    {
+      "path": "tools/qwen/verify/quant_schemes_report_v2.json",
+      "bytes": 2084,
+      "sha256": "c3466770520fab82ce425ec466c60289d45c567e8d43da40147d50d833b0900c"
+    },
+    {
+      "path": "tools/qwen/verify/quant_schemes_v1_script.py",
+      "bytes": 5931,
+      "sha256": "f22eff42bc7059be2172854deb345c3589a8d52de338ecbf78d9df6db10a7375"
+    },
+    {
+      "path": "tools/qwen/verify/qwen_native_layer0_fixed_v2_copy_for_v4.py",
+      "bytes": 17385,
+      "sha256": "c476dccee769d5ed06d902256355d26f436aa6d5ebd0149de9bf14b115aa985e"
+    },
+    {
+      "path": "tools/qwen/verify/report.json",
+      "bytes": 3060,
+      "sha256": "9c1675744040e6ff5fe3f7ab5538ba3363ddd6374abefdf4362baba9f6bb336e"
+    },
+    {
+      "path": "tools/qwen/verify/report_int64_v7.json",
+      "bytes": 29411,
+      "sha256": "bb34785666ef2c45009aca0bdc2184a29fa5c936faf1a5a359357b4872c63ce4"
+    },
+    {
+      "path": "tools/qwen/verify/report_postnorm_fp32_v5.json",
+      "bytes": 29547,
+      "sha256": "74c6238d05ad471136f5941f61693a7c767d9e96c0afb1ae111883f6ac98ea3a"
+    },
+    {
+      "path": "tools/qwen/verify/report_snapshot_v6.json",
+      "bytes": 29547,
+      "sha256": "44cd22a8dd2fbd49ef64fd6cc6b1c4e018cf08b850268c9ac61e69c3f6bb3079"
+    },
+    {
+      "path": "tools/qwen/verify/report_torch_hooks_v1.json",
+      "bytes": 2705,
+      "sha256": "74f7e124e763789c8ce7a3d4602442b8e5df4ef7b66fd4afb673d67e3f658d79"
+    },
+    {
+      "path": "tools/qwen/verify/report_torch_hooks_v2.json",
+      "bytes": 12489,
+      "sha256": "ee5d9c0e3c531e2593c48af31ba38e2f23eb0d9f6be18b163d75eee12472b354"
+    },
+    {
+      "path": "tools/qwen/verify/report_torch_hooks_v3.json",
+      "bytes": 19736,
+      "sha256": "2859feae2d6b09a4e5c551f7d2e6132cbf3205cf4cd5ea68a330da84c0aa8ecc"
+    },
+    {
+      "path": "tools/qwen/verify/report_torch_hooks_v4.json",
+      "bytes": 19736,
+      "sha256": "12618f2aa55f4d3a6502ce3202c5703a4a29f71e8af52a317291e3f23a9d1650"
+    },
+    {
+      "path": "tools/qwen/verify/report_v2.json",
+      "bytes": 42162,
+      "sha256": "7e372b1658daa61f5382b582ac22652e835c3f59aae9a87bc32e4cbf7227e7df"
+    },
+    {
+      "path": "tools/qwen/verify/report_v3.json",
+      "bytes": 42162,
+      "sha256": "9aa29fde6f9ddb1000fdf08ecf640ff6a9deedc9c321df6a813a162c5fe0f22d"
+    },
+    {
+      "path": "tools/qwen/verify/summarize_inventory_partial_v1.py",
+      "bytes": 2432,
+      "sha256": "722eb03a8dbe94c2f3e2189b35504640af104da2d541db81ac3c19262d268e03"
+    },
+    {
+      "path": "tools/qwen/verify/torch_hook_reference_int64_v7.py",
+      "bytes": 16603,
+      "sha256": "20c96f93c781efbd9035a6d5e5ccd4b345e6f2f40459dab2bb23e8a7773c7784"
+    },
+    {
+      "path": "tools/qwen/verify/torch_hook_reference_postnorm_fp32_v5.py",
+      "bytes": 15654,
+      "sha256": "a925a148bc2c135fa99720b80ca75bd36c07edef9bb979f90b16c23f97118c26"
+    },
+    {
+      "path": "tools/qwen/verify/torch_hook_reference_snapshot_v6.py",
+      "bytes": 16527,
+      "sha256": "ec039cd9510ecb69a7e73c2ee26870e903fef80cef1cf6643d818c179544844e"
+    },
+    {
+      "path": "tools/qwen/verify/torch_hook_reference_v1.py",
+      "bytes": 10747,
+      "sha256": "eea989a4b80efdf0da2f680db41dfd2939a565d1fed114c0d1634af7ed50cf03"
+    },
+    {
+      "path": "tools/qwen/verify/torch_hook_reference_v2.py",
+      "bytes": 11253,
+      "sha256": "cb90cf1851c0708b571378222987d4eee4a29886ccd12d03834f754ce2096e0a"
+    },
+    {
+      "path": "tools/qwen/verify/torch_hook_reference_v3.py",
+      "bytes": 13173,
+      "sha256": "df8effb6f7483697ffd69dd0a849e7e1d82c09849367c190c25e50afada1d3f1"
+    },
+    {
+      "path": "tools/qwen/verify/torch_hook_reference_v4.py",
+      "bytes": 13536,
+      "sha256": "6a2819fa29c71e86e1de2e3daca26494a49e30a4f076947f457fac1422439a7e"
+    },
+    {
+      "path": "tools/qwen/verify/verify.py",
+      "bytes": 30796,
+      "sha256": "6d1004ff0272f011b8cb59a4ff14249b21c1046e0f8916eee1d58e980a7a5535"
+    },
+    {
+      "path": "tools/qwen/verify/verify_v2.py",
+      "bytes": 1095,
+      "sha256": "9ac566153ca9a2c76798bd8f76099087b80e4c6c59334f1c0d624c2d0e344bf7"
+    },
+    {
+      "path": "tools/qwen/verify/verify_v3.py",
+      "bytes": 3679,
+      "sha256": "b18dce552abcbb8267a19e41a81b01517746d53408ca2c91d95dc55c7a5911d7"
+    },
+    {
+      "path": "tools/qwen/verify/worst_values_v3.json",
+      "bytes": 3490,
+      "sha256": "4ac998a146fd4030248bf0fa40fe479ee8137a33ca9f334d45e06791fd81fef0"
+    },
+    {
+      "path": "tools/verify_local.py",
+      "bytes": 7344,
+      "sha256": "ac05d40ad3b4797e06f592e8699549b760101de0473392a670266f2435cc435f"
+    },
+    {
+      "path": "verification_results.json",
+      "bytes": 549,
+      "sha256": "740f306325383a49f843a0147459873e7135fadb709d4ecdc2f2400f55771762"
+    }
+  ],
+  "code_contracts": {
+    "src/attention_lm.s": [
+      {
+        "line": 1,
+        "text": "# Niyah: learnable one-head causal attention + residual ReLU FFN LM"
+      },
+      {
+        "line": 2,
+        "text": "# x86-64 GNU as, Linux kernel syscalls, no libc, no PyTorch, no runtime deps."
+      },
+      {
+        "line": 3,
+        "text": "# Educational neural language model, NOT a large language model."
+      },
+      {
+        "line": 5,
+        "text": ".equ D, 16"
+      },
+      {
+        "line": 6,
+        "text": ".equ CTX, 32"
+      },
+      {
+        "line": 7,
+        "text": ".equ V, 256"
+      },
+      {
+        "line": 8,
+        "text": "# AVX2_AUTO performs OSXSAVE+AVX+FMA+AVX2 capability dispatch at startup."
+      },
+      {
+        "line": 9,
+        "text": "# AVX2_FAST is explicitly unsafe on unsupported CPUs; prefer AVX2_AUTO."
+      },
+      {
+        "line": 11,
+        "text": ".equ COMPILE_SIMD,1"
+      },
+      {
+        "line": 14,
+        "text": ".equ COMPILE_SIMD,1"
+      },
+      {
+        "line": 16,
+        "text": ".equ COMPILE_SIMD,0"
+      },
+      {
+        "line": 20,
+        "text": ".equ EPOCHS, 240"
+      },
+      {
+        "line": 23,
+        "text": ".equ SAMPLE_LEN, 120"
+      },
+      {
+        "line": 26,
+        "text": ".equ SEED, 2463534242"
+      },
+      {
+        "line": 39,
+        "text": ".equ N, . - train_bytes"
+      },
+      {
+        "line": 44,
+        "text": ".equ NV, . - valid_bytes"
+      },
+      {
+        "line": 58,
+        "text": ".equ l_init, . - s_init"
+      },
+      {
+        "line": 60,
+        "text": ".equ l_final, . - s_final"
+      },
+      {
+        "line": 62,
+        "text": ".equ l_valid, . - s_valid"
+      },
+      {
+        "line": 64,
+        "text": ".equ l_dump, . - s_dump"
+      },
+      {
+        "line": 66,
+        "text": ".equ l_epoch, . - s_epoch"
+      },
+      {
+        "line": 68,
+        "text": ".equ l_loss, . - s_loss"
+      },
+      {
+        "line": 70,
+        "text": ".equ l_gen, . - s_gen"
+      },
+      {
+        "line": 72,
+        "text": ".equ l_kernel, . - s_kernel"
+      },
+      {
+        "line": 82,
+        "text": ".equ E, params_start"
+      },
+      {
+        "line": 83,
+        "text": ".equ POS, params_start+16384"
+      },
+      {
+        "line": 84,
+        "text": ".equ F, params_start+16896"
+      },
+      {
+        "line": 85,
+        "text": ".equ FB, params_start+17920"
+      },
+      {
+        "line": 86,
+        "text": ".equ O, params_start+17984"
+      },
+      {
+        "line": 87,
+        "text": ".equ OB, params_start+34368"
+      },
+      {
+        "line": 88,
+        "text": ".equ WQ, params_start+35392"
+      },
+      {
+        "line": 89,
+        "text": ".equ WK, params_start+36416"
+      },
+      {
+        "line": 90,
+        "text": ".equ WV, params_start+37440"
+      },
+      {
+        "line": 137,
+        "text": "# xmm0=exp(xmm0), x87 with stable shifted softmax inputs."
+      },
+      {
+        "line": 155,
+        "text": "# xmm0=ln(xmm0)"
+      },
+      {
+        "line": 168,
+        "text": "# rsi=bytes, rdx=len, EINTR and partial-write safe."
+      },
+      {
+        "line": 185,
+        "text": "# eax=unsigned, r9b=trailing character"
+      },
+      {
+        "line": 208,
+        "text": "# Deterministic nonzero xorshift32, eax = next uint32, r14=state"
+      },
+      {
+        "line": 222,
+        "text": "# CPU feature detection: CPUID(1).OSXSAVE+AVX+FMA, XGETBV(0) XMM/YMM,"
+      },
+      {
+        "line": 223,
+        "text": "# and CPUID(7,0).AVX2. xgetbv MUST NOT execute if OSXSAVE unavailable."
+      },
+      {
+        "line": 224,
+        "text": "# Only called on the AVX2_AUTO build, before model initialization."
+      },
+      {
+        "line": 258,
+        "text": "# Fixed width GEMV inner product, 16 x float32."
+      },
+      {
+        "line": 259,
+        "text": "# r10=A, r11=B; output xmm0. Preserves r8/r9, xmm7..xmm15."
+      },
+      {
+        "line": 260,
+        "text": "# AVX2 with FMA3/256-bit registers inspired by NN_S (MIT) and Intel manual,"
+      },
+      {
+        "line": 261,
+        "text": "# but the code here is ORIGINAL. Scalar SSE path remains portable."
+      },
+      {
+        "line": 294,
+        "text": "# Four-row tiled projection. ABI: RDI=W16x16, RSI=x16, RDX=y16."
+      },
+      {
+        "line": 295,
+        "text": "# Preserves RBX/R8/R9/R12-R15; clobbers RAX/RCX/R10/R11 and XMM0-XMM6."
+      },
+      {
+        "line": 296,
+        "text": "# Floating reduction order per row exactly matches the existing dot16 SIMD."
+      },
+      {
+        "line": 367,
+        "text": "# Forward: r13 = position >= CTX, seqbase = ptr, predicts token at r13."
+      },
+      {
+        "line": 368,
+        "text": "# Q=WQ*X[last], K[t]=WK*X[t], V[t]=WV*X[t]."
+      },
+      {
+        "line": 369,
+        "text": "# attention = softmax(Q*K/sqrt(16)); H=X[last]+attention*V;"
+      },
+      {
+        "line": 370,
+        "text": "# Y=H+ReLU(F*H+FB); logits=O*Y+OB; PROB=masked-softmax(logits)."
+      },
+      {
+        "line": 402,
+        "text": "    # Q/K/V projection shares input loads across four output rows."
+      },
+      {
+        "line": 427,
+        "text": "    # Actual *learnable*, independent query/key/value projection matrices."
+      },
+      {
+        "line": 428,
+        "text": "    # Shape: WQ, WK, WV = [16,16] row-major float32."
+      },
+      {
+        "line": 565,
+        "text": "    # output logits and finite-check"
+      },
+      {
+        "line": 630,
+        "text": "# Reverse-mode derivatives of E,POS,F,FB,O,OB,WQ,WK,WV."
+      },
+      {
+        "line": 631,
+        "text": "# All Q/K/V projections are separately trainable, initialized as identity."
+      },
+      {
+        "line": 636,
+        "text": "    # zero 16+16+8+128 floats (GY, GH, GA, GX)"
+      },
+      {
+        "line": 681,
+        "text": "    # Now update output projection AFTER input-side grads computed."
+      },
+      {
+        "line": 713,
+        "text": "    # GH=GY+(ReLU'(Z)*GY)*F using old F, then update F/FB."
+      },
+      {
+        "line": 783,
+        "text": "    # gA[t] = GH dot V[t]. All projection paths use OLD weights."
+      },
+      {
+        "line": 797,
+        "text": "    # softmax derivative: gs_t=(gA[t]-sum_k A[k]gA[k])*A[t]/sqrt(D)"
+      },
+      {
+        "line": 823,
+        "text": "    # dQ[i] += gs[t] * K[t,i]"
+      },
+      {
+        "line": 841,
+        "text": "    # dX[t,j] += sum_i WK[i,j]*(GS[t]*Q[i])"
+      },
+      {
+        "line": 842,
+        "text": "    #             + sum_i WV[i,j]*(A[t]*GH[i])"
+      },
+      {
+        "line": 843,
+        "text": "    # GX was zeroed at backward entry. Do not update projections yet."
+      },
+      {
+        "line": 886,
+        "text": "    # dX[last,j] += WQ^T[j,i] * dQ[i]"
+      },
+      {
+        "line": 908,
+        "text": "    # Residual gradient from Y -> H -> last input."
+      },
+      {
+        "line": 919,
+        "text": "    # Update WQ/WK/WV only AFTER dX used the OLD projection weights."
+      },
+      {
+        "line": 920,
+        "text": "    # dWQ[i,j]=dQ[i]*X[last,j]"
+      },
+      {
+        "line": 921,
+        "text": "    # dWK[i,j]=sum_t GS[t]*Q[i]*X[t,j]"
+      },
+      {
+        "line": 922,
+        "text": "    # dWV[i,j]=sum_t A[t]*GH[i]*X[t,j]"
+      },
+      {
+        "line": 984,
+        "text": "    # Update trainable embeddings and position vectors; repeated tokens accumulate."
+      },
+      {
+        "line": 1015,
+        "text": "# Evaluate corpus specified by seqbase/seqlen WITHOUT any updates."
+      },
+      {
+        "line": 1016,
+        "text": "# Result xmm10 = average negative log likelihood scaled x1000."
+      },
+      {
+        "line": 1041,
+        "text": "# Print xmm10 as positive unsigned milli-nats."
+      },
+      {
+        "line": 1060,
+        "text": "    # deterministic stochastic initialization of ALL trainable float parameters"
+      },
+      {
+        "line": 1061,
+        "text": "    # no imported checkpoints, weights, datasets or model calls."
+      },
+      {
+        "line": 1075,
+        "text": "    # Identity initialization keeps initial Q/K/V mathematically equivalent"
+      },
+      {
+        "line": 1076,
+        "text": "    # to old identity-tied attention; all three are independently trained."
+      },
+      {
+        "line": 1095,
+        "text": "    # vocabulary includes exactly the bytes in training corpus"
+      },
+      {
+        "line": 1132,
+        "text": "    # Test-only: exactly one update, then ordinary metrics/export."
+      },
+      {
+        "line": 1170,
+        "text": "    # Opt-in raw float32 probability for each true validation byte. No SGD"
+      },
+      {
+        "line": 1171,
+        "text": "    # updates happen in this path; eval only. A separate harness checks that"
+      },
+      {
+        "line": 1172,
+        "text": "    # -log(prob) reproduces the native heldout loss before using the stream."
+      },
+      {
+        "line": 1244,
+        "text": "    # normalized probabilities should sum to one, roundoff fallback"
+      }
+    ],
+    "src/continual_lora.s": [
+      {
+        "line": 1,
+        "text": "# Bounded rank-2 continual adaptation of the native model's frozen WQ."
+      },
+      {
+        "line": 2,
+        "text": "# Linux x86-64, GNU as, raw syscalls only. See docs/CONTINUAL_LORA.md."
+      },
+      {
+        "line": 5,
+        "text": ".equ BASE_BYTES,38464"
+      },
+      {
+        "line": 6,
+        "text": ".equ WQ_OFFSET,35392"
+      },
+      {
+        "line": 7,
+        "text": ".equ PARAM_OFFSET,64+BASE_BYTES"
+      },
+      {
+        "line": 8,
+        "text": ".equ CHECKSUM_OFFSET,PARAM_OFFSET+256"
+      },
+      {
+        "line": 9,
+        "text": ".equ CHECKPOINT_BYTES,CHECKSUM_OFFSET+8"
+      },
+      {
+        "line": 10,
+        "text": ".equ MAX_RECORDS,16"
+      },
+      {
+        "line": 26,
+        "text": ".equ len_invalid,.-msg_invalid"
+      },
+      {
+        "line": 28,
+        "text": ".equ len_io,.-msg_io"
+      },
+      {
+        "line": 30,
+        "text": ".equ len_reject,.-msg_reject"
+      },
+      {
+        "line": 58,
+        "text": "# rdi, rsi are NUL strings; eax=1 iff equal."
+      },
+      {
+        "line": 76,
+        "text": "# Reads a snapshot, at most rdx bytes; caller uses a one-byte overflow margin."
+      },
+      {
+        "line": 77,
+        "text": "# rdi=path, rsi=destination, rdx=capacity, rax=bytes. No symlink following."
+      },
+      {
+        "line": 121,
+        "text": "# rdi=fd, rsi=buffer, rdx=bytes. Returns zero or a negative errno."
+      },
+      {
+        "line": 145,
+        "text": "# Reject nonfinite values and absolute magnitude above positive float bits edx."
+      },
+      {
+        "line": 146,
+        "text": "# Preserves rdi/ecx/edx and r9..r15."
+      },
+      {
+        "line": 159,
+        "text": "# Noncryptographic FNV-1a corruption check, never an authenticity claim."
+      },
+      {
+        "line": 160,
+        "text": "# Full base identity is separately compared byte for byte."
+      },
+      {
+        "line": 238,
+        "text": "# Output is always a NEW file, never an in-place replacement of an adapter."
+      },
+      {
+        "line": 239,
+        "text": "# Full copied base permits exact binding without a crypto runtime dependency."
+      },
+      {
+        "line": 302,
+        "text": "# y = WQ*x + B*(A*x), A[2,16], B[16,2], alpha/r=1."
+      },
+      {
+        "line": 303,
+        "text": "# rsi=x[16], output prediction[16]; only xmm0..xmm5 are used."
+      },
+      {
+        "line": 351,
+        "text": "# rdi=dataset, eax=record count; mean half squared error in xmm0."
+      },
+      {
+        "line": 386,
+        "text": "# SGD for one record, using OLD A and B for BOTH derivatives."
+      },
+      {
+        "line": 387,
+        "text": "# Componentwise clip gradient to [-1,1], lr=1/32. Any bad candidate rejects."
+      },
+      {
+        "line": 402,
+        "text": "    # hidden_error = B^T * error, using the original B."
+      },
+      {
+        "line": 438,
+        "text": "    # grad B = error outer hidden."
+      },
+      {
+        "line": 477,
+        "text": "# Validate 1..16 records of 16 features bounded by4 +16 targets bounded by64."
+      },
+      {
+        "line": 478,
+        "text": "# rsi=dataset, rax=bytes. Returns eax=record count."
+      },
+      {
+        "line": 539,
+        "text": "    # Nonzero orthogonal-ish rows in A, zero B: exactly unchanged base output."
+      },
+      {
+        "line": 708,
+        "text": "# Testing build only: one native gradient step, no persistent write/promotion."
+      }
+    ],
+    "src/morph_tokenizer/start.s": [
+      {
+        "line": 2,
+        "text": "# Linux x86-64 process entry; no CRT or libc."
+      }
+    ],
+    "src/morph_tokenizer/tokenizer.c": [
+      {
+        "line": 1,
+        "text": "/* Exact surface-token codec; all I/O uses Linux x86-64 syscalls."
+      },
+      {
+        "line": 7,
+        "text": "#define MAX_BYTES 1048576u"
+      },
+      {
+        "line": 8,
+        "text": "#define HEADER_BYTES 64u"
+      },
+      {
+        "line": 9,
+        "text": "#define MAX_ENCODED (HEADER_BYTES + 2u * MAX_BYTES)"
+      },
+      {
+        "line": 45,
+        "text": "/* Strict decoder used only to locate boundaries. Invalid bytes use fallback. */"
+      },
+      {
+        "line": 121,
+        "text": "    /* Validate the complete stream before emitting any bytes. */"
+      }
+    ],
+    "src/morph_tokenizer/vocab.h": [
+      {
+        "line": 2,
+        "text": "#define NIYAH_SURFACE_VOCAB_H"
+      },
+      {
+        "line": 3,
+        "text": "#define SURFACE_VOCAB_VERSION 1u"
+      },
+      {
+        "line": 4,
+        "text": "#define SURFACE_PIECE_COUNT 38u"
+      },
+      {
+        "line": 5,
+        "text": "#define SURFACE_VOCAB_SIZE 294u"
+      }
+    ],
+    "src/nexus_audit.s": [
+      {
+        "line": 1,
+        "text": "# Native, bounded arithmetic candidate verifier using the exactcalc sibling."
+      },
+      {
+        "line": 2,
+        "text": "# Linux x86-64 syscalls only; no shell, PATH search, libc, or neural guarantee."
+      },
+      {
+        "line": 9,
+        "text": ".equ verified_len,.-verified"
+      },
+      {
+        "line": 11,
+        "text": ".equ mismatch_len,.-mismatch"
+      },
+      {
+        "line": 13,
+        "text": ".equ usage_len,.-usage"
+      },
+      {
+        "line": 15,
+        "text": ".equ failed_len,.-failed"
+      },
+      {
+        "line": 37,
+        "text": "    # Ignore SIGPIPE so stdout failures are observable as exit4."
+      },
+      {
+        "line": 46,
+        "text": "    # Derive trusted-location sibling; never interpret a shell command/PATH."
+      },
+      {
+        "line": 136,
+        "text": "    # Strict child framing: signed decimal numerator / positive denominator LF."
+      }
+    ],
+    "src/niyah_i8_gemm.s": [
+      {
+        "line": 4,
+        "text": "# Blocked signed-int8 GEMM for the Qwen layer-0 linears."
+      },
+      {
+        "line": 5,
+        "text": "# C[i,j] = sum_k A[i,k] * B[j,k] as int32, row-major."
+      },
+      {
+        "line": 6,
+        "text": "# A is M x K, B is N x K, C is M x N. K is a positive multiple of 16 and <= 16384."
+      },
+      {
+        "line": 7,
+        "text": "# M, N, M*N, M*K, and N*K fit in signed int32. No aliasing of C with A or B."
+      },
+      {
+        "line": 8,
+        "text": "# Products match niyah_i8_dot: vpmovsxbw + vpmaddwd + vpaddd, total is order-independent"
+      },
+      {
+        "line": 9,
+        "text": "# inside int32 for the layer contract (K <= 12288, |product| <= 16384)."
+      },
+      {
+        "line": 11,
+        "text": "# A panel of 8 (then 4) rows is widened to i16 once and reused across every B row."
+      },
+      {
+        "line": 12,
+        "text": "# That is the layer-0 case: M is the token count (<= 16) and N*K is the weight matrix,"
+      },
+      {
+        "line": 13,
+        "text": "# which does not fit in L3 and was previously re-read once per token."
+      },
+      {
+        "line": 14,
+        "text": "# ai16 is single-threaded scratch. AVX2 is assumed; the caller checks the CPU."
+      },
+      {
+        "line": 15,
+        "text": "# Returns 0, or 64 when the geometry is rejected."
+      }
+    ],
+    "src/tensor_dispatch.s": [
+      {
+        "line": 7,
+        "text": "# Separate six-u32 snapshot; NXISA001 remains exactly 64 bytes."
+      },
+      {
+        "line": 8,
+        "text": "# max basic leaf, max palette, palette1 EAX/EBX/ECX, TMUL EBX."
+      },
+      {
+        "line": 15,
+        "text": "# Pure policy: EDI usable ISA bits (1 AVX2,2 AVX512F,4 AMX-INT8),"
+      },
+      {
+        "line": 16,
+        "text": "# ESI process AMX permission (exactly 1). No privileged/ISA-dependent instruction."
+      },
+      {
+        "line": 17,
+        "text": "# Return 0 scalar,1 AVX2,2 AVX512,3 AMX."
+      },
+      {
+        "line": 35,
+        "text": "# All OS state checks precede execution of an extended instruction."
+      },
+      {
+        "line": 71,
+        "text": " # Palette/TMUL leaves are valid only for an advertised AMX candidate."
+      },
+      {
+        "line": 98,
+        "text": "# Decode the captured CPUID/XCR0 snapshot. No ISA beyond baseline x86-64."
+      },
+      {
+        "line": 99,
+        "text": "# Exported separately so missing-state combinations can be tested without"
+      },
+      {
+        "line": 100,
+        "text": "# executing unsupported instructions. No synthetic path reaches a kernel."
+      },
+      {
+        "line": 147,
+        "text": "# Pure palette/TMUL decoder. RDI points to the bounded six-u32 snapshot."
+      },
+      {
+        "line": 148,
+        "text": "# Return 0 if palette 1 supports eight 16x64-byte tiles and the INT8 TMUL;"
+      },
+      {
+        "line": 149,
+        "text": "# otherwise 77. No CPUID, syscall, vector, or tile instruction executes here."
+      },
+      {
+        "line": 150,
+        "text": "# Fields follow Intel CPUID 1DH.01H and 1EH.00H, Table 1-3."
+      },
+      {
+        "line": 186,
+        "text": "# Call in the final process (permission is cleared by exec)."
+      },
+      {
+        "line": 187,
+        "text": "# No tile instruction is executed by this function."
+      }
+    ],
+    "src/tensor_runtime.s": [
+      {
+        "line": 227,
+        "text": "# C16x16 i32 = A16x64 signed i8 * B64x16 signed i8. No aliasing."
+      },
+      {
+        "line": 260,
+        "text": "# Eight output columns, signed widening (no saturating intermediate)."
+      },
+      {
+        "line": 294,
+        "text": "# AVX512F only: signed i8 -> 16 i32 lanes, exact multiplication and accumulation."
+      },
+      {
+        "line": 320,
+        "text": "# P[g,4*j+l] = B[4*g+l,j]. RDI=B row-major, RSI=packed B."
+      }
+    ],
+    "src/tile_allocator.s": [
+      {
+        "line": 3,
+        "text": "# Bounded offline AMX tile-register interval graph coloring."
+      },
+      {
+        "line": 4,
+        "text": "# Host ABI: Linux x86-64 raw syscalls. The engine executes no AMX instruction."
+      },
+      {
+        "line": 5,
+        "text": "# Input 16 + N*8 bytes: \"NTILE001\", U8 N(1..64), U8 reserved mask,"
+      },
+      {
+        "line": 6,
+        "text": "# 6 zero bytes, then N intervals (U32 begin, U32 end), little endian."
+      },
+      {
+        "line": 7,
+        "text": "# Starts must be nondecreasing, end > begin. Intervals are half-open."
+      },
+      {
+        "line": 8,
+        "text": "# Output 8 + N bytes: \"TMM1\", U8 N, 3 zero bytes, N register IDs [0,7]."
+      },
+      {
+        "line": 9,
+        "text": "# 0 success, 64 CLI, 65 malformed input, 74 write failure,"
+      },
+      {
+        "line": 10,
+        "text": "# 77 insufficient registers. No partial output on rejection."
+      },
+      {
+        "line": 11,
+        "text": "# Validation precedes allocation; SIGPIPE is handled as an output failure."
+      },
+      {
+        "line": 62,
+        "text": " # Validate the complete stream before allocating any register."
+      },
+      {
+        "line": 106,
+        "text": " # rt_sigaction(SIGPIPE,SIG_IGN,NULL,8) so EPIPE returns exit 74."
+      }
+    ],
+    "src/tile_kernels.s": [
+      {
+        "line": 3,
+        "text": "# Native kernel interface: Linux x86-64, no libc. CPUID before any AVX/AMX."
+      },
+      {
+        "line": 21,
+        "text": "# Returns bit0 AVX2+FMA+OS, bit1 AVX512F+FMA+OS, bit2 AMX-TILE+INT8+XCR0."
+      },
+      {
+        "line": 22,
+        "text": "# bit2 does NOT mean Linux process permission has been granted."
+      },
+      {
+        "line": 85,
+        "text": "# FP32 C16x16=A16x16 * B16x16, all contiguous row-major."
+      },
+      {
+        "line": 86,
+        "text": "# Scalar accumulation is non-fused. No aliasing of A/B with C."
+      },
+      {
+        "line": 113,
+        "text": "# Four output rows by eight columns: B vector reused across four FMA chains."
+      },
+      {
+        "line": 154,
+        "text": "# Four rows by sixteen columns; reachable only after AVX512F/XCR0 gate."
+      },
+      {
+        "line": 189,
+        "text": "# Return 0 on usable AMX INT8, 77 on unsupported/refused. Never executes tile here."
+      },
+      {
+        "line": 214,
+        "text": "# Signed INT8 C16x16=A16x64 * B64x16; packs B to groups of four K lanes."
+      },
+      {
+        "line": 215,
+        "text": "# Caller must have successful nx_amx_enable in this same process."
+      }
+    ],
+    "src/tile_probe.s": [
+      {
+        "line": 18,
+        "text": "# Exact string equality, EAX=1 equal. Other inputs are rejected."
+      }
+    ],
+    "src/trigram.s": [
+      {
+        "line": 3,
+        "text": ".equ EPOCHS, 201"
+      },
+      {
+        "line": 6,
+        "text": ".equ SEED, 2463534242"
+      },
+      {
+        "line": 9,
+        "text": ".equ SAMPLE_LEN, 90"
+      },
+      {
+        "line": 28,
+        "text": ".equ N, . - corpus"
+      }
+    ]
+  },
+  "runtime": {
+    "python": "orchestrates, loads and quantizes weights, builds the shared library, prepares reference data",
+    "c": "norm, RoPE, attention orchestration, quantization, scaling and FP32 output projection",
+    "assembly": "INT8 GEMM and dot kernels"
+  },
+  "current_corpus_bytes": {
+    "data/corpus.txt": 6652,
+    "data/heldout.txt": 740
+  },
+  "decode": {
+    "tracked": false,
+    "finished_report_present": false,
+    "local_script": "tools/qwen/qwen_native_decode_kv.py",
+    "status": "in progress"
+  }
+}
