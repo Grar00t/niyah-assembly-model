@@ -135,7 +135,10 @@ def quant(a):
 
 def main():
     torch.set_num_threads(1)
-    model=Path.home()/'models/Qwen3-8B-Base'
+    model=Path(os.environ.get(
+        'NIYAH_MODEL_DIR',
+        str(Path.home()/'models/Qwen3-8B-Base')
+    )).expanduser().resolve()
     cfg=AutoConfig.from_pretrained(str(model),local_files_only=True,trust_remote_code=False)
     expected=(4096,12288,32,8,128)
     actual=(cfg.hidden_size,cfg.intermediate_size,cfg.num_attention_heads,cfg.num_key_value_heads,cfg.head_dim)
@@ -227,6 +230,16 @@ def main():
                 'quantization':'Per output-row weight scale; per-token activations except down_proj g32',
                 'input_token_ids':ids,'tests':[],'quality_gate':'NOT_ESTABLISHED',
                 'native_source_sha256':hashlib.sha256((ASM+gemm_src+C_SOURCE).encode()).hexdigest()}
+        report.update({
+            'model_dir':str(model),
+            'script_sha256':hashlib.sha256(
+                Path(__file__).read_bytes()
+            ).hexdigest(),
+            'config_sha256':hashlib.sha256(
+                (model/'config.json').read_bytes()
+            ).hexdigest(),
+            'torch_version':torch.__version__,
+        })
         for t in (1,7,16):
             x=np.ascontiguousarray(embeddings[:t].numpy());before=x.copy()
             with torch.inference_mode():
