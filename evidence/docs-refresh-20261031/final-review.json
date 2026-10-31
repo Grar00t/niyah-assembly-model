@@ -1,0 +1,97 @@
+{
+  "base_commit": "bd40a6d80d7a1dd67713751f9b5904214f10b273",
+  "branch": "docs/refresh-20261031",
+  "markdown_files_checked": 19,
+  "local_links_checked": 159,
+  "prose_and_link_issues": [],
+  "no_deleted_files": true,
+  "runtime_changes": [
+    "src/exactcalc.s restored byte-for-byte from history"
+  ],
+  "existing_raw_measurements_unchanged": true,
+  "full_gate_script_hashes_match": true,
+  "new_commits_before_checksum_commit": [
+    "a2ef331be608daf21dea3996fd3c92d45dd66a13 docs: record documentation claim audit",
+    "834c6194ca32c3ea9258d1503f43d30061776c53 fix: restore calculator source and verification targets",
+    "c68fbec819d524327555138b630ad4365e50f7c4 docs: describe runtime components and measured results",
+    "45923ca07fea2306f9ce6ed757888b73d4056857 docs: refresh component contracts and source credits",
+    "115588ea1ad2c14b2a9d8914478db8c63a0896fe docs: record repository description and topics"
+  ],
+  "inherited_commits_from_feature_branch": [
+    "cc9d67e4dc1b1f36e5cc81d9bfe2302625177b6e wip: preserve local runtime/dispatch changes + i8 gemm kernel (only copy)",
+    "3e755aac0d8645c1eb1185fb61bbb3df1681dc1d wip: version qwen_native_layer0 (3 variants, were untracked in ~)",
+    "c65685b577f3779fbc9e755d3d2c9b1a477c6d5a qwen: single reference; _fixed/_fixed_v2 differed only by variable rename C->C_SOURCE",
+    "6efe718cf8f477151db4bb12bed3e5e4a08c32dc qwen: version layer0 INT64-matched verification (v7, rel L2 ~1.7e-7 native vs matched ref)",
+    "8fa41eb64ead8596f116ec0f847ea7da79f7899e qwen: layer0 fake-quant scheme measurement (A-H report v1, I-K report v2)",
+    "ddc16389da10aec41ffc019a663749a258381b72 qwen: native layer0 with per-32 activation groups on down_proj (blocked GEMM)",
+    "768eb3f52771f56d78f05466125cb5d1032ede02 qwen: refresh SHA256SUMS for tools/qwen and tools/qwen/verify",
+    "888e12ae8e443974b3397ccd4e3382a192bd73f9 test(qwen): layer0 g32 blocked verified on Instruct weights (1.16x vs torch, rel_l2 0.017)",
+    "20affd59881145134aeb4f7a50cc1a168ef3ba00 feat(qwen): parameterize model selection and record report provenance",
+    "c36c0fd67ab45ca1954449f2262a3ab866785113 chore(qwen): refresh SHA256SUMS after provenance update",
+    "3e265dec50f2ec132a8ec1ad77fca6a95eba21a4 feat(qwen): t-any layer0 g32 (heap scales, t<=4096), rel L2 unchanged at t=1/7/16, t=45 0.016524",
+    "bd40a6d80d7a1dd67713751f9b5904214f10b273 feat(qwen): 36-layer native gate; per-token FAIL (top1 0.853, KL 0.634), g32-all PASS (top1 0.959, KL 0.0053)"
+  ],
+  "refreshed_manifests": [
+    "evidence/kernel-suite-20261031-112031-843492/SHA256SUMS"
+  ],
+  "new_manifests": [
+    "docs/SHA256SUMS",
+    "evidence/docs-refresh-20261031/SHA256SUMS"
+  ],
+  "claims_removed_or_rescoped": 17,
+  "make_verify_all": {
+    "command": [
+      "make",
+      "verify-all"
+    ],
+    "cwd": "/home/a/niyah-ops/docs_verify_20261031",
+    "exit_code": 2,
+    "elapsed_seconds": 43.792,
+    "log": "evidence/docs-refresh-20261031/verify-all.log"
+  },
+  "note": "The checksum commit follows this receipt. No model or virtual-environment directory was written.",
+  "files_changed_relative_to_task_base": [
+    ".github/workflows/ci.yml",
+    "Makefile",
+    "README.md",
+    "docs/ATTENTION.md",
+    "docs/CONTINUAL_LORA.md",
+    "docs/EXACT_MATH.md",
+    "docs/HYBRID_EVAL.md",
+    "docs/MORPH_ATTENTION.md",
+    "docs/MORPH_TOKENIZER.md",
+    "docs/NATIVE_AUDITOR.md",
+    "docs/NATIVE_TILES.md",
+    "docs/QWEN.md",
+    "docs/SECURITY_AUDIT.md",
+    "docs/SHA256SUMS",
+    "docs/SIMD.md",
+    "docs/SOURCES.md",
+    "docs/TENSOR_IR.md",
+    "docs/TILE_ALLOCATOR.md",
+    "docs/TINYSTORIES_EVAL.md",
+    "docs/WHY.md",
+    "evidence/docs-refresh-20261031/SHA256SUMS",
+    "evidence/docs-refresh-20261031/build-results.json",
+    "evidence/docs-refresh-20261031/claims.json",
+    "evidence/docs-refresh-20261031/contract-excerpts.json",
+    "evidence/docs-refresh-20261031/derived-measurements.json",
+    "evidence/docs-refresh-20261031/exactcalc-attention_verification.json",
+    "evidence/docs-refresh-20261031/exactcalc-restore.json",
+    "evidence/docs-refresh-20261031/exactcalc-verification_results.json",
+    "evidence/docs-refresh-20261031/exactcalc.log",
+    "evidence/docs-refresh-20261031/final-review.json",
+    "evidence/docs-refresh-20261031/inspection.json",
+    "evidence/docs-refresh-20261031/repository-metadata.json",
+    "evidence/docs-refresh-20261031/sidecar-provenance.json",
+    "evidence/docs-refresh-20261031/sources.json",
+    "evidence/docs-refresh-20261031/verify-all-attention_verification.json",
+    "evidence/docs-refresh-20261031/verify-all-verification_results.json",
+    "evidence/docs-refresh-20261031/verify-all.log",
+    "evidence/kernel-suite-20261031-112031-843492/README.md",
+    "evidence/kernel-suite-20261031-112031-843492/SHA256SUMS",
+    "evidence/local-audit/README.md",
+    "src/exactcalc.s"
+  ],
+  "files_changed_count": 41
+}
